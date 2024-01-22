@@ -1,0 +1,7 @@
+{
+    "clangd.arguments": [
+        "--log=verbose",
+        "--header-insertion=never",
+        "--query-driver=D:\\Software\\GNU\\ARM\\12.3 rel1\\bin\\arm-none-eabi-g*"
+    ],
+}
