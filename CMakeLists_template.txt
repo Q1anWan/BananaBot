@@ -57,6 +57,14 @@ add_definitions(${defines})
 
 file(GLOB_RECURSE SOURCES ${sources})
 
+# Add user source files
+file(GLOB_RECURSE MODULES "Modules/*.*")
+file(GLOB_RECURSE SERVICES "Services/*.*")
+file(GLOB_RECURSE TASKS "Tasks/*.*")
+LIST(APPEND SOURCES ${MODULES})
+LIST(APPEND SOURCES ${SERVICES})
+LIST(APPEND SOURCES ${TASKS})
+
 set(LINKER_SCRIPT $${CMAKE_SOURCE_DIR}/${linkerScript})
 
 add_link_options(-specs=nano.specs)
@@ -65,6 +73,14 @@ add_link_options(-mcpu=${mcpu} -mthumb -mthumb-interwork)
 add_link_options(-T $${LINKER_SCRIPT})
 
 add_executable($${PROJECT_NAME}.elf $${SOURCES} $${LINKER_SCRIPT})
+
+# Add LVGL
+set(LV_CONF_BUILD_DISABLE_EXAMPLES ON)
+set(LV_CONF_BUILD_DISABLE_DEMOS ON)
+
+add_subdirectory(Modules/LVGL lvgl)
+target_include_directories(${PROJECT_NAME}.elf PUBLIC $<TARGET_PROPERTY:lvgl,INCLUDE_DIRECTORIES>)
+target_link_libraries(${PROJECT_NAME}.elf PUBLIC lvgl)
 
 # Link arm_math
 #add_subdirectory(DSP/Source dsp)

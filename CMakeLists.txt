@@ -49,14 +49,23 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(Core/Inc Drivers/STM32H7xx_HAL_Driver/Inc Drivers/STM32H7xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32H7xx/Include Drivers/CMSIS/Include)
+include_directories(Core/Inc Drivers/STM32H7xx_HAL_Driver/Inc Drivers/STM32H7xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32H7xx/Include Drivers/CMSIS/Include AZURE_RTOS/App USBX/App USBX/Target Middlewares/ST/usbx/common/core/inc/ Middlewares/ST/usbx/ports/generic/inc/ Middlewares/ST/usbx/common/usbx_device_classes/inc/ Middlewares/ST/threadx/common/inc/ Middlewares/ST/threadx/ports/cortex_m7/gnu/inc/)
 # Include arm_math head files
 #include_directories(DSP/Include DSP/Include/dsp DSP/PrivateInclude)
 include_directories(DSP/Include DSP/Include/dsp)
 
-add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32H723xx)
+add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32H723xx -DTX_INCLUDE_USER_DEFINE_FILE -DUX_INCLUDE_USER_DEFINE_FILE)
 
-file(GLOB_RECURSE SOURCES "Core/*.*" "Drivers/*.*")
+file(GLOB_RECURSE SOURCES "AZURE_RTOS/*.*" "USBX/*.*" "ThreadX/*.*" "Core/*.*" "Middlewares/*.*" "Drivers/*.*")
+
+# Add user source files
+file(GLOB_RECURSE MODULES "Modules/*.*")
+file(GLOB_RECURSE SERVICES "Services/*.*")
+file(GLOB_RECURSE TASKS "Tasks/*.*")
+LIST(APPEND SOURCES ${MODULES})
+LIST(APPEND SOURCES ${SERVICES})
+LIST(APPEND SOURCES ${TASKS})
+
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32H723VETX_FLASH.ld)
 
@@ -66,6 +75,14 @@ add_link_options(-mcpu=cortex-m7 -mthumb -mthumb-interwork)
 add_link_options(-T ${LINKER_SCRIPT})
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
+
+# Add LVGL
+set(LV_CONF_BUILD_DISABLE_EXAMPLES ON)
+set(LV_CONF_BUILD_DISABLE_DEMOS ON)
+
+add_subdirectory(Modules/LVGL lvgl)
+target_include_directories(${PROJECT_NAME}.elf PUBLIC $<TARGET_PROPERTY:lvgl,INCLUDE_DIRECTORIES>)
+target_link_libraries(${PROJECT_NAME}.elf PUBLIC lvgl)
 
 # Link arm_math
 #add_subdirectory(DSP/Source dsp)

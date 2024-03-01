@@ -17,14 +17,17 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include "app_threadx.h"
 #include "main.h"
 #include "dma.h"
 #include "fdcan.h"
 #include "usart.h"
+#include "usb_otg.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "lvgl.h"
 #include "arm_math.h"
 #include "stdarg.h"
 #include "stdio.h"
@@ -49,7 +52,6 @@
 
 /* USER CODE BEGIN PV */
 uint32_t fishPrintf(uint8_t *buf, const char *str, ...) {
-    /*计算字符串长�???,并将字符串输出到数据�???*/
     va_list ap;
     va_start(ap, str);
     uint32_t len = vsnprintf((char *) buf, 512, str, ap);
@@ -104,7 +106,7 @@ void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
     switch (rx_header.Identifier) {
         case 0x301:
             motor[0].pst = RxData1[0] << 8 | RxData1[1];
-            motor[0].rpm = RxData1[2] << 8 | RxData1[3];
+            motor[0].rpm = RxData1[2] << 8  | RxData1[3];
             motor[0].torque = RxData1[4] << 8 | RxData1[5];
             motor[0].tmp_coil = RxData1[6];
             motor[0].tmp_pcb = RxData1[7];
@@ -138,7 +140,6 @@ void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-void PeriphCommonClock_Config(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -177,9 +178,6 @@ int main(void)
   /* Configure the system clock */
   SystemClock_Config();
 
-/* Configure the peripherals common clocks */
-  PeriphCommonClock_Config();
-
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
@@ -190,7 +188,14 @@ int main(void)
   MX_USART1_UART_Init();
   MX_FDCAN1_Init();
   MX_FDCAN2_Init();
+  MX_USB_OTG_HS_PCD_Init();
+  MX_FDCAN3_Init();
   /* USER CODE BEGIN 2 */
+  for(;;){
+    lv_init();
+
+    lv_timer_handler();
+  }
     CANFilterConfig();
     FDCAN_TxHeaderTypeDef TxHeader1 = {0};
     TxHeader1.BitRateSwitch = FDCAN_BRS_OFF;
@@ -212,6 +217,9 @@ int main(void)
     data_tx[7] = (-100)&0xFF;
   /* USER CODE END 2 */
 
+  MX_ThreadX_Init();
+
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1) {
@@ -259,18 +267,19 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
+  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 1;
-  RCC_OscInitStruct.PLL.PLLN = 68;
+  RCC_OscInitStruct.PLL.PLLM = 2;
+  RCC_OscInitStruct.PLL.PLLN = 45;
   RCC_OscInitStruct.PLL.PLLP = 1;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLQ = 2;
   RCC_OscInitStruct.PLL.PLLR = 2;
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_3;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
-  RCC_OscInitStruct.PLL.PLLFRACN = 6144;
+  RCC_OscInitStruct.PLL.PLLFRACN = 4096;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -295,32 +304,6 @@ void SystemClock_Config(void)
   }
 }
 
-/**
-  * @brief Peripherals Common Clock Configuration
-  * @retval None
-  */
-void PeriphCommonClock_Config(void)
-{
-  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
-
-  /** Initializes the peripherals clock
-  */
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_FDCAN;
-  PeriphClkInitStruct.PLL2.PLL2M = 4;
-  PeriphClkInitStruct.PLL2.PLL2N = 130;
-  PeriphClkInitStruct.PLL2.PLL2P = 2;
-  PeriphClkInitStruct.PLL2.PLL2Q = 2;
-  PeriphClkInitStruct.PLL2.PLL2R = 2;
-  PeriphClkInitStruct.PLL2.PLL2RGE = RCC_PLL2VCIRANGE_1;
-  PeriphClkInitStruct.PLL2.PLL2VCOSEL = RCC_PLL2VCOWIDE;
-  PeriphClkInitStruct.PLL2.PLL2FRACN = 0;
-  PeriphClkInitStruct.FdcanClockSelection = RCC_FDCANCLKSOURCE_PLL2;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
-}
-
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
@@ -336,7 +319,7 @@ void PeriphCommonClock_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
-
+  lv_tick_inc(1);
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM23) {
     HAL_IncTick();
