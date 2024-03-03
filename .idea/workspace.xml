@@ -11,6 +11,8 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
+      <config projectName="BananaBot" targetName="lvgl" />
+      <config projectName="BananaBot" targetName="lvgl_thorvg" />
       <config projectName="BananaBot" targetName="BananaBot.elf" />
     </generated>
   </component>
@@ -21,22 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acdfb305-f91f-4fb5-bdbe-fed7fc03e98b" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/BananaBot.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mxproject" beforeDir="false" afterPath="$PROJECT_DIR$/.mxproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BananaBot.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/BananaBot.ioc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/fdcan.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/fdcan.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32h7xx_hal_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32h7xx_hal_conf.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32h7xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32h7xx_it.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/fdcan.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/fdcan.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/stm32h7xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32h7xx_it.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/usart.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/usart.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,12 +78,17 @@
     <option name="rtosType" value="Azure RTOS ThreadX" />
   </component>
   <component name="RunManager" selected="OpenOCD 下载并运行.OCD BananaBot">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="BananaBot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="BananaBot.elf" CONFIG_NAME="RelWithDebInfo-MinGW-STM32" RUN_TARGET_PROJECT_NAME="BananaBot" RUN_TARGET_NAME="BananaBot.elf">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BananaBot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="BananaBot.elf" CONFIG_NAME="RelWithDebInfo-MinGW-STM32" RUN_TARGET_PROJECT_NAME="BananaBot" RUN_TARGET_NAME="BananaBot.elf">
+    <configuration name="lvgl" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="lvgl" CONFIG_NAME="RelWithDebInfo-MinGW-STM32">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="lvgl_thorvg" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="lvgl_thorvg" CONFIG_NAME="RelWithDebInfo-MinGW-STM32">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -111,6 +103,8 @@
     </configuration>
     <list>
       <item itemvalue="CMake 应用程序.BananaBot.elf" />
+      <item itemvalue="CMake 应用程序.lvgl" />
+      <item itemvalue="CMake 应用程序.lvgl_thorvg" />
       <item itemvalue="OpenOCD 下载并运行.OCD BananaBot" />
     </list>
   </component>
@@ -130,6 +124,9 @@
       <workItem from="1705217458208" duration="48000" />
       <workItem from="1708350095043" duration="133000" />
       <workItem from="1708350241293" duration="29000" />
+      <workItem from="1709297634273" duration="59000" />
+      <workItem from="1709356272122" duration="713000" />
+      <workItem from="1709359067463" duration="7000" />
     </task>
     <servers />
   </component>
