@@ -1,0 +1,133 @@
+<mxfile host="65bd71144e">
+    <diagram id="uXPV7X3MB_Xt2dDjItCw" name="Page-1">
+        <mxGraphModel dx="956" dy="537" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="57" value="" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="199.49" y="280" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="360" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="360" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="硬件层" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="440" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="操作系统层" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="360" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="服务驱动层" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="119.49" y="280" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="任务软件层" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="119.49" y="200" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="440" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="TIM" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="450" width="40" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="CAN" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="290" y="450" width="40" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="UART" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="450" width="40" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="SPI" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="480" width="40" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="USB" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="420" y="450" width="40" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="endArrow=none;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="199.72" y="440" as="sourcePoint"/>
+                        <mxPoint x="199.72" y="360" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="" style="endArrow=none;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="199.21" y="360" as="sourcePoint"/>
+                        <mxPoint x="199.21" y="280" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="199.49" y="200" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="" style="endArrow=none;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="439.49" y="280" as="sourcePoint"/>
+                        <mxPoint x="479.49" y="280" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="28" value="ThreadX RTOS" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="365" y="410" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="DMA" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="420" y="480" width="40" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="STM32H723VET6" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="289.49" y="480" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="进程间通讯" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="410" y="370" width="65" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="调度管理" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="370" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="USB栈" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="390" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="文件系统" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="410" y="390" width="65" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="消息服务框架" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="290" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="Mavlink结点" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="325" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="USB结点" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="290" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="电机控制任务" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="220" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="IMU解算任务" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="250" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" value="里程计估计任务" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="220" width="90" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" value="运动规划任务" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="250" width="90" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="抽象接口及实例" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="380" width="90" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="电机驱动" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="325" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="HAL/LL库函数" style="text;" parent="1" vertex="1">
+                    <mxGeometry x="222.5" y="410" width="85" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="传感器驱动" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="390" y="290" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" value="日志系统" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="390" y="325" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="操控任务" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="415" y="220" width="55" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="主状态机" style="rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="415" y="250" width="55" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

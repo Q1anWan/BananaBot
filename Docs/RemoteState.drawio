@@ -1,0 +1,221 @@
+<mxfile host="65bd71144e">
+    <diagram id="-qXBk9fSbtx8Etgx4qZy" name="Page-1">
+        <mxGraphModel dx="2772" dy="2658" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="46" value="" style="rounded=0;dashed=1;" vertex="1" parent="1">
+                    <mxGeometry y="-1100" width="400" height="950" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="" style="rounded=0;dashed=1;" vertex="1" parent="1">
+                    <mxGeometry x="400" y="-1100" width="450" height="950" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="线程启动" style="rounded=1;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-1060" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="初始化主状态机" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-980" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="619.8000000000002" y="-1020" as="sourcePoint"/>
+                        <mxPoint x="619.8000000000002" y="-980" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6" value="订阅电机反馈值话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-820" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="619.8000000000002" y="-940" as="sourcePoint"/>
+                        <mxPoint x="619.8000000000002" y="-900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="8" value="订阅IMU话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-740" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="619.7100000000005" y="-780" as="sourcePoint"/>
+                        <mxPoint x="619.7100000000005" y="-740" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="10" value="读取IMU话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-340" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="619.7600000000004" y="-700" as="sourcePoint"/>
+                        <mxPoint x="619.7600000000004" y="-660" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="订阅Mavlink话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-900" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="619.7600000000002" y="-860" as="sourcePoint"/>
+                        <mxPoint x="619.7600000000002" y="-820" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" value="读取电机反馈值话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-500" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="读取里程计话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-420" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="619.7100000000005" y="-460" as="sourcePoint"/>
+                        <mxPoint x="619.7100000000005" y="-420" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="17" value="订阅Mavlink话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-660" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="619.7600000000002" y="-620" as="sourcePoint"/>
+                        <mxPoint x="619.7600000000002" y="-580" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="619.6600000000005" y="-380" as="sourcePoint"/>
+                        <mxPoint x="619.6600000000005" y="-340" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="20" value="更新状态机" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-260" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="619.7800000000007" y="-300" as="sourcePoint"/>
+                        <mxPoint x="619.7800000000007" y="-260" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="22" value="" style="endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="20" target="24">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="740.0000000000007" y="-260" as="sourcePoint"/>
+                        <mxPoint x="760" y="-760" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="760" y="-240"/>
+                            <mxPoint x="760" y="-480"/>
+                            <mxPoint x="760" y="-560"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="主状态机" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-190" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="读取操纵话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="-580" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="619.7100000000005" y="-540" as="sourcePoint"/>
+                        <mxPoint x="619.7100000000005" y="-500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="26" value="线程启动" style="rounded=1;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="-1060" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="189.72000000000025" y="-1020" as="sourcePoint"/>
+                        <mxPoint x="189.72000000000025" y="-980" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="29" value="创建操控话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="-980" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="读取主状态机" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="-660" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="189.72000000000025" y="-940" as="sourcePoint"/>
+                        <mxPoint x="189.72000000000025" y="-900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="34" value="读写通讯数据" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="-500" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="189.72000000000025" y="-620" as="sourcePoint"/>
+                        <mxPoint x="189.72000000000025" y="-580" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="36" value="初始化通讯" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="-740" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="189.72000000000025" y="-700" as="sourcePoint"/>
+                        <mxPoint x="189.72000000000025" y="-660" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="38" value="解码数据" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="-420" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="189.72000000000025" y="-460" as="sourcePoint"/>
+                        <mxPoint x="189.72000000000025" y="-420" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="42" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="189.73000000000025" y="-380" as="sourcePoint"/>
+                        <mxPoint x="189.73000000000025" y="-340" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="43" value="发布操纵话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="-340" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="操控任务" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="-190" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="订阅里程计话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="-900" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="189.72000000000025" y="-860" as="sourcePoint"/>
+                        <mxPoint x="189.72000000000025" y="-820" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="50" value="订阅IMU话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="-820" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="189.74000000000024" y="-780" as="sourcePoint"/>
+                        <mxPoint x="189.74000000000024" y="-740" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="53" value="" style="endArrow=classic;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" target="32">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="189.63000000000034" y="-300" as="sourcePoint"/>
+                        <mxPoint x="189.63000000000034" y="-260" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="190" y="-260"/>
+                            <mxPoint x="310" y="-260"/>
+                            <mxPoint x="310" y="-640"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="54" value="读取各话题" style="rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="-580" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="" style="endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="189.63000000000022" y="-540" as="sourcePoint"/>
+                        <mxPoint x="189.63000000000022" y="-500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

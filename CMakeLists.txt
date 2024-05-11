@@ -1,7 +1,7 @@
-#此文件从模板自动生成! 请勿更改!
+#THIS FILE IS AUTO GENERATED FROM THE TEMPLATE! DO NOT CHANGE!
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_VERSION 1)
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.28)
 
 # specify cross-compilers and tools
 set(CMAKE_C_COMPILER arm-none-eabi-gcc)
@@ -65,7 +65,6 @@ file(GLOB_RECURSE TASKS "Tasks/*.*")
 LIST(APPEND SOURCES ${MODULES})
 LIST(APPEND SOURCES ${SERVICES})
 LIST(APPEND SOURCES ${TASKS})
-
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32H723VETX_FLASH.ld)
 

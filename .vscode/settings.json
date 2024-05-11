@@ -7,5 +7,9 @@
     "clangd.fallbackFlags": [
         "-ID:\\Software\\GNU\\ARM\\12.3 rel1\\arm-none-eabi\\include",
         "-ID:\\Software\\GNU\\ARM\\12.3 rel1\\lib\\gcc\\arm-none-eabi\\12.3.1\\include",
-    ], 
+    ],
+    "files.associations": {
+        "stm32h723xx.h": "c"
+    },
+    
 }
