@@ -163,7 +163,7 @@ SECTIONS
 
     . = ALIGN(4);
     _eRAM_D1 = .;        /* define a global symbol at data end */
-  } >RAM_D1 AT> FLASH
+  } >RAM_D1
 
   /* Unitialized data sections goes into RAM_D2, load fill zero after code */
   _siRAM_D2 = LOADADDR(.RAM_D2);

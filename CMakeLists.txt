@@ -1,4 +1,4 @@
-#THIS FILE IS AUTO GENERATED FROM THE TEMPLATE! DO NOT CHANGE!
+#此文件从模板自动生成! 请勿更改!
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_VERSION 1)
 cmake_minimum_required(VERSION 3.28)
@@ -15,7 +15,7 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 # project settings
 project(BananaBot C CXX ASM)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_STANDARD 11)
 
 #Uncomment for hardware floating point
@@ -49,26 +49,42 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(Core/Inc Drivers/STM32H7xx_HAL_Driver/Inc Drivers/STM32H7xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32H7xx/Include Drivers/CMSIS/Include AZURE_RTOS/App USBX/App USBX/Target Middlewares/ST/usbx/common/core/inc/ Middlewares/ST/usbx/ports/generic/inc/ Middlewares/ST/usbx/common/usbx_device_classes/inc/ Middlewares/ST/threadx/common/inc/ Middlewares/ST/threadx/ports/cortex_m7/gnu/inc/)
+include_directories(Core/Inc Drivers/STM32H7xx_HAL_Driver/Inc Drivers/STM32H7xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32H7xx/Include Drivers/CMSIS/Include AZURE_RTOS/App Middlewares/ST/usbx/common/core/inc/ Middlewares/ST/usbx/ports/generic/inc/ Middlewares/ST/usbx/common/usbx_device_classes/inc/ Middlewares/ST/threadx/common/inc/ Middlewares/ST/threadx/ports/cortex_m7/gnu/inc/)
+
 # Include arm_math head files
-#include_directories(DSP/Include DSP/Include/dsp DSP/PrivateInclude)
-include_directories(DSP/Include DSP/Include/dsp)
+include_directories(DSP/Include DSP/Include/dsp DSP/PrivateInclude)
+# Include BSP head files
+include_directories(Module/BSP/Inc)
+# Include PSAI head files
+include_directories(Module/PSAI/Inc)
+# Include mavlink head files
+include_directories(Module/Mavlink/FishCom)
+# Include IMU head files
+include_directories(Module/IMU/Inc)
+# Include LED head files
+include_directories(Module/LED/Inc)
+# include user service head files
+include_directories(Service/Inc)
+# include user task head files
+include_directories(Task/Inc)
 
-add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32H723xx -DTX_INCLUDE_USER_DEFINE_FILE -DUX_INCLUDE_USER_DEFINE_FILE)
+add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32H723xx -DTX_INCLUDE_USER_DEFINE_FILE -DUSE_FULL_LL_DRIVER)
 
-file(GLOB_RECURSE SOURCES "AZURE_RTOS/*.*" "USBX/*.*" "ThreadX/*.*" "Core/*.*" "Middlewares/*.*" "Drivers/*.*")
+file(GLOB_RECURSE SOURCES "AZURE_RTOS/*.*" "ThreadX/*.*" "Core/*.*" "Middlewares/*.*" "Drivers/*.*")
 
 # Add user source files
-file(GLOB_RECURSE MODULES "Modules/*.*")
-file(GLOB_RECURSE SERVICES "Services/*.*")
-file(GLOB_RECURSE TASKS "Tasks/*.*")
-LIST(APPEND SOURCES ${MODULES})
+
+file(GLOB_RECURSE Module "Module/*.*")
+file(GLOB_RECURSE SERVICES "Service/*.*")
+file(GLOB_RECURSE TASKS "Task/*.*")
+
+LIST(APPEND SOURCES ${Module})
 LIST(APPEND SOURCES ${SERVICES})
 LIST(APPEND SOURCES ${TASKS})
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32H723VETX_FLASH.ld)
 
-add_link_options(-specs=nano.specs)
+add_link_options(-specs=nosys.specs)
 add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)
 add_link_options(-mcpu=cortex-m7 -mthumb -mthumb-interwork)
 add_link_options(-T ${LINKER_SCRIPT})
@@ -76,12 +92,17 @@ add_link_options(-T ${LINKER_SCRIPT})
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
 
 # Add LVGL
-set(LV_CONF_BUILD_DISABLE_EXAMPLES ON)
-set(LV_CONF_BUILD_DISABLE_DEMOS ON)
+# set(LV_CONF_BUILD_DISABLE_EXAMPLES ON)
+# set(LV_CONF_BUILD_DISABLE_DEMOS ON)
 
-add_subdirectory(Modules/LVGL lvgl)
-target_include_directories(${PROJECT_NAME}.elf PUBLIC $<TARGET_PROPERTY:lvgl,INCLUDE_DIRECTORIES>)
-target_link_libraries(${PROJECT_NAME}.elf PUBLIC lvgl)
+# add_subdirectory(LVGL lvgl)
+# target_include_directories(${PROJECT_NAME}.elf PUBLIC $<TARGET_PROPERTY:lvgl,INCLUDE_DIRECTORIES>)
+# target_link_libraries(${PROJECT_NAME}.elf PUBLIC lvgl)
+
+# Add OneMessage
+add_subdirectory(Module/OneMessage om)
+target_include_directories(${PROJECT_NAME}.elf PUBLIC $<TARGET_PROPERTY:OneMessage,INCLUDE_DIRECTORIES>)
+target_link_libraries(${PROJECT_NAME}.elf PUBLIC OneMessage)
 
 # Link arm_math
 #add_subdirectory(DSP/Source dsp)

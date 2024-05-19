@@ -11,8 +11,7 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
-      <config projectName="BananaBot" targetName="lvgl" />
-      <config projectName="BananaBot" targetName="lvgl_thorvg" />
+      <config projectName="BananaBot" targetName="OneMessage" />
       <config projectName="BananaBot" targetName="BananaBot.elf" />
     </generated>
   </component>
@@ -23,12 +22,779 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acdfb305-f91f-4fb5-bdbe-fed7fc03e98b" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.clang-tidy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.clangd" beforeDir="false" afterPath="$PROJECT_DIR$/.clangd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mxproject" beforeDir="false" afterPath="$PROJECT_DIR$/.mxproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AZURE_RTOS/App/app_azure_rtos.c" beforeDir="false" afterPath="$PROJECT_DIR$/AZURE_RTOS/App/app_azure_rtos.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AZURE_RTOS/App/app_azure_rtos.h" beforeDir="false" afterPath="$PROJECT_DIR$/AZURE_RTOS/App/app_azure_rtos.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AZURE_RTOS/App/app_azure_rtos_config.h" beforeDir="false" afterPath="$PROJECT_DIR$/AZURE_RTOS/App/app_azure_rtos_config.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BananaBot.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/BananaBot.ioc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists_template.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists_template.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/RTE_Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/RTE_Components.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/main.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/main.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32h7xx_hal_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32h7xx_hal_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32h7xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32h7xx_it.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/usart.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/usart.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/usb_otg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/gpio.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/gpio.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/stm32h7xx_hal_msp.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32h7xx_hal_msp.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/stm32h7xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32h7xx_it.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/tx_initialize_low_level.S" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/tx_initialize_low_level.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/usart.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/usart.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/usb_otg.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Startup/startup_stm32h723vetx.s" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Startup/startup_stm32h723vetx.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_utils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/LICENSED-HARDWARE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_api.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_class_audio10.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_class_audio20.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_dcd_sim_slave.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_device_class_dpump.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_device_stack.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_hcd_sim_host.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_host_class_dpump.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_host_stack.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_system.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_user_sample.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/inc/ux_utility.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_alternate_setting_get.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_alternate_setting_set.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_class_register.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_class_unregister.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_clear_feature.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_configuration_get.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_configuration_set.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_control_request_process.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_descriptor_send.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_disconnect.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_endpoint_stall.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_get_status.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_host_wakeup.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_initialize.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_interface_delete.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_interface_get.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_interface_set.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_interface_start.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_microsoft_extension_register.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_set_feature.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_transfer_abort.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_transfer_all_request_abort.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_transfer_request.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_device_stack_uninitialize.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_system_error_handler.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_system_initialize.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_system_uninitialize.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_debug_callback_register.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_debug_log.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_delay_ms.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_descriptor_pack.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_descriptor_parse.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_error_callback_register.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_event_flags_create.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_event_flags_delete.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_event_flags_get.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_event_flags_set.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_long_get.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_long_get_big_endian.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_long_put.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_long_put_big_endian.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_memory_allocate.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_memory_allocate_add_safe.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_memory_allocate_mulc_safe.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_memory_allocate_mulv_safe.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_memory_compare.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_memory_copy.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_memory_free.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_memory_free_block_best_get.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_memory_set.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_mutex_create.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_mutex_delete.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_mutex_off.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_mutex_on.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_pci_class_scan.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_pci_read.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_pci_write.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_physical_address.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_semaphore_create.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_semaphore_delete.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_semaphore_get.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_semaphore_put.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_set_interrupt_handler.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_short_get.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_short_get_big_endian.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_short_put.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_short_put_big_endian.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_string_length_check.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_string_length_get.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_string_to_unicode.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_thread_create.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_thread_delete.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_thread_identify.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_thread_relinquish.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_thread_resume.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_thread_schedule_other.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_thread_sleep.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_thread_suspend.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_timer_create.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_timer_delete.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_unicode_to_string.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/core/src/ux_utility_virtual_address.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_audio.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_audio10.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_audio20.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_ccid.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_cdc_acm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_cdc_ecm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_dfu.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_hid.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_pima.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_printer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_rndis.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_storage.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/inc/ux_device_class_video.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_activate.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_bulkin_thread.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_bulkout_thread.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_control_request.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_deactivate.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_entry.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_initialize.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_ioctl.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_read.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_unitialize.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_write.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/common/usbx_device_classes/src/ux_device_class_cdc_acm_write_with_callback.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/usbx/ports/generic/inc/ux_port.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/env_support/cmake/custom.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/env_support/cmake/esp.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/env_support/cmake/micropython.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/env_support/cmake/zephyr.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/lv_conf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/lvgl.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/lvgl.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/lvgl.pc.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_global.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_group.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_group.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_class.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_class.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_draw.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_draw.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_event.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_event.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_id_builtin.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_pos.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_pos.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_property.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_property.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_scroll.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_scroll.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_style.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_style.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_style_gen.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_style_gen.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_tree.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_obj_tree.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_refr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/core/lv_refr.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/display/lv_display.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/display/lv_display.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/display/lv_display_private.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_arc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_arc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_buf.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_buf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_image.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_image.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_label.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_label.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_line.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_line.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_mask.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_mask.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_rect.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_rect.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_triangle.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_triangle.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_vector.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_draw_vector.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_image_buf.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_image_buf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_image_decoder.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/lv_image_decoder.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_draw_buf_pxp.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_draw_pxp.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_draw_pxp.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_draw_pxp_fill.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_draw_pxp_img.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_draw_pxp_layer.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_pxp_cfg.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_pxp_cfg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_pxp_osa.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_pxp_osa.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_pxp_utils.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/pxp/lv_pxp_utils.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_draw_buf_vglite.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_draw_vglite.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_draw_vglite.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_draw_vglite_arc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_draw_vglite_border.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_draw_vglite_fill.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_draw_vglite_img.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_draw_vglite_label.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_draw_vglite_layer.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_draw_vglite_line.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_draw_vglite_triangle.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_vglite_buf.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_vglite_buf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_vglite_matrix.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_vglite_matrix.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_vglite_path.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_vglite_path.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_vglite_utils.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/nxp/vglite/lv_vglite_utils.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d_arc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d_border.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d_fill.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d_image.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d_label.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d_line.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d_mask_rectangle.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d_triangle.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d_utils.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/renesas/dave2d/lv_draw_dave2d_utils.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sdl/lv_draw_sdl.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sdl/lv_draw_sdl.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/arm2d/lv_draw_sw_arm2d.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/arm2d/lv_draw_sw_helium.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/arm2d/lv_blend_arm2d.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/arm2d/lv_blend_helium.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/lv_draw_sw_blend.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/lv_draw_sw_blend.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/lv_draw_sw_blend_to_argb8888.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/lv_draw_sw_blend_to_argb8888.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/lv_draw_sw_blend_to_rgb565.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/lv_draw_sw_blend_to_rgb565.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/lv_draw_sw_blend_to_rgb888.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/lv_draw_sw_blend_to_rgb888.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/neon/lv_blend_neon.S" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/blend/neon/lv_blend_neon.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_arc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_border.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_box_shadow.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_fill.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_gradient.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_gradient.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_img.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_letter.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_line.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_mask.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_mask.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_mask_rect.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_transform.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_triangle.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/sw/lv_draw_sw_vector.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_buf_vg_lite.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_arc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_border.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_box_shadow.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_fill.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_img.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_label.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_layer.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_line.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_mask_rect.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_triangle.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_type.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_draw_vg_lite_vector.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_vg_lite_decoder.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_vg_lite_decoder.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_vg_lite_math.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_vg_lite_math.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_vg_lite_path.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_vg_lite_path.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_vg_lite_utils.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/draw/vg_lite/lv_vg_lite_utils.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/drm/lv_linux_drm.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/drm/lv_linux_drm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/fb/lv_linux_fbdev.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/fb/lv_linux_fbdev.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/ili9341/lv_ili9341.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/ili9341/lv_ili9341.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/lcd/lv_lcd_generic_mipi.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/lcd/lv_lcd_generic_mipi.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/st7735/lv_st7735.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/st7735/lv_st7735.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/st7789/lv_st7789.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/st7789/lv_st7789.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/st7796/lv_st7796.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/st7796/lv_st7796.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/tft_espi/lv_tft_espi.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/display/tft_espi/lv_tft_espi.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/evdev/lv_evdev.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/evdev/lv_evdev.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/lv_drivers.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_cache.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_cache.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_entry.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_entry.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_fbdev.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_fbdev.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_lcd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_lcd.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_libuv.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_libuv.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_profiler.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_profiler.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_touchscreen.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/nuttx/lv_nuttx_touchscreen.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/sdl/lv_sdl_keyboard.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/sdl/lv_sdl_keyboard.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/sdl/lv_sdl_mouse.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/sdl/lv_sdl_mouse.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/sdl/lv_sdl_mousewheel.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/sdl/lv_sdl_mousewheel.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/sdl/lv_sdl_window.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/sdl/lv_sdl_window.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/windows/lv_windows_context.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/windows/lv_windows_context.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/windows/lv_windows_display.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/windows/lv_windows_display.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/windows/lv_windows_input.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/windows/lv_windows_input.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/x11/lv_x11.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/x11/lv_x11_display.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/drivers/x11/lv_x11_input.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_binfont_loader.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_binfont_loader.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_dejavu_16_persian_hebrew.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_fmt_txt.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_fmt_txt.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_10.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_12.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_14.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_16.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_18.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_20.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_22.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_24.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_26.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_28.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_28_compressed.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_30.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_32.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_34.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_36.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_38.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_40.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_42.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_44.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_46.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_48.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_montserrat_8.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_simsun_16_cjk.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_unscii_16.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_font_unscii_8.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/font/lv_symbol_def.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/indev/lv_indev.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/indev/lv_indev.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/indev/lv_indev_private.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/indev/lv_indev_scroll.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/indev/lv_indev_scroll.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/layouts/flex/lv_flex.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/layouts/flex/lv_flex.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/layouts/grid/lv_grid.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/layouts/grid/lv_grid.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/layouts/lv_layout.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/layouts/lv_layout.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/barcode/code128.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/barcode/code128.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/barcode/lv_barcode.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/barcode/lv_barcode.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/bin_decoder/lv_bin_decoder.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/bin_decoder/lv_bin_decoder.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/bmp/lv_bmp.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/bmp/lv_bmp.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/ffmpeg/lv_ffmpeg.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/ffmpeg/lv_ffmpeg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/freetype/arial.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/freetype/ftmodule.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/freetype/ftoption.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/freetype/lv_freetype.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/freetype/lv_freetype.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/freetype/lv_freetype_glyph.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/freetype/lv_freetype_image.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/freetype/lv_freetype_outline.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/freetype/lv_freetype_private.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/freetype/lv_ftsystem.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/fsdrv/lv_fs_cbfs.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/fsdrv/lv_fs_fatfs.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/fsdrv/lv_fs_memfs.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/fsdrv/lv_fs_posix.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/fsdrv/lv_fs_stdio.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/fsdrv/lv_fs_win32.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/fsdrv/lv_fsdrv.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/gif/gifdec.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/gif/gifdec.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/gif/gifdec_mve.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/gif/lv_gif.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/gif/lv_gif.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/libjpeg_turbo/lv_libjpeg_turbo.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/libjpeg_turbo/lv_libjpeg_turbo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/libpng/lv_libpng.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/libpng/lv_libpng.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/lodepng/lodepng.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/lodepng/lodepng.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/lodepng/lv_lodepng.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/lodepng/lv_lodepng.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/lz4/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/lz4/lz4.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/lz4/lz4.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/qrcode/lv_qrcode.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/qrcode/lv_qrcode.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/qrcode/qrcodegen.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/qrcode/qrcodegen.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/rle/lv_rle.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/rle/lv_rle.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/rlottie/lv_rlottie.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/rlottie/lv_rlottie.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/add_lvgl_if.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/config.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/thorvg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/thorvg_capi.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgAnimation.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgArray.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgBezier.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgBezier.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgCanvas.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgCanvas.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgCapi.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgCommon.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgCompressor.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgCompressor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgFill.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgFill.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgFrameModule.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgInitializer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgIteratorAccessor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgLoadModule.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgLoader.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgLoader.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgMath.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgMath.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgPaint.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgPaint.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgPicture.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgPicture.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgRawLoader.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgRawLoader.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgRender.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgRender.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSaveModule.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSaver.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgScene.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgScene.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgShape.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgShape.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgStr.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgStr.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSvgCssStyle.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSvgCssStyle.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSvgLoader.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSvgLoader.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSvgLoaderCommon.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSvgPath.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSvgPath.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSvgSceneBuilder.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSvgSceneBuilder.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSvgUtil.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSvgUtil.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwCanvas.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwCommon.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwFill.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwImage.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwMath.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwMemPool.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwRaster.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwRasterAvx.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwRasterC.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwRasterNeon.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwRasterTexmap.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwRenderer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwRenderer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwRle.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwShape.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgSwStroke.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgTaskScheduler.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgTaskScheduler.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgXmlParser.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/thorvg/tvgXmlParser.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/tiny_ttf/lv_tiny_ttf.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/tiny_ttf/lv_tiny_ttf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/tiny_ttf/stb_rect_pack.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/tiny_ttf/stb_truetype_htcw.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/tjpgd/lv_tjpgd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/tjpgd/lv_tjpgd.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/tjpgd/tjpgd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/tjpgd/tjpgd.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/libs/tjpgd/tjpgdcnf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/lv_api_map.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/lv_conf_internal.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/lv_conf_kconfig.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/lv_init.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/lv_init.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/lvgl.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/lvgl_private.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/cache/_lv_cache_lru_rb.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/cache/_lv_cache_lru_rb.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/cache/lv_cache.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/cache/lv_cache.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/cache/lv_cache_entry.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/cache/lv_cache_entry.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/cache/lv_cache_entry_private.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/cache/lv_cache_private.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/cache/lv_image_cache.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/cache/lv_image_cache.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_anim.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_anim.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_anim_timeline.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_anim_timeline.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_area.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_area.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_array.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_array.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_assert.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_async.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_async.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_bidi.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_bidi.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_color.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_color.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_color_op.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_color_op.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_event.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_event.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_fs.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_fs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_ll.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_ll.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_log.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_log.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_lru.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_lru.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_math.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_math.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_palette.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_palette.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_profiler.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_profiler_builtin.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_profiler_builtin.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_rb.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_rb.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_style.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_style.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_style_gen.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_style_gen.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_templ.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_templ.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_text.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_text.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_text_ap.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_text_ap.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_timer.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_timer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_utils.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/misc/lv_utils.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_cmsis_rtos2.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_cmsis_rtos2.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_freertos.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_freertos.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_os.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_os_none.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_os_none.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_pthread.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_pthread.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_rtthread.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_rtthread.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_windows.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/osal/lv_windows.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/file_explorer/lv_file_explorer.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/file_explorer/lv_file_explorer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/fragment/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/fragment/lv_fragment.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/fragment/lv_fragment.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/fragment/lv_fragment_manager.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/gridnav/lv_gridnav.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/gridnav/lv_gridnav.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/ime/lv_ime_pinyin.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/ime/lv_ime_pinyin.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/imgfont/lv_imgfont.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/imgfont/lv_imgfont.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/monkey/lv_monkey.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/monkey/lv_monkey.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/observer/lv_observer.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/observer/lv_observer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/snapshot/lv_snapshot.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/snapshot/lv_snapshot.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/sysmon/lv_sysmon.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/sysmon/lv_sysmon.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/vg_lite_tvg/vg_lite.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/vg_lite_tvg/vg_lite_matrix.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/others/vg_lite_tvg/vg_lite_tvg.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/builtin/lv_mem_core_builtin.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/builtin/lv_sprintf_builtin.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/builtin/lv_string_builtin.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/builtin/lv_tlsf.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/builtin/lv_tlsf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/clib/lv_mem_core_clib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/clib/lv_sprintf_clib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/clib/lv_string_clib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/lv_mem.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/lv_mem.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/lv_sprintf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/lv_string.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/micropython/lv_mem_core_micropython.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/rtthread/lv_mem_core_rtthread.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/rtthread/lv_sprintf_rtthread.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/stdlib/rtthread/lv_string_rtthread.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/themes/default/lv_theme_default.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/themes/default/lv_theme_default.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/themes/lv_theme.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/themes/lv_theme.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/themes/mono/lv_theme_mono.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/themes/mono/lv_theme_mono.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/themes/simple/lv_theme_simple.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/themes/simple/lv_theme_simple.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/tick/lv_tick.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/tick/lv_tick.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/animimage/lv_animimage.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/animimage/lv_animimage.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/arc/lv_arc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/arc/lv_arc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/bar/lv_bar.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/bar/lv_bar.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/button/lv_button.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/button/lv_button.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/buttonmatrix/lv_buttonmatrix.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/buttonmatrix/lv_buttonmatrix.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/calendar/lv_calendar.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/calendar/lv_calendar.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/calendar/lv_calendar_header_arrow.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/calendar/lv_calendar_header_arrow.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/calendar/lv_calendar_header_dropdown.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/calendar/lv_calendar_header_dropdown.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/canvas/lv_canvas.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/canvas/lv_canvas.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/chart/lv_chart.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/chart/lv_chart.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/checkbox/lv_checkbox.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/checkbox/lv_checkbox.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/dropdown/lv_dropdown.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/dropdown/lv_dropdown.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/image/lv_image.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/image/lv_image.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/imagebutton/lv_imagebutton.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/imagebutton/lv_imagebutton.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/keyboard/lv_keyboard.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/keyboard/lv_keyboard.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/label/lv_label.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/label/lv_label.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/led/lv_led.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/led/lv_led.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/line/lv_line.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/line/lv_line.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/list/lv_list.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/list/lv_list.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/menu/lv_menu.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/menu/lv_menu.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/msgbox/lv_msgbox.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/msgbox/lv_msgbox.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/objx_templ/lv_objx_templ.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/objx_templ/lv_objx_templ.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/roller/lv_roller.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/roller/lv_roller.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/scale/lv_scale.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/scale/lv_scale.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/slider/lv_slider.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/slider/lv_slider.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/span/lv_span.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/span/lv_span.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/spinbox/lv_spinbox.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/spinbox/lv_spinbox.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/spinner/lv_spinner.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/spinner/lv_spinner.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/switch/lv_switch.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/switch/lv_switch.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/table/lv_table.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/table/lv_table.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/tabview/lv_tabview.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/tabview/lv_tabview.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/textarea/lv_textarea.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/textarea/lv_textarea.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/tileview/lv_tileview.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/tileview/lv_tileview.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/win/lv_win.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LVGL/src/widgets/win/lv_win.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/STM32H723VETX_FLASH.ld" beforeDir="false" afterPath="$PROJECT_DIR$/STM32H723VETX_FLASH.ld" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/USBX/App/app_usbx_device.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/USBX/App/app_usbx_device.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/USBX/App/ux_device_cdc_acm.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/USBX/App/ux_device_cdc_acm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/USBX/App/ux_device_descriptors.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/USBX/App/ux_device_descriptors.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/USBX/App/ux_user.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/USBX/Target/ux_stm32_config.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +803,22 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="EmbeddedSvdWindowState">
+    <option name="columnWidths">
+      <list>
+        <option value="212" />
+        <option value="92" />
+        <option value="2126" />
+      </list>
+    </option>
+    <option name="columnOrder">
+      <list>
+        <option value="名称" />
+        <option value="值" />
+        <option value="描述" />
+      </list>
+    </option>
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:RelWithDebInfo-MinGW" />
   <component name="Git.Settings">
@@ -59,8 +841,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "OpenOCD Download & Run.OCD BananaBot.executor": "Run",
-    "OpenOCD 下载并运行.OCD BananaBot.executor": "Run",
+    "OpenOCD Download & Run.OCD BananaBot.executor": "Debug",
+    "OpenOCD 下载并运行.OCD BananaBot.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -75,7 +857,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.cidr.embedded.config",
+    "settings.editor.selected.configurable": "editor.preferences.completion",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -83,18 +865,28 @@
     <option name="rtosEnabled" value="true" />
     <option name="rtosType" value="Azure RTOS ThreadX" />
   </component>
-  <component name="RunManager" selected="OpenOCD Download &amp; Run.OCD BananaBot">
+  <component name="RunManager" selected="OpenOCD 下载并运行.OCD BananaBot">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BananaBot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="BananaBot.elf" CONFIG_NAME="RelWithDebInfo-MinGW" RUN_TARGET_PROJECT_NAME="BananaBot" RUN_TARGET_NAME="BananaBot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lvgl" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="lvgl" CONFIG_NAME="RelWithDebInfo-MinGW">
+    <configuration name="BananaBot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="BananaBot.elf" CONFIG_NAME="RelWithDebInfo-MinGW" RUN_TARGET_PROJECT_NAME="BananaBot" RUN_TARGET_NAME="BananaBot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lvgl_thorvg" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="lvgl_thorvg" CONFIG_NAME="RelWithDebInfo-MinGW">
+    <configuration name="OneMessage" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="OneMessage" CONFIG_NAME="RelWithDebInfo-MinGW">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OneMessage" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="OneMessage" CONFIG_NAME="RelWithDebInfo-MinGW">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -107,11 +899,18 @@
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
+    <configuration name="OCD BananaBot" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="BananaBot.elf" CONFIG_NAME="RelWithDebInfo-MinGW" version="1" RUN_TARGET_PROJECT_NAME="BananaBot" RUN_TARGET_NAME="BananaBot.elf">
+      <openocd version="1" gdb-port="3333" telnet-port="4444" board-config="C:\Users\qianw\ws\BananaBot\.ocd\daplink.cfg" reset-type="INIT" download-type="UPDATED_ONLY">
+        <debugger kind="GDB" isBundled="true" />
+      </openocd>
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="CMake Application.BananaBot.elf" />
-      <item itemvalue="CMake Application.lvgl" />
-      <item itemvalue="CMake Application.lvgl_thorvg" />
-      <item itemvalue="OpenOCD Download &amp; Run.OCD BananaBot" />
+      <item itemvalue="CMake 应用程序.BananaBot.elf" />
+      <item itemvalue="CMake 应用程序.OneMessage" />
+      <item itemvalue="OpenOCD 下载并运行.OCD BananaBot" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
@@ -137,6 +936,13 @@
       <workItem from="1714903095360" duration="538000" />
       <workItem from="1714904093094" duration="229000" />
       <workItem from="1714904577433" duration="619000" />
+      <workItem from="1715989298542" duration="4757000" />
+      <workItem from="1715994432644" duration="59000" />
+      <workItem from="1715994500901" duration="2424000" />
+      <workItem from="1715996965601" duration="551000" />
+      <workItem from="1716052679842" duration="3846000" />
+      <workItem from="1716084758005" duration="6624000" />
+      <workItem from="1716101100499" duration="20054000" />
     </task>
     <servers />
   </component>
@@ -152,18 +958,15 @@
     <isAutomaticReloadCMake value="true" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Core/Src/stm32h7xx_it.c</url>
-          <line>227</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
-        <watch expression="motor[0]" />
+        <watch expression="flashCore" />
+        <watch expression="flash_struct" />
+        <watch expression="imu_cal" />
+        <watch expression="ins_suber" />
+        <watch expression="msg_ins" />
+        <watch expression="imu_handle" />
+        <watch expression="gyro_offset" />
       </configuration>
     </watches-manager>
   </component>

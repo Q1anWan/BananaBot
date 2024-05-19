@@ -29,6 +29,17 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx_hal.h"
 
+#include "stm32h7xx_ll_tim.h"
+#include "stm32h7xx_ll_system.h"
+#include "stm32h7xx_ll_gpio.h"
+#include "stm32h7xx_ll_exti.h"
+#include "stm32h7xx_ll_bus.h"
+#include "stm32h7xx_ll_cortex.h"
+#include "stm32h7xx_ll_rcc.h"
+#include "stm32h7xx_ll_utils.h"
+#include "stm32h7xx_ll_pwr.h"
+#include "stm32h7xx_ll_dma.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -53,16 +64,24 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void TIM23_IRQHandler();
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define PWR_EN_Pin GPIO_PIN_10
-#define PWR_EN_GPIO_Port GPIOE
-#define KEY_Pin GPIO_PIN_14
-#define KEY_GPIO_Port GPIOE
-#define LED_B_Pin GPIO_PIN_15
+#define SPI2_CS0_Pin LL_GPIO_PIN_0
+#define SPI2_CS0_GPIO_Port GPIOC
+#define SPI2_CS1_Pin LL_GPIO_PIN_3
+#define SPI2_CS1_GPIO_Port GPIOC
+#define IMU_INT1_Pin LL_GPIO_PIN_10
+#define IMU_INT1_GPIO_Port GPIOE
+#define IMU_INT1_EXTI_IRQn EXTI15_10_IRQn
+#define IMU_INT3_Pin LL_GPIO_PIN_12
+#define IMU_INT3_GPIO_Port GPIOE
+#define IMU_INT3_EXTI_IRQn EXTI15_10_IRQn
+#define LED_B_Pin LL_GPIO_PIN_15
 #define LED_B_GPIO_Port GPIOD
+#define KEY_Pin LL_GPIO_PIN_15
+#define KEY_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

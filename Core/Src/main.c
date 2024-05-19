@@ -19,15 +19,17 @@
 /* Includes ------------------------------------------------------------------*/
 #include "app_threadx.h"
 #include "main.h"
+#include "adc.h"
+#include "bdma.h"
 #include "dma.h"
 #include "fdcan.h"
+#include "spi.h"
+#include "tim.h"
 #include "usart.h"
-#include "usb_otg.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "lvgl.h"
 #include "arm_math.h"
 #include "stdarg.h"
 #include "stdio.h"
@@ -51,95 +53,96 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint32_t fishPrintf(uint8_t *buf, const char *str, ...) {
-    va_list ap;
-    va_start(ap, str);
-    uint32_t len = vsnprintf((char *) buf, 512, str, ap);
-    va_end(ap);
-    return len;
-}
-
-void CANFilterConfig(void) {
-    FDCAN_FilterTypeDef Filter;
-    Filter.IdType = FDCAN_STANDARD_ID;
-    Filter.FilterIndex = 0;
-    Filter.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
-    Filter.FilterType = FDCAN_FILTER_MASK;
-    Filter.FilterID1 = 0x0000;
-    Filter.FilterID2 = 0x0000;
-
-    HAL_FDCAN_ConfigFilter(&hfdcan1, &Filter);
-    HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
-    HAL_FDCAN_ConfigGlobalFilter(&hfdcan1, FDCAN_REJECT, FDCAN_REJECT, FDCAN_REJECT_REMOTE, FDCAN_REJECT_REMOTE);
-
-    Filter.IdType = FDCAN_STANDARD_ID;
-    Filter.FilterIndex = 0;
-    Filter.FilterConfig = FDCAN_FILTER_TO_RXFIFO1;
-    Filter.FilterType = FDCAN_FILTER_MASK;
-    Filter.FilterID1 = 0x0000;
-    Filter.FilterID2 = 0x0000;
-
-    HAL_FDCAN_ConfigFilter(&hfdcan2, &Filter);
-    HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO1_NEW_MESSAGE, 0);
-    HAL_FDCAN_ConfigGlobalFilter(&hfdcan2, FDCAN_REJECT, FDCAN_REJECT, FDCAN_REJECT_REMOTE, FDCAN_REJECT_REMOTE);
-
-    HAL_FDCAN_Start(&hfdcan1);
-    HAL_FDCAN_Start(&hfdcan2);
-}
-
-__PACKED_STRUCT  DM_Motor_t {
-    uint16_t pst;
-    int16_t rpm;
-    int16_t torque;
-    uint8_t tmp_coil;
-    uint8_t tmp_pcb;
-};
-
-SRAM_SET_D2 struct DM_Motor_t motor[4];
-SRAM_SET_D2 uint8_t RxData1[8];
-SRAM_SET_D2 uint8_t tx_buf[128];
-
-void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
-    FDCAN_RxHeaderTypeDef rx_header;
-    HAL_FDCAN_GetRxMessage(&hfdcan2, FDCAN_RX_FIFO1, &rx_header, RxData1);
-
-    switch (rx_header.Identifier) {
-        case 0x301:
-            motor[0].pst = RxData1[0] << 8 | RxData1[1];
-            motor[0].rpm = RxData1[2] << 8  | RxData1[3];
-            motor[0].torque = RxData1[4] << 8 | RxData1[5];
-            motor[0].tmp_coil = RxData1[6];
-            motor[0].tmp_pcb = RxData1[7];
-            break;
-        case 0x302:
-            motor[1].pst = RxData1[0] << 8 | RxData1[1];
-            motor[1].rpm = RxData1[2] << 8 | RxData1[3];
-            motor[1].torque = RxData1[4] << 8 | RxData1[5];
-            motor[1].tmp_coil = RxData1[6];
-            motor[1].tmp_pcb = RxData1[7];
-            break;
-        case 0x303:
-            motor[2].pst = RxData1[0] << 8 | RxData1[1];
-            motor[2].rpm = RxData1[2] << 8 | RxData1[3];
-            motor[2].torque = RxData1[4] << 8 | RxData1[5];
-            motor[2].tmp_coil = RxData1[6];
-            motor[2].tmp_pcb = RxData1[7];
-            break;
-        case 0x304:
-            motor[3].pst = RxData1[0] << 8 | RxData1[1];
-            motor[3].rpm = RxData1[2] << 8 | RxData1[3];
-            motor[3].torque = RxData1[4] << 8 | RxData1[5];
-            motor[3].tmp_coil = RxData1[6];
-            motor[3].tmp_pcb = RxData1[7];
-            break;
-        default:
-            break;
-    }
-}
+//uint32_t fishPrintf(uint8_t *buf, const char *str, ...) {
+//    va_list ap;
+//    va_start(ap, str);
+//    uint32_t len = vsnprintf((char *) buf, 512, str, ap);
+//    va_end(ap);
+//    return len;
+//}
+//
+//void CANFilterConfig(void) {
+//    FDCAN_FilterTypeDef Filter;
+//    Filter.IdType = FDCAN_STANDARD_ID;
+//    Filter.FilterIndex = 0;
+//    Filter.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+//    Filter.FilterType = FDCAN_FILTER_MASK;
+//    Filter.FilterID1 = 0x0000;
+//    Filter.FilterID2 = 0x0000;
+//
+//    HAL_FDCAN_ConfigFilter(&hfdcan1, &Filter);
+//    HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
+//    HAL_FDCAN_ConfigGlobalFilter(&hfdcan1, FDCAN_REJECT, FDCAN_REJECT, FDCAN_REJECT_REMOTE, FDCAN_REJECT_REMOTE);
+//
+//    Filter.IdType = FDCAN_STANDARD_ID;
+//    Filter.FilterIndex = 0;
+//    Filter.FilterConfig = FDCAN_FILTER_TO_RXFIFO1;
+//    Filter.FilterType = FDCAN_FILTER_MASK;
+//    Filter.FilterID1 = 0x0000;
+//    Filter.FilterID2 = 0x0000;
+//
+//    HAL_FDCAN_ConfigFilter(&hfdcan2, &Filter);
+//    HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO1_NEW_MESSAGE, 0);
+//    HAL_FDCAN_ConfigGlobalFilter(&hfdcan2, FDCAN_REJECT, FDCAN_REJECT, FDCAN_REJECT_REMOTE, FDCAN_REJECT_REMOTE);
+//
+//    HAL_FDCAN_Start(&hfdcan1);
+//    HAL_FDCAN_Start(&hfdcan2);
+//}
+//
+//__PACKED_STRUCT  DM_Motor_t {
+//    uint16_t pst;
+//    int16_t rpm;
+//    int16_t torque;
+//    uint8_t tmp_coil;
+//    uint8_t tmp_pcb;
+//};
+//
+//SRAM_SET_D2 struct DM_Motor_t motor[4];
+//SRAM_SET_D2 uint8_t RxData1[8];
+//SRAM_SET_D2 uint8_t tx_buf[128];
+//
+//void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
+//    FDCAN_RxHeaderTypeDef rx_header;
+//    HAL_FDCAN_GetRxMessage(&hfdcan2, FDCAN_RX_FIFO1, &rx_header, RxData1);
+//
+//    switch (rx_header.Identifier) {
+//        case 0x301:
+//            motor[0].pst = RxData1[0] << 8 | RxData1[1];
+//            motor[0].rpm = RxData1[2] << 8  | RxData1[3];
+//            motor[0].torque = RxData1[4] << 8 | RxData1[5];
+//            motor[0].tmp_coil = RxData1[6];
+//            motor[0].tmp_pcb = RxData1[7];
+//            break;
+//        case 0x302:
+//            motor[1].pst = RxData1[0] << 8 | RxData1[1];
+//            motor[1].rpm = RxData1[2] << 8 | RxData1[3];
+//            motor[1].torque = RxData1[4] << 8 | RxData1[5];
+//            motor[1].tmp_coil = RxData1[6];
+//            motor[1].tmp_pcb = RxData1[7];
+//            break;
+//        case 0x303:
+//            motor[2].pst = RxData1[0] << 8 | RxData1[1];
+//            motor[2].rpm = RxData1[2] << 8 | RxData1[3];
+//            motor[2].torque = RxData1[4] << 8 | RxData1[5];
+//            motor[2].tmp_coil = RxData1[6];
+//            motor[2].tmp_pcb = RxData1[7];
+//            break;
+//        case 0x304:
+//            motor[3].pst = RxData1[0] << 8 | RxData1[1];
+//            motor[3].rpm = RxData1[2] << 8 | RxData1[3];
+//            motor[3].torque = RxData1[4] << 8 | RxData1[5];
+//            motor[3].tmp_coil = RxData1[6];
+//            motor[3].tmp_pcb = RxData1[7];
+//            break;
+//        default:
+//            break;
+//    }
+//}
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void PeriphCommonClock_Config(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -155,10 +158,12 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
-/* Enable the CPU Cache */
+
+  /* Enable the CPU Cache */
 
   /* Enable I-Cache---------------------------------------------------------*/
   SCB_EnableICache();
@@ -178,69 +183,74 @@ int main(void)
   /* Configure the system clock */
   SystemClock_Config();
 
+/* Configure the peripherals common clocks */
+  PeriphCommonClock_Config();
+
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_BDMA_Init();
   MX_DMA_Init();
-  MX_USART1_UART_Init();
-  MX_FDCAN1_Init();
   MX_FDCAN2_Init();
-  MX_USB_OTG_HS_PCD_Init();
   MX_FDCAN3_Init();
+  MX_SPI2_Init();
+  MX_SPI6_Init();
+  MX_TIM12_Init();
+  MX_ADC1_Init();
+  MX_USART10_UART_Init();
+  MX_FDCAN1_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-  for(;;){
-    lv_init();
-
-    lv_timer_handler();
-  }
-    CANFilterConfig();
-    FDCAN_TxHeaderTypeDef TxHeader1 = {0};
-    TxHeader1.BitRateSwitch = FDCAN_BRS_OFF;
-    TxHeader1.FDFormat = FDCAN_CLASSIC_CAN;
-    TxHeader1.Identifier = 0x3FE;
-    TxHeader1.IdType = FDCAN_STANDARD_ID;
-    TxHeader1.DataLength = FDCAN_DLC_BYTES_8;
-    TxHeader1.TxFrameType = FDCAN_DATA_FRAME;
-
-    uint8_t data_tx[8] = {0};
-    uint8_t data_tx_zero[8] = {0};
-    data_tx[0] = (-100)>>8;
-    data_tx[1] = (-100)&0xFF;
-    data_tx[2] = (100)>>8;
-    data_tx[3] = (100)&0xFF;
-    data_tx[4] = (100)>>8;
-    data_tx[5] = (100)&0xFF;
-    data_tx[6] = (-100)>>8;
-    data_tx[7] = (-100)&0xFF;
+//
+//    CANFilterConfig();
+//    FDCAN_TxHeaderTypeDef TxHeader1 = {0};
+//    TxHeader1.BitRateSwitch = FDCAN_BRS_OFF;
+//    TxHeader1.FDFormat = FDCAN_CLASSIC_CAN;
+//    TxHeader1.Identifier = 0x3FE;
+//    TxHeader1.IdType = FDCAN_STANDARD_ID;
+//    TxHeader1.DataLength = FDCAN_DLC_BYTES_8;
+//    TxHeader1.TxFrameType = FDCAN_DATA_FRAME;
+//
+//    uint8_t data_tx[8] = {0};
+//    uint8_t data_tx_zero[8] = {0};
+//    data_tx[0] = (-100)>>8;
+//    data_tx[1] = (-100)&0xFF;
+//    data_tx[2] = (100)>>8;
+//    data_tx[3] = (100)&0xFF;
+//    data_tx[4] = (100)>>8;
+//    data_tx[5] = (100)&0xFF;
+//    data_tx[6] = (-100)>>8;
+//    data_tx[7] = (-100)&0xFF;
   /* USER CODE END 2 */
 
   MX_ThreadX_Init();
 
   /* We should never get here as control is now taken by the scheduler */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1) {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-        HAL_GPIO_TogglePin(LED_B_GPIO_Port, LED_B_Pin);
-        uint16_t len = fishPrintf(tx_buf, "pst0=%d, rpm0=%d, tqr0=%d\r\n", motor[0].pst, motor[0].rpm, motor[0].torque);
-        SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
-        HAL_UART_Transmit_DMA(&huart1, tx_buf, len);
-        HAL_Delay(10);
-        HAL_GPIO_TogglePin(LED_B_GPIO_Port, LED_B_Pin);
-        len = fishPrintf(tx_buf, "pst1=%d, rpm1=%d, tqr1=%d\r\n", motor[1].pst, motor[1].rpm, motor[1].torque);
-        SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
-        HAL_UART_Transmit_DMA(&huart1, tx_buf, len);
-        HAL_Delay(10);
-        if(HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin) == GPIO_PIN_RESET){
-            HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &TxHeader1, data_tx);
-        }else{
-            HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &TxHeader1, data_tx_zero);
-        }
+//        HAL_GPIO_TogglePin(LED_B_GPIO_Port, LED_B_Pin);
+//        uint16_t len = fishPrintf(tx_buf, "pst0=%d, rpm0=%d, tqr0=%d\r\n", motor[0].pst, motor[0].rpm, motor[0].torque);
+//        SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
+//        HAL_UART_Transmit_DMA(&huart1, tx_buf, len);
+//        HAL_Delay(10);
+//        HAL_GPIO_TogglePin(LED_B_GPIO_Port, LED_B_Pin);
+//        len = fishPrintf(tx_buf, "pst1=%d, rpm1=%d, tqr1=%d\r\n", motor[1].pst, motor[1].rpm, motor[1].torque);
+//        SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
+//        HAL_UART_Transmit_DMA(&huart1, tx_buf, len);
+//        HAL_Delay(10);
+//        if(HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin) == GPIO_PIN_RESET){
+//            HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &TxHeader1, data_tx);
+//        }else{
+//            HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &TxHeader1, data_tx_zero);
+//        }
     }
   /* USER CODE END 3 */
 }
@@ -267,19 +277,18 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
-  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 2;
-  RCC_OscInitStruct.PLL.PLLN = 45;
+  RCC_OscInitStruct.PLL.PLLM = 3;
+  RCC_OscInitStruct.PLL.PLLN = 68;
   RCC_OscInitStruct.PLL.PLLP = 1;
   RCC_OscInitStruct.PLL.PLLQ = 2;
   RCC_OscInitStruct.PLL.PLLR = 2;
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_3;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
-  RCC_OscInitStruct.PLL.PLLFRACN = 4096;
+  RCC_OscInitStruct.PLL.PLLFRACN = 6144;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -304,8 +313,40 @@ void SystemClock_Config(void)
   }
 }
 
-/* USER CODE BEGIN 4 */
+/**
+  * @brief Peripherals Common Clock Configuration
+  * @retval None
+  */
+void PeriphCommonClock_Config(void)
+{
+  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
+  /** Initializes the peripherals clock
+  */
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_ADC|RCC_PERIPHCLK_SPI2
+                              |RCC_PERIPHCLK_USART10;
+  PeriphClkInitStruct.PLL3.PLL3M = 2;
+  PeriphClkInitStruct.PLL3.PLL3N = 16;
+  PeriphClkInitStruct.PLL3.PLL3P = 2;
+  PeriphClkInitStruct.PLL3.PLL3Q = 3;
+  PeriphClkInitStruct.PLL3.PLL3R = 2;
+  PeriphClkInitStruct.PLL3.PLL3RGE = RCC_PLL3VCIRANGE_3;
+  PeriphClkInitStruct.PLL3.PLL3VCOSEL = RCC_PLL3VCOWIDE;
+  PeriphClkInitStruct.PLL3.PLL3FRACN = 0;
+  PeriphClkInitStruct.Spi123ClockSelection = RCC_SPI123CLKSOURCE_PLL3;
+  PeriphClkInitStruct.Usart16ClockSelection = RCC_USART16910CLKSOURCE_PLL3;
+  PeriphClkInitStruct.AdcClockSelection = RCC_ADCCLKSOURCE_PLL3;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+/* USER CODE BEGIN 4 */
+void TIM23_IRQHandler() {
+    HAL_IncTick();
+    LL_TIM_ClearFlag_UPDATE(TIM23);
+}
 /* USER CODE END 4 */
 
 /**
@@ -319,7 +360,6 @@ void SystemClock_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
-  lv_tick_inc(1);
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM23) {
     HAL_IncTick();

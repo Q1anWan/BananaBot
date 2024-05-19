@@ -57,9 +57,10 @@
 /* External variables --------------------------------------------------------*/
 extern FDCAN_HandleTypeDef hfdcan1;
 extern FDCAN_HandleTypeDef hfdcan2;
-extern DMA_HandleTypeDef hdma_usart1_tx;
-extern UART_HandleTypeDef huart1;
-extern PCD_HandleTypeDef hpcd_USB_OTG_HS;
+extern DMA_HandleTypeDef hdma_spi6_tx;
+extern SPI_HandleTypeDef hspi6;
+extern DMA_HandleTypeDef hdma_usart10_tx;
+extern UART_HandleTypeDef huart10;
 extern TIM_HandleTypeDef htim23;
 
 /* USER CODE BEGIN EV */
@@ -172,7 +173,7 @@ void DMA1_Stream0_IRQHandler(void)
   /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
 
   /* USER CODE END DMA1_Stream0_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_usart1_tx);
+  HAL_DMA_IRQHandler(&hdma_usart10_tx);
   /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
 
   /* USER CODE END DMA1_Stream0_IRQn 1 */
@@ -235,45 +236,45 @@ void FDCAN2_IT1_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles USART1 global interrupt.
+  * @brief This function handles SPI6 global interrupt.
   */
-void USART1_IRQHandler(void)
+void SPI6_IRQHandler(void)
 {
-  /* USER CODE BEGIN USART1_IRQn 0 */
+  /* USER CODE BEGIN SPI6_IRQn 0 */
 
-  /* USER CODE END USART1_IRQn 0 */
-  HAL_UART_IRQHandler(&huart1);
-  /* USER CODE BEGIN USART1_IRQn 1 */
+  /* USER CODE END SPI6_IRQn 0 */
+  HAL_SPI_IRQHandler(&hspi6);
+  /* USER CODE BEGIN SPI6_IRQn 1 */
 
-  /* USER CODE END USART1_IRQn 1 */
+  /* USER CODE END SPI6_IRQn 1 */
 }
 
 /**
-  * @brief This function handles USB On The Go HS global interrupt.
+  * @brief This function handles BDMA channel0 global interrupt.
   */
-void OTG_HS_IRQHandler(void)
+void BDMA_Channel0_IRQHandler(void)
 {
-  /* USER CODE BEGIN OTG_HS_IRQn 0 */
+  /* USER CODE BEGIN BDMA_Channel0_IRQn 0 */
 
-  /* USER CODE END OTG_HS_IRQn 0 */
-  HAL_PCD_IRQHandler(&hpcd_USB_OTG_HS);
-  /* USER CODE BEGIN OTG_HS_IRQn 1 */
+  /* USER CODE END BDMA_Channel0_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_spi6_tx);
+  /* USER CODE BEGIN BDMA_Channel0_IRQn 1 */
 
-  /* USER CODE END OTG_HS_IRQn 1 */
+  /* USER CODE END BDMA_Channel0_IRQn 1 */
 }
 
 /**
-  * @brief This function handles TIM23 global interrupt.
+  * @brief This function handles USART10 global interrupt.
   */
-void TIM23_IRQHandler(void)
+void USART10_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM23_IRQn 0 */
+  /* USER CODE BEGIN USART10_IRQn 0 */
 
-  /* USER CODE END TIM23_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim23);
-  /* USER CODE BEGIN TIM23_IRQn 1 */
+  /* USER CODE END USART10_IRQn 0 */
+  HAL_UART_IRQHandler(&huart10);
+  /* USER CODE BEGIN USART10_IRQn 1 */
 
-  /* USER CODE END TIM23_IRQn 1 */
+  /* USER CODE END USART10_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

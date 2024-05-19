@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!-- Author: qianwan -->
+<!-- Date:  2023/12/20 -->
+<mavlink>
+	<version>2</version>
+
+	<enums>
+		<!-- System ID indicates source of message source-->
+		<enum name="CHS_SYSTEM_ID">
+			<description>Chassis system and ID.</description>
+			<entry value="1" name="CHS_ID_ORANGE">
+				<description>OrangePi.</description>
+			</entry>
+			<entry value="2" name="CHS_ID_ESP32">
+				<description>ESP32 controller.</description>
+			</entry>
+			<entry value="3" name="CHS_ID_CHASSIS">
+				<description>Chassis.</description>
+			</entry>
+		</enum>
+	</enums>
+
+	<messages>
+		<!-- Control chassis's velocity. -->
+		<message id="0" name="CHS_CTRL_INFO">
+			<description>Upper control chassis velocity. Coordinate right-forward-up.</description>
+			<field type="float" name="vx" units="m/s">Indicate velocity of x direction. Range [-2.0, 2.0]</field>
+            <field type="float" name="vy" units="m/s">Indicate velocity of y direction. Range [-2.0, 2.0]</field>
+            <field type="float" name="vw" units="rad/s">Indicate angular velocity of w direction. Range [-2*PI, 2*PI]</field>
+		</message>
+        <!-- Control chassis's motors. -->
+        <message id="1" name="CHS_MOTOR_INFO">
+			<description>Low layer API for control chassis velocity. Coordinate right-forward-up.</description>
+			<field type="int16_t[4]" name="motor" units="rpm">Indicate angular speed of wheel motors. Range [-6000, 6000]</field>
+		</message>
+		<!-- Feedback chassis's variables. -->
+		<message id="2" name="CHS_ODOM_INFO">
+			<description>Feedback of chassis variables.</description>
+            <field type="float" name="vx" units="m/s">Feedback the velocity of x direction.</field>
+            <field type="float" name="vy" units="m/s">Feedback the velocity of y dierction.</field>
+            <field type="float" name="vw" units="rad/s">Feedback the angular velocity of z yaw.(Same to gyro[2])</field>
+            <field type="float[4]" name="quaternion" units="1">Indicate the quaternion.</field>
+		</message>
+		<!-- Feedback chassis's IMU information. -->
+		<message id="3" name="CHS_IMU_INFO">
+			<description>Feedback accelmeter and gyrometer information.</description>
+			<field type="float[3]" name="accel" units="m/s^2">Feedback accelmeter message.</field>
+			<field type="float[3]" name="gyro" units="rad/s">Feedback gyrometer message.</field>
+		</message>
+        <!-- Control chassis's servo. -->
+		<message id="4" name="CHS_SERVOS_INFO">
+			<description>Control servo pwm generating.</description>
+			<field type="uint16_t[7]" name="servos">Indicate duty cycle of servo timer. Range from 499 to 24999 indicates 500/20000 to 2500/20000.</field>
+		</message>
+		<!-- Control chassis's asserts -->
+		<message id="5" name="CHS_MANAGE_INFO">
+			<description>Control chassis items.</description>
+			<field type="uint8_t" name="enable_chassis" instance="0" invalid="UINT8_MAX">Boolean. Set 1/0 to enable/disable chassis's close-loop control. Invalid with UINT8_MAX.</field>
+            <field type="uint8_t" name="enable_servos" instance="0" invalid="UINT8_MAX">Boolean. Set true to enable/disable servo pwm generating. Invalid with UINT8_MAX.</field>
+            <field type="uint8_t" name="reset_quaternion" instance="0" invalid="UINT8_MAX">Boolean. Set true to reset quaternion. Invalid with UINT8_MAX.</field>
+		</message>
+		<!-- Remoter Feedback -->
+		<message id="6" name="CHS_REMOTER_INFO">
+			<description>Feedback remoter information.</description>
+			<field type="uint8_t" name="switch_messgae" instance="0" invalid="UINT8_MAX">Bit-0:isOnline(0-offline,1-online), Bit[1-2]:SwitchLeft(0-0b00,1-0b01,2-0x10), Bit[3-4]:SwitchRight(0-0b00,1-0b01,2-0x10)</field>
+			<field type="int16_t" name="channel_0" instance="0" invalid="UINT16_MAX">-660 to +660. Right-Upward is orientation.</field>
+			<field type="int16_t" name="channel_1" instance="0" invalid="UINT16_MAX">-660 to +660. Right-Upward is orientation.</field>
+			<field type="int16_t" name="channel_2" instance="0" invalid="UINT16_MAX">-660 to +660. Right-Upward is orientation.</field>
+			<field type="int16_t" name="channel_3" instance="0" invalid="UINT16_MAX">-660 to +660. Right-Upward is orientation.</field>
+			<field type="int16_t" name="wheel" instance="0" invalid="UINT16_MAX">-660 to +660. Counter-clockwise is orientation.</field>
+		</message>
+	</messages>
+
+</mavlink>

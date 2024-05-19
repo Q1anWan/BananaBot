@@ -103,24 +103,20 @@ LoopFillZerobss:
   cmp r2, r4
   bcc FillZerobss
 
-/* Copy the data segment initializers from flash to SRAM_D1 */
-  ldr r0, =_sRAM_D1
-  ldr r1, =_eRAM_D1
-  ldr r2, =_siRAM_D1
+/* Zero fill D1 D2 D3. */
+  ldr r2, =_sRAM_D1
+  ldr r4, =_eRAM_D1
   movs r3, #0
-  b LoopCopyDataInit_D1
+  b LoopFillZeroD1
 
-CopyDataInit_D1:
-  ldr r4, [r2, r3]
-  str r4, [r0, r3]
-  adds r3, r3, #4
+FillZeroD1:
+  str  r3, [r2]
+  adds r2, r2, #4
 
-LoopCopyDataInit_D1:
-  adds r4, r0, r3
-  cmp r4, r1
-  bcc CopyDataInit_D1
+LoopFillZeroD1:
+  cmp r2, r4
+  bcc FillZeroD1
 
-/* Zero fill D2 D3. */
   ldr r2, =_sRAM_D2
   ldr r4, =_eRAM_D2
   movs r3, #0
