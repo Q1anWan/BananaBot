@@ -62,6 +62,8 @@ include_directories(Module/Mavlink/FishCom)
 include_directories(Module/IMU/Inc)
 # Include LED head files
 include_directories(Module/LED/Inc)
+# Include MOTOR head files
+include_directories(Module/Motor/Inc)
 # include user service head files
 include_directories(Service/Inc)
 # include user task head files

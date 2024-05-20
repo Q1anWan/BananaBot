@@ -22,7 +22,7 @@ UCHAR Msg_PoolBuf[4096] = {0};
 
 /*EKF pool*/
 TX_BYTE_POOL MathPool;
-UCHAR Math_PoolBuf[10240] = {0};
+UCHAR Math_PoolBuf[14336] = {0};
 
 extern TX_THREAD IMUThread;
 extern uint8_t IMUThreadStack[1024];

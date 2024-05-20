@@ -23,6 +23,30 @@ struct Msg_INS_t {
     uint64_t timestamp;
 };
 
+//                X
+//            Y---|
+//      1---a---4 |
+//      |       | |
+//   3  L       R  6
+//      |       |
+//      2---a---5
+//
+
+struct Msg_Motor_Ctr_t {
+    bool enable;
+    float torque[6];
+};
+
+struct Msg_Odometer_t {
+    float x;
+    float v;
+};
+
+struct Msg_Link_t {
+    float angel_left[2];
+    float angel_right[2];
+};
+
 #pragma pack(pop)
 #ifdef __cplusplus
 }
