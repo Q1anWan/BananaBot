@@ -176,7 +176,7 @@ void IMU_QuaternionEKF_Update(float *q, float gx, float gy, float gz, float ax, 
     QEKF_INS.Accel[2] = az;
 
     // set z,单位化重力加速度向量
-    
+
 	QEKF_INS.accl_norm = sqrtf(QEKF_INS.Accel[0] * QEKF_INS.Accel[0] + QEKF_INS.Accel[1] * QEKF_INS.Accel[1] + QEKF_INS.Accel[2] * QEKF_INS.Accel[2]);
 	accelInvNorm = 1.0f / QEKF_INS.accl_norm;
 

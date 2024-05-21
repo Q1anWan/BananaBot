@@ -38,7 +38,7 @@ __PACKED_STRUCT imu_cal_t {
 };
 
 
-float gyro_offset[3] = {0};
+//float gyro_offset[3] = {0};
 
 [[noreturn]] void IMUThreadFun(ULONG initial_input) {
     UNUSED(initial_input);
@@ -48,10 +48,11 @@ float gyro_offset[3] = {0};
     cDWT dwt;
     int16_t accel[3];
     int16_t gyro[3];
-    float accel_f[3];
+    float accel_f_norm[3];
     float gyro_f[3];
-//    float gyro_offset[3] = {0};
+    float gyro_offset[3] = {0};
     float quaternion[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+
     cFilterBTW2_100Hz filter[3];
     Msg_INS_t msg_ins{};
     imu_cal_t imu_cal{};
@@ -148,32 +149,34 @@ float gyro_offset[3] = {0};
 //        }
 
         tx_thread_sleep(1);
+
         bmi088.GetAccel((uint8_t *) accel);
         bmi088.GetGyro((uint8_t *) gyro);
-        accel_f[0] = (float) accel[0] * LSB_ACC_16B_12G;
-        accel_f[1] = (float) accel[1] * LSB_ACC_16B_12G;
-        accel_f[2] = (float) accel[2] * LSB_ACC_16B_12G;
+        accel_f_norm[0] = static_cast<float>(accel[0]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY;
+        accel_f_norm[1] = static_cast<float>(accel[1]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY;
+        accel_f_norm[2] = static_cast<float>(accel[2]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY;
 
         /*100Hz LowPass BWT 2-Order*/
         /*Watch out! Orientation R-F-U*/
-        accel_f[0] = filter[0].Update(accel_f[0]);
-        accel_f[1] = filter[1].Update(accel_f[1]);
-        accel_f[2] = filter[2].Update(accel_f[2]);
+        accel_f_norm[0] = filter[0].Update(accel_f_norm[0]);
+        accel_f_norm[1] = filter[1].Update(accel_f_norm[1]);
+        accel_f_norm[2] = filter[2].Update(accel_f_norm[2]);
 
-        gyro_f[0] = ((float) gyro[0] + gyro_offset[0]) * LSB_GYRO_16B_1000_R;
-        gyro_f[1] = ((float) gyro[1] + gyro_offset[1]) * LSB_GYRO_16B_1000_R;
-        gyro_f[2] = ((float) gyro[2] + gyro_offset[2]) * LSB_GYRO_16B_1000_R;
+        gyro_f[0] = static_cast<float> (gyro[0]) * static_cast<float> (LSB_GYRO_16B_1000_R);
+        gyro_f[1] = static_cast<float> (gyro[1]) * static_cast<float> (LSB_GYRO_16B_1000_R);
+        gyro_f[2] = static_cast<float> (gyro[2]) * static_cast<float> (LSB_GYRO_16B_1000_R);
 
-        IMU_QuaternionEKF_Update(quaternion, gyro_f[0], gyro_f[1], gyro_f[2], accel_f[0], accel_f[1], accel_f[2],
+        IMU_QuaternionEKF_Update(quaternion, gyro_f[0], gyro_f[1], gyro_f[2], accel_f_norm[0], accel_f_norm[1],
+                                 accel_f_norm[2],
                                  dwt.dt_sec());
 
         /*Message*/
         msg_ins.timestamp = tx_time_get();
         memcpy(msg_ins.quaternion, quaternion, sizeof(quaternion));
 
-        msg_ins.accel[0] = accel_f[0];
-        msg_ins.accel[1] = accel_f[1];
-        msg_ins.accel[2] = accel_f[2];
+        msg_ins.accel[0] = accel_f_norm[0];
+        msg_ins.accel[1] = accel_f_norm[1];
+        msg_ins.accel[2] = accel_f_norm[2];
         msg_ins.gyro[0] = gyro_f[0];
         msg_ins.gyro[1] = gyro_f[1];
         msg_ins.gyro[2] = gyro_f[2];

@@ -8,11 +8,11 @@
 
 static uint16_t sizeof_float = sizeof(float);
 
-extern TX_BYTE_POOL Math_PoolBuf;
+extern TX_BYTE_POOL MathPool;
 static void* user_malloc(size_t size)
 {
 	void* tmp;
-	tx_byte_allocate(&Math_PoolBuf, (VOID **)&tmp, size, TX_NO_WAIT);
+    tx_byte_allocate(&MathPool, (VOID **)&tmp, size, TX_NO_WAIT);
 	return tmp;
 }
 

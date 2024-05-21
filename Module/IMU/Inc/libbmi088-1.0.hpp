@@ -23,7 +23,7 @@
 #define LIB_BMI088_
 
 #include "libspi-a-1.0.h"
-#include "libimu-a-1.0.h"
+#include "libimu-a-1.1.h"
 
 namespace BMI088 {
     enum BMI088_CS {

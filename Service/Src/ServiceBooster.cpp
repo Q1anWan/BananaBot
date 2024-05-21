@@ -56,7 +56,6 @@ extern uint8_t RemoterThreadStack[1024];
 
 extern void RemoterThreadFun(ULONG initial_input);
 
-
 void Service_Booster(void) {
     /**********Memory pool in ram***********/
     /*Communication pool in ram*/

@@ -7,7 +7,7 @@ extern "C" {
 
 #include <cstdint>
 #pragma pack(push, 1)
-struct msgBatteryVoltage_t {
+struct Msg_Battery_Voltage_t {
     bool isBattery;
     float voltage;
     uint64_t time_stamp;
@@ -45,6 +45,30 @@ struct Msg_Odometer_t {
 struct Msg_Link_t {
     float angel_left[2];
     float angel_right[2];
+};
+
+enum class Msg_ErrorStatus: uint8_t {
+    OK = 0,
+    ERROR = 1,
+    WARNING = 2,
+};
+
+enum class Msg_ThreadID: uint8_t {
+    LED = 0,
+    IMU = 1,
+    IMU_HEAT = 2,
+    MOTOR = 3,
+    MAX_ID
+};
+
+
+struct Msg_Thread_Status_t {
+    Msg_ThreadID thread_id;
+    Msg_ErrorStatus status;
+};
+
+struct Msg_DBG_t {
+    float dbg[5];
 };
 
 #pragma pack(pop)
