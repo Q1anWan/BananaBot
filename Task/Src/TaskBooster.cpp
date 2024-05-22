@@ -5,14 +5,14 @@ extern uint8_t MotorThreadStack[4096];
 extern void MotorThreadFun(ULONG initial_input);
 extern TX_SEMAPHORE MotorCANRecvSem;
 
-extern TX_THREAD ServoThread;
-extern uint8_t ServoThreadStack[256];
+extern TX_THREAD ControlThread;
+extern uint8_t ControlThreadStack[2048];
 
-extern void ServoThreadFun(ULONG initial_input);
+extern void ControlThreadFun(ULONG initial_input);
 
 
 extern TX_THREAD HeartBeatThread;
-extern uint8_t HeartBeatThreadStack[1024];
+extern uint8_t HeartBeatThreadStack[2048];
 
 [[noreturn]] extern void HeartBeatThreadFun(ULONG initial_input);
 void Task_Booster() {
@@ -54,18 +54,18 @@ void Task_Booster() {
             6,
             TX_NO_TIME_SLICE,
             TX_AUTO_START);
-//
-//    tx_thread_create(
-//            &ServoThread,
-//            (CHAR *) "Servo",
-//            ServoThreadFun,
-//            0x0000,
-//            ServoThreadStack,
-//            sizeof(ServoThreadStack),
-//            6,
-//            6,
-//            TX_NO_TIME_SLICE,
-//            TX_AUTO_START);
+
+    tx_thread_create(
+            &ControlThread,
+            (CHAR *) "Control",
+            ControlThreadFun,
+            0x0000,
+            ControlThreadStack,
+            sizeof(ControlThreadStack),
+            7,
+            7,
+            TX_NO_TIME_SLICE,
+            TX_AUTO_START);
 
     tx_thread_create(
             &HeartBeatThread,

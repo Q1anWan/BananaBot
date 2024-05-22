@@ -27,12 +27,14 @@ class cLinkSolver
 	float HalfMotoDistance = MotoDistance/2.0f;
 	
 	/*关节电机弧度*/
-	float Theta2 = 0.0f;
-	float Theta3 = 0.0f;
+	float phi1 = 0.0f;
+	float phi4 = 0.0f;
 	
 	/*极限值*/
-	float Theta2Min = PI/2;
-	float Theta3Max = PI/2;
+	float phi1_max = PI;
+	float phi4_max = PI / 2;
+    float phi1_min = PI / 2;
+    float phi4_min = 0.0f;
 	/*杆状态*/
 	eLinkStatue LinkStatue = LINK_ERROR;
 	
@@ -56,13 +58,13 @@ class cLinkSolver
 	void	VMCCal(float *F, float *T);
 	void	VMCRevCal(float *F, float *T);
 	void    VMCRevCal_Radian(float *R,float *x_dot);
-	void	SetRadLimit(float Theta3Max, float Theta2Min)
+	void	SetRadLimit(float phi4_max, float phi1_max)
 	{
-		this->Theta3Max = Theta3Max;
-		this->Theta2Min = Theta2Min;
+		this->phi4_max = phi4_max;
+		this->phi1_max = phi1_max;
 	}
 	
-	uint8_t	InputLink(float Theta3, float Theta2);
+	uint8_t	InputLink(float phi4_radian, float psi1_radian);
 	
 	inline uint8_t GetLinkStatue(void)
 	{return (uint8_t)this->LinkStatue;}

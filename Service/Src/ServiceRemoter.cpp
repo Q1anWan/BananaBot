@@ -4,7 +4,7 @@
 #include "om.h"
 
 TX_THREAD RemoterThread;
-uint8_t RemoterThreadStack[1024] = {0};
+uint8_t RemoterThreadStack[2048] = {0};
 TX_SEMAPHORE RemoterThreadSem;
 
 #define RCV_BUS_SIZE    25 //SBUS
@@ -23,7 +23,7 @@ uint8_t map_value(int16_t value) {
 }
 
 static uint8_t size_test;
-SRAM_SET_RAM_D3 uint8_t data_rx[RCV_BUS_SIZE];
+SRAM_SET_RAM_D3 uint8_t data_rx[32];
 
 [[noreturn]] void RemoterThreadFun(ULONG initial_input) {
     UNUSED(initial_input);
@@ -45,7 +45,7 @@ SRAM_SET_RAM_D3 uint8_t data_rx[RCV_BUS_SIZE];
         }
 
         if (size_test == RCV_BUS_SIZE) {
-            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) data_rx, RCV_BUS_SIZE);
+            SCB_InvalidateDCache_by_Addr((uint32_t *) data_rx, RCV_BUS_SIZE);
             /*缓冲赋值*/
 
             tmp_buf[0] = (((int16_t) data_rx[1] | ((int16_t) data_rx[2] << 8)) & 0x07FF) - rmt_mid;

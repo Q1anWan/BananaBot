@@ -3,6 +3,10 @@
   *Author:  		qianwan
   *Detail: 			PID template
 
+  *Version:  		2.1
+  *Date:  			2024/05/22
+  *Describe:		Improved with more function
+  *
   *Version:  		2.0
   *Date:  			2023/12/24
   *Describe:		Rebuild with template
@@ -24,10 +28,11 @@
   *Describe:		基于测试数据,取消对CMSIS-DSP的依赖
 **********************************************************************************/
 /*Version:  2.0*/
-/*Stepper:  0.2*/
+/*Stepper:  0.3*/
 #pragma once
 #ifndef PID_H_
 #define PID_H_
+#include <cmath>
 namespace PID {
 
     template<typename T>
@@ -75,6 +80,7 @@ namespace PID {
         }
 
     public:
+        cPID_Inc() = default;
         cPID_Inc(
                 T kp,
                 T ki,
@@ -102,7 +108,6 @@ namespace PID {
             Rst();
         }
 
-        cPID_Inc() {}; /*Default Constructor*/
 
         void SetParam(
                 T kp,
@@ -224,6 +229,7 @@ namespace PID {
         }
 
     public:
+        cPID_Pst() = default;
         cPID_Pst(
                 T kp,
                 T ki,
@@ -255,7 +261,6 @@ namespace PID {
             Rst();
         }
 
-        cPID_Pst() {}; /*Default Constructor*/
 
         void SetParam(
                 T kp,

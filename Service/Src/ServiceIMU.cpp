@@ -7,7 +7,7 @@
 #include "DWT.hpp"
 
 #include "libspi-i-hal-1.0.hpp"
-#include "libpid-i-1.0.hpp"
+#include "libpid-i-2.1.hpp"
 #include "libbmi088-1.0.hpp"
 
 #include "om.h"
@@ -254,9 +254,6 @@ extern TX_BYTE_POOL ComPool;
     for (;;) {
         tx_thread_sleep(320);
         LL_TIM_OC_SetCompareCH4(TIM3, (uint32_t) pid.Calculate(imu_handle->GetTem(), dwt.dt_sec()));
-        dbg.dbg[0] = imu_handle->GetTem();
-        dbg.dbg[1] = pid.Out();
-        om_publish(dbg_topic, &dbg, sizeof(dbg), true, false);
     }
 }
 

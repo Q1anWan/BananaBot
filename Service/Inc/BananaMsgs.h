@@ -43,8 +43,12 @@ struct Msg_Odometer_t {
 };
 
 struct Msg_Link_t {
-    float angel_left[2];
-    float angel_right[2];
+    float angel_left[2];    // rad
+    float angel_right[2];   // rad
+    float vel_left[2];      // rad/s
+    float vel_right[2];     // rad/s
+    float torque_left[2];   // Nm
+    float torque_right[2];  // Nm
 };
 
 enum class Msg_ErrorStatus: uint8_t {

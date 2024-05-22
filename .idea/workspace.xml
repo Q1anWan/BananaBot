@@ -23,25 +23,21 @@
   <component name="ChangeListManager">
     <list default="true" id="acdfb305-f91f-4fb5-bdbe-fed7fc03e98b" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BananaBot.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/BananaBot.ioc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/fdcan.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/fdcan.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32h7xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32h7xx_it.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/usart.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/usart.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/dma.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/dma.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/fdcan.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/fdcan.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/stm32h7xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32h7xx_it.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/usart.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/usart.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/Controller.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/Controller.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/KF.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/KF.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module/BSP/Inc/Filter.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Module/BSP/Inc/Filter.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/BSP/Inc/FishMessage.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/Motor/Inc/LinkSolver.h" beforeDir="false" afterPath="$PROJECT_DIR$/Module/Motor/Inc/LinkSolver.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/Motor/Src/LinkSolver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Module/Motor/Src/LinkSolver.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PSAI/Inc/libpid-i-1.0.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Module/PSAI/Inc/libpid-i-2.1.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Service/Inc/BananaMsgs.h" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Inc/BananaMsgs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/Inc/ServiceMsgAPI.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Service/Src/ServiceBooster.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Src/ServiceBooster.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Service/Src/ServiceIMU.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Src/ServiceIMU.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/Src/ServiceMsgAPI.cpp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Service/Src/ServiceRemoter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Src/ServiceRemoter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task/Inc/TaskServo.h" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Inc/TaskControl.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Src/TaskBooster.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskBooster.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Src/TaskHeatbeat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskHeatbeat.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Src/TaskMotor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskMotor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task/Src/TaskServo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskControl.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +101,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "CPPToolchains",
+    "settings.editor.selected.configurable": "CMakeSettings",
     "structure.view.defaults.are.configured": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -196,7 +192,7 @@
       <workItem from="1716218626747" duration="345000" />
       <workItem from="1716218987915" duration="6490000" />
       <workItem from="1716255650699" duration="3480000" />
-      <workItem from="1716273098563" duration="34771000" />
+      <workItem from="1716273098563" duration="49459000" />
     </task>
     <servers />
   </component>
@@ -215,6 +211,8 @@
     <watches-manager>
       <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
         <watch expression="data_rx" />
+        <watch expression="display_buf" />
+        <watch expression="_frame_buff" language="ObjectiveC" />
       </configuration>
     </watches-manager>
   </component>

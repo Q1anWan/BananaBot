@@ -60,7 +60,8 @@ protected:
 
     /*限位导致的置零校准值  5 degree安装夹角*/
     //float	 LimitOffset = 0.08726646f;
-    float LimitOffset = 0.00296705f;
+//    float LimitOffset = 0.00296705f;
+    float LimitOffset = 0.0f;
 
     /*校正后的弧度制, X正向为车头 ,Y正向竖直向下 ,Z箭矢向左 ,左右侧车轮都这样*/
     float Radian = 0.0f;
@@ -309,6 +310,15 @@ uint8_t MotorThreadStack[4096] = {0};
         link_msg.angel_left[1] = MotorUnit[1].GetRadian();
         link_msg.angel_right[0] = MotorUnit[3].GetRadian();
         link_msg.angel_right[1] = MotorUnit[4].GetRadian();
+        link_msg.torque_left[0] = MotorUnit[0].GetToqReal();
+        link_msg.torque_left[1] = MotorUnit[1].GetToqReal();
+        link_msg.torque_right[0] = MotorUnit[3].GetToqReal();
+        link_msg.torque_right[1] = MotorUnit[4].GetToqReal();
+        link_msg.vel_left[0] = MotorUnit[0].GetVelocity();
+        link_msg.vel_left[1] = MotorUnit[1].GetVelocity();
+        link_msg.vel_right[0] = MotorUnit[3].GetVelocity();
+        link_msg.vel_right[1] = MotorUnit[4].GetVelocity();
+
         om_publish(link_topic, &link_msg, sizeof(link_msg), true, false);
 
         uint8_t time_to_delay = tx_time_get() - time;

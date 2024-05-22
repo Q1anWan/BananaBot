@@ -31,7 +31,7 @@ static SPI::cSPI spi_screen(&hspi6, nullptr, 0, UINT32_MAX);
 class cLED : public Screen::Display {
 public:
     void AsynchBuff() override {
-        SCB_CleanDCache_by_Addr((uint32_t *) _frame_buff, sizeof(_frame_buff));
+        SCB_CleanInvalidateDCache_by_Addr((uint32_t *) _frame_buff, sizeof(_frame_buff));
     }
 };
 
@@ -40,11 +40,11 @@ extern TX_BYTE_POOL ComPool;
 extern uint32_t fishPrintf(uint8_t *buf, const char *str, ...);
 
 TX_THREAD HeartBeatThread;
-uint8_t HeartBeatThreadStack[1024] = {0};
+uint8_t HeartBeatThreadStack[2048] = {0};
 
 [[noreturn]] void HeartBeatThreadFun(ULONG initial_input) {
     UNUSED(initial_input);
-    om_topic_t *battery_topic = om_config_topic(nullptr, "CA", "Battery", sizeof(Msg_Battery_Voltage_t));
+    om_topic_t *battery_topic = om_config_topic(nullptr, "CA", "BATTERY", sizeof(Msg_Battery_Voltage_t));
     om_config_topic(nullptr, "CA", "STATUS", sizeof(Msg_Thread_Status_t));
     om_config_topic(nullptr, "CA", "DBG", sizeof(Msg_DBG_t));
 
@@ -67,7 +67,7 @@ uint8_t HeartBeatThreadStack[1024] = {0};
     tx_thread_sleep(100);
     LL_TIM_OC_SetCompareCH2(TIM12, 0);
 
-    battery_voltage = HAL_ADC_GetValue(&hadc1) * 0.00000457763671875f;
+    battery_voltage = 25.2f;
 
     Msg_INS_t ins;
     Msg_Thread_Status_t status;
@@ -87,11 +87,9 @@ uint8_t HeartBeatThreadStack[1024] = {0};
     tx_byte_allocate(&ComPool, (void **) &tx_buf, 512, TX_NO_WAIT);
 
     for (;;) {
-        LED.SetAllPixel(Screen::GREEN, 0);
-        LED.Refresh();
         HAL_ADC_Start(&hadc1);
         tx_thread_sleep(10);
-        battery_voltage = 0.9f * battery_voltage + HAL_ADC_GetValue(&hadc1) * 0.000000457763671875f;
+        battery_voltage = 0.9f * battery_voltage + HAL_ADC_GetValue(&hadc1) * 0.000055389404296875f;
 
         //Enable Detection
         if (battery_voltage > 9.0f) {
@@ -107,9 +105,15 @@ uint8_t HeartBeatThreadStack[1024] = {0};
         } else {
             msg_battery.isBattery = false;
         }
+
         msg_battery.voltage = battery_voltage;
         msg_battery.time_stamp = tx_time_get();
         om_publish(battery_topic, &msg_battery, sizeof(msg_battery), true, false);
+
+        uint16_t len_tx = fishPrintf(tx_buf, "Voltag=%f\n", battery_voltage);
+        SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len_tx);
+        HAL_UART_Transmit_DMA(&huart10, tx_buf, len_tx);
+        tx_thread_sleep(2);
 
 //        if (om_suber_export(ins_suber, &ins, false) == OM_OK) {
 //            uint16_t len = fishPrintf(tx_buf, "R=%f,P=%f,Y=%f\n", ins.euler[0] * 57.2957795130f,
@@ -138,15 +142,17 @@ uint8_t HeartBeatThreadStack[1024] = {0};
 //            tx_thread_sleep(1);
 //        }
 //
-//        if (om_suber_export(dbg_suber, &dbg, false) == OM_OK) {
-//            uint16_t len = fishPrintf(tx_buf, "dbg0=%f,dbg1=%f,dbg2=%f,dbg3=%f,dbg4=%f,dbg5=%f\n", dbg.dbg[0], dbg.dbg[1], dbg.dbg[2], dbg.dbg[3], dbg.dbg[4], dbg.dbg[5]);
-//            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
-//            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
-//            tx_thread_sleep(5);
-//        }
+        if (om_suber_export(dbg_suber, &dbg, false) == OM_OK) {
+            uint16_t len = fishPrintf(tx_buf, "dbg0=%f,dbg1=%f,dbg2=%f,dbg3=%f,dbg4=%f,dbg5=%f\n", dbg.dbg[0], dbg.dbg[1], dbg.dbg[2], dbg.dbg[3], dbg.dbg[4], dbg.dbg[5]);
+            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
+            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
+            tx_thread_sleep(5);
+        }
 
         if (om_suber_export(remoter_suber, &remoter, false) == OM_OK) {
-            uint16_t len = fishPrintf(tx_buf, "CH0=%f,CH1=%f,CH2=%f,CH3=%f,SWL=%d,SWR=%d,WHEEL=%f,Timestamp=%d\n", remoter.ch_0, remoter.ch_1, remoter.ch_2, remoter.ch_3, remoter.switch_left, remoter.switch_right, remoter.wheel, remoter.timestamp);
+            uint16_t len = fishPrintf(tx_buf, "CH0=%f,CH1=%f,CH2=%f,CH3=%f,SWL=%d,SWR=%d,WHEEL=%f,Timestamp=%d\n",
+                                      remoter.ch_0, remoter.ch_1, remoter.ch_2, remoter.ch_3, remoter.switch_left,
+                                      remoter.switch_right, remoter.wheel, remoter.timestamp);
             SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
             HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
             tx_thread_sleep(5);
@@ -179,7 +185,7 @@ uint8_t HeartBeatThreadStack[1024] = {0};
                 LED.SetAllPixel(Screen::YELLOW, 0.01f);
                 LED.Refresh();
                 tx_thread_sleep(50);
-                LED.SetAllPixel(Screen::BLACK, 0.01f);
+                LED.SetAllPixel(Screen::BLACK);
                 LED.Refresh();
                 tx_thread_sleep(150);
             }
@@ -189,7 +195,8 @@ uint8_t HeartBeatThreadStack[1024] = {0};
             tx_thread_sleep(500);
             LED.SetAllPixel(Screen::BLACK, 0.01f);
             LED.Refresh();
+            tx_thread_sleep(500);
         }
-        tx_thread_sleep(500);
+
     }
 }

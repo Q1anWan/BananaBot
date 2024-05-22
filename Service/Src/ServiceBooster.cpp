@@ -9,12 +9,12 @@
 #include "DL_H723.h"
 #include "ServiceBooster.h"
 //#include "Flash.hpp"
-#include "FishMessage.h"
+#include "BananaMsgs.h"
 #include "om.h"
 
 /*Communication pool*/
 TX_BYTE_POOL ComPool;
-SRAM_SET_RAM_D3 UCHAR COM_PoolBuf[4096] = {0};
+SRAM_SET_RAM_D2 UCHAR COM_PoolBuf[4096] = {0};
 
 /*OneMessage pool*/
 TX_BYTE_POOL MsgPool;
@@ -36,23 +36,9 @@ extern uint8_t IMUTemThreadStack[512];
 extern void IMUTemThreadFun(ULONG initial_input);
 
 
-extern TX_THREAD MsgSchedulerThread;
-extern TX_SEMAPHORE MsgCDCSem;
-extern uint8_t MsgSchedulerStack[1536];
-
-extern void MsgSchedulerFun(ULONG initial_input);
-
-
-extern TX_THREAD MsgSPIThread;
-extern TX_SEMAPHORE MsgSPITCSem;
-extern uint8_t MsgSPIStack[768];
-
-extern void MsgSPIFun(ULONG initial_input);
-
-
 extern TX_THREAD RemoterThread;
 extern TX_SEMAPHORE RemoterThreadSem;
-extern uint8_t RemoterThreadStack[1024];
+extern uint8_t RemoterThreadStack[2048];
 
 extern void RemoterThreadFun(ULONG initial_input);
 
@@ -155,30 +141,6 @@ void Service_Booster(void) {
             4,
             TX_NO_TIME_SLICE,
             TX_AUTO_START);
-
-//    tx_thread_create(
-//            &MsgSchedulerThread,
-//            (CHAR *) "MsgScheduler",
-//            MsgSchedulerFun,
-//            0x0000,
-//            MsgSchedulerStack,
-//            sizeof(MsgSchedulerStack),
-//            5,
-//            5,
-//            TX_NO_TIME_SLICE,
-//            TX_AUTO_START);
-//
-//    tx_thread_create(
-//            &MsgSPIThread,
-//            (CHAR *) "MsgSPI",
-//            MsgSPIFun,
-//            0x0000,
-//            MsgSPIStack,
-//            sizeof(MsgSPIStack),
-//            4,
-//            4,
-//            TX_NO_TIME_SLICE,
-//            TX_AUTO_START);
 }
 
 uint32_t fishPrintf(uint8_t *buf, const char *str, ...) {
