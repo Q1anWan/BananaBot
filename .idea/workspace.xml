@@ -23,15 +23,22 @@
   <component name="ChangeListManager">
     <list default="true" id="acdfb305-f91f-4fb5-bdbe-fed7fc03e98b" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module/IMU/Inc/libbmi088-1.0.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Module/IMU/Inc/libbmi088-1.0.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module/IMU/Src/QuaternionEKF.c" beforeDir="false" afterPath="$PROJECT_DIR$/Module/IMU/Src/QuaternionEKF.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module/LED/Inc/libws2812screen-1.0.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Module/LED/Inc/libws2812screen-1.0.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module/Motor/Src/KF_VelFusion.c" beforeDir="false" afterPath="$PROJECT_DIR$/Module/Motor/Src/KF_VelFusion.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module/PSAI/Inc/libimu-a-1.0.h" beforeDir="false" afterPath="$PROJECT_DIR$/Module/PSAI/Inc/libimu-a-1.1.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BananaBot.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/BananaBot.ioc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/fdcan.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/fdcan.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32h7xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32h7xx_it.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/usart.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/usart.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/dma.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/dma.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/fdcan.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/fdcan.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/stm32h7xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32h7xx_it.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/usart.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/usart.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/Controller.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/Controller.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/KF.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/KF.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/BSP/Inc/Filter.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Module/BSP/Inc/Filter.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Service/Inc/BananaMsgs.h" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Inc/BananaMsgs.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/Inc/ServiceIMU.h" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Inc/ServiceIMU.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Service/Src/ServiceBooster.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Src/ServiceBooster.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Service/Src/ServiceIMU.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Src/ServiceIMU.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/Src/ServiceRemoter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Src/ServiceRemoter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Src/TaskBooster.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskBooster.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Src/TaskHeatbeat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskHeatbeat.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Src/TaskMotor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskMotor.cpp" afterDir="false" />
@@ -49,7 +56,7 @@
       <list>
         <option value="212" />
         <option value="92" />
-        <option value="2126" />
+        <option value="1007" />
       </list>
     </option>
     <option name="columnOrder">
@@ -108,6 +115,11 @@
     <option name="rtosType" value="Azure RTOS ThreadX" />
   </component>
   <component name="RunManager" selected="OpenOCD 下载并运行.OCD BananaBot">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BananaBot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="BananaBot.elf" CONFIG_NAME="RelWithDebInfo-MinGW" RUN_TARGET_PROJECT_NAME="BananaBot" RUN_TARGET_NAME="BananaBot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -184,7 +196,7 @@
       <workItem from="1716218626747" duration="345000" />
       <workItem from="1716218987915" duration="6490000" />
       <workItem from="1716255650699" duration="3480000" />
-      <workItem from="1716273098563" duration="12160000" />
+      <workItem from="1716273098563" duration="34771000" />
     </task>
     <servers />
   </component>
@@ -202,7 +214,7 @@
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
-        <watch expression="pool_error" />
+        <watch expression="data_rx" />
       </configuration>
     </watches-manager>
   </component>

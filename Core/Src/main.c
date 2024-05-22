@@ -195,7 +195,6 @@ int main(void)
   MX_BDMA_Init();
   MX_DMA_Init();
   MX_FDCAN2_Init();
-  MX_FDCAN3_Init();
   MX_SPI2_Init();
   MX_SPI6_Init();
   MX_TIM12_Init();
@@ -203,6 +202,7 @@ int main(void)
   MX_USART10_UART_Init();
   MX_FDCAN1_Init();
   MX_TIM3_Init();
+  MX_UART5_Init();
   /* USER CODE BEGIN 2 */
 //
 //    CANFilterConfig();

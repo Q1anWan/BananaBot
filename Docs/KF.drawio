@@ -1,64 +1,64 @@
 <mxfile host="65bd71144e" scale="5" border="0">
     <diagram id="_ko-vfFGjz10t8iPS-1u" name="Page-1">
-        <mxGraphModel dx="792" dy="445" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
+        <mxGraphModel dx="431" dy="285" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="15" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="15" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="160" y="520" width="160" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="14" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="14" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="360" y="520" width="200" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="12" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="12" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="400" y="440" width="160" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="10" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="10" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="200" y="440" width="160" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="9" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="9" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="40" y="440" width="120" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="$$x_{k}^-=A_{k}\hat{x}_{k-1}$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                <mxCell id="4" value="$$\mathbf{x}_{k}^-=\mathbf{&lt;br&gt;A}_{k}\mathbf{&lt;br&gt;\hat{x}}_{k-1}$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="40" y="440" width="120" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="5" value="$$P_{k}^-=A_{k}P_{k-1}A^T_k+Q$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                <mxCell id="5" value="$$\mathbf{&lt;br&gt;P}_{k}^-=\mathbf{&lt;br&gt;A}_{k}\mathbf{&lt;br&gt;P}_{k-1}\mathbf{&lt;br&gt;A}^\rm{T}_k+\mathbf{&lt;br&gt;Q}$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="200" y="440" width="160" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="6" value="$$K_k=\frac{P_{k}^-H^T_k}{H_kP_k^-H_k^T+R_k}$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                <mxCell id="6" value="$$\mathbf{&lt;br&gt;K}_k=\frac{\mathbf{&lt;br&gt;P}_{k}^-\mathbf{&lt;br&gt;H}^\rm{T}_k}{\mathbf{&lt;br&gt;H}_k\mathbf{&lt;br&gt;P}_k^-\mathbf{&lt;br&gt;H}_k^\rm{T}+\mathbf{&lt;br&gt;R}_k}$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="400" y="440" width="160" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="$$\hat{x}_k=x_k^-+K_k(z_k-H_kx_k^-)$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                <mxCell id="7" value="$$\mathbf{\hat{x}}_k=\mathbf{&lt;br&gt;x}_k^-+\mathbf{K}_k(\mathbf{z}_k-\mathbf{H}_k\mathbf{x}_k^-)$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="360" y="520" width="200" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" value="$$P_k=(I-K_kHk)P_k^-$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                <mxCell id="8" value="$$\mathbf{&lt;br&gt;P}_k=(\mathbf{&lt;br&gt;I}-\mathbf{K}_k\mathbf{&lt;br&gt;H}k)\mathbf{P}_k^-$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="160" y="520" width="160" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="11" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="5">
+                <mxCell id="11" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="4" target="5" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="230" y="500" as="sourcePoint"/>
                         <mxPoint x="280" y="450" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="13" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="5">
+                <mxCell id="13" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="5" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="400" y="510" as="sourcePoint"/>
                         <mxPoint x="400" y="460" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="17" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                <mxCell id="17" value="" style="endArrow=classic;html=1;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="479.89" y="480" as="sourcePoint"/>
                         <mxPoint x="479.89" y="520" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="18" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                <mxCell id="18" value="" style="endArrow=classic;html=1;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="360" y="539.8" as="sourcePoint"/>
                         <mxPoint x="320" y="539.8" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="19" value="" style="endArrow=classic;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="4">
+                <mxCell id="19" value="" style="endArrow=classic;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" target="4" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="160" y="539.8" as="sourcePoint"/>
                         <mxPoint x="120" y="539.8" as="targetPoint"/>

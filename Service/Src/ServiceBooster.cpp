@@ -89,11 +89,11 @@ void Service_Booster(void) {
 //            0
 //    );
 //
-//    tx_semaphore_create(
-//            &RemoterThreadSem,
-//            (CHAR *) "RemoterThreadSem",
-//            0
-//    );
+    tx_semaphore_create(
+            &RemoterThreadSem,
+            (CHAR *) "RemoterThreadSem",
+            0
+    );
 //
 //    tx_semaphore_create(
 //            &MsgSPITCSem,
@@ -143,19 +143,19 @@ void Service_Booster(void) {
             10,
             TX_NO_TIME_SLICE,
             TX_AUTO_START);
-//
-//    tx_thread_create(
-//            &RemoterThread,
-//            (CHAR *) "Remoter",
-//            RemoterThreadFun,
-//            0x0000,
-//            RemoterThreadStack,
-//            sizeof(RemoterThreadStack),
-//            4,
-//            4,
-//            TX_NO_TIME_SLICE,
-//            TX_AUTO_START);
-//
+
+    tx_thread_create(
+            &RemoterThread,
+            (CHAR *) "Remoter",
+            RemoterThreadFun,
+            0x0000,
+            RemoterThreadStack,
+            sizeof(RemoterThreadStack),
+            4,
+            4,
+            TX_NO_TIME_SLICE,
+            TX_AUTO_START);
+
 //    tx_thread_create(
 //            &MsgSchedulerThread,
 //            (CHAR *) "MsgScheduler",

@@ -68,7 +68,19 @@ struct Msg_Thread_Status_t {
 };
 
 struct Msg_DBG_t {
-    float dbg[5];
+    float dbg[6];
+};
+
+struct Msg_Remoter_t {
+    bool online;
+    float ch_0;
+    float ch_1;
+    float ch_2;
+    float ch_3;
+    float wheel;
+    int8_t switch_left;
+    int8_t switch_right;
+    uint64_t timestamp;
 };
 
 #pragma pack(pop)

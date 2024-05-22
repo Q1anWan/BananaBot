@@ -3,7 +3,7 @@
 extern TX_THREAD MotorThread;
 extern uint8_t MotorThreadStack[4096];
 extern void MotorThreadFun(ULONG initial_input);
-extern TX_SEMAPHORE MotorCANFULLSem;
+extern TX_SEMAPHORE MotorCANRecvSem;
 
 extern TX_THREAD ServoThread;
 extern uint8_t ServoThreadStack[256];
@@ -20,8 +20,8 @@ void Task_Booster() {
 
 /**********信号量***********/
 	tx_semaphore_create(
-		&MotorCANFULLSem,
-		(CHAR*)"MotorCANFULLSem",
+		&MotorCANRecvSem,
+		(CHAR*)"MotorCANRecvSem",
 		0
 		);
 

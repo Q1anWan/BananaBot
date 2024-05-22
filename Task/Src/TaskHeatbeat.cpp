@@ -74,16 +74,17 @@ uint8_t HeartBeatThreadStack[1024] = {0};
     Msg_Link_t link;
     Msg_Odometer_t odometer;
     Msg_DBG_t dbg;
+    Msg_Remoter_t remoter;
 
     om_suber_t *ins_suber = om_subscribe(om_find_topic("INS", UINT32_MAX));
     om_suber_t *odm_suber = om_subscribe(om_find_topic("ODOMETER", UINT32_MAX));
     om_suber_t *link_suber = om_subscribe(om_find_topic("LINK", UINT32_MAX));
     om_suber_t *status_suber = om_subscribe(om_find_topic("STATUS", UINT32_MAX));
-
+    om_suber_t *remoter_suber = om_subscribe(om_find_topic("REMOTER", UINT32_MAX));
     om_suber_t *dbg_suber = om_subscribe(om_find_topic("DBG", UINT32_MAX));
 
     uint8_t *tx_buf;
-    tx_byte_allocate(&ComPool, (void **) &tx_buf, 128, TX_NO_WAIT);
+    tx_byte_allocate(&ComPool, (void **) &tx_buf, 512, TX_NO_WAIT);
 
     for (;;) {
         LED.SetAllPixel(Screen::GREEN, 0);
@@ -110,13 +111,18 @@ uint8_t HeartBeatThreadStack[1024] = {0};
         msg_battery.time_stamp = tx_time_get();
         om_publish(battery_topic, &msg_battery, sizeof(msg_battery), true, false);
 
-        if (om_suber_export(ins_suber, &ins, false) == OM_OK) {
-            uint16_t len = fishPrintf(tx_buf, "R=%f,P=%f,Y=%f\n", ins.euler[0] * 57.2957795130f,
-                                      ins.euler[1] * 57.2957795130f, ins.euler[2] * 57.2957795130f);
-            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
-            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
-            tx_thread_sleep(10);
-        }
+//        if (om_suber_export(ins_suber, &ins, false) == OM_OK) {
+//            uint16_t len = fishPrintf(tx_buf, "R=%f,P=%f,Y=%f\n", ins.euler[0] * 57.2957795130f,
+//                                      ins.euler[1] * 57.2957795130f, ins.euler[2] * 57.2957795130f);
+//            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
+//            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
+//            tx_thread_sleep(2);
+//
+////            len = fishPrintf(tx_buf, "A0=%f,A1=%f,A2=%f,G0=%f,G1=%f,G2=%f\n", ins.accel[0], ins.accel[1], ins.accel[2],ins.gyro[0], ins.gyro[1], ins.gyro[2]);
+////            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
+////            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
+////            tx_thread_sleep(2);
+//        }
 
 //        if (om_suber_export(link_suber, &link, false) == OM_OK) {
 //            uint16_t len = fishPrintf(tx_buf, "L0=%f,L1=%f,R0=%f,R1=%f\n", link.angel_left[0], link.angel_left[1], link.angel_right[0], link.angel_right[1]);
@@ -125,18 +131,25 @@ uint8_t HeartBeatThreadStack[1024] = {0};
 //            tx_thread_sleep(10);
 //        }
 //
-        if (om_suber_export(odm_suber, &odometer, false) == OM_OK) {
-            uint16_t len = fishPrintf(tx_buf, "odm_x=%f,odm_v=%f\n", odometer.x, odometer.v);
-            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
-            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
-            tx_thread_sleep(10);
-        }
+//        if (om_suber_export(odm_suber, &odometer, false) == OM_OK) {
+//            uint16_t len = fishPrintf(tx_buf, "odm_x=%f,odm_v=%f\n", odometer.x, odometer.v);
+//            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
+//            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
+//            tx_thread_sleep(1);
+//        }
+//
+//        if (om_suber_export(dbg_suber, &dbg, false) == OM_OK) {
+//            uint16_t len = fishPrintf(tx_buf, "dbg0=%f,dbg1=%f,dbg2=%f,dbg3=%f,dbg4=%f,dbg5=%f\n", dbg.dbg[0], dbg.dbg[1], dbg.dbg[2], dbg.dbg[3], dbg.dbg[4], dbg.dbg[5]);
+//            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
+//            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
+//            tx_thread_sleep(5);
+//        }
 
-        if (om_suber_export(dbg_suber, &dbg, false) == OM_OK) {
-            uint16_t len = fishPrintf(tx_buf, "dbg0=%f,dbg1=%f,dbg2=%f,dbg3=%f,dbg4=%f\n", dbg.dbg[0], dbg.dbg[1], dbg.dbg[2], dbg.dbg[3], dbg.dbg[4]);
+        if (om_suber_export(remoter_suber, &remoter, false) == OM_OK) {
+            uint16_t len = fishPrintf(tx_buf, "CH0=%f,CH1=%f,CH2=%f,CH3=%f,SWL=%d,SWR=%d,WHEEL=%f,Timestamp=%d\n", remoter.ch_0, remoter.ch_1, remoter.ch_2, remoter.ch_3, remoter.switch_left, remoter.switch_right, remoter.wheel, remoter.timestamp);
             SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
             HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
-            tx_thread_sleep(10);
+            tx_thread_sleep(5);
         }
 
         bool is_warning = false;

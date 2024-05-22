@@ -34,6 +34,7 @@ uint8_t IMUThreadStack[1024] = {0};
 
 __PACKED_STRUCT imu_cal_t {
     float gyro[3];
+    float accel_k;
     uint8_t crc;
 };
 
@@ -53,7 +54,7 @@ __PACKED_STRUCT imu_cal_t {
     float gyro_offset[3] = {0};
     float quaternion[4] = {1.0f, 0.0f, 0.0f, 0.0f};
 
-    cFilterBTW2_100Hz filter[3];
+    cFilterBTW2_1000Hz_100Hz filter[3];
     Msg_INS_t msg_ins{};
     imu_cal_t imu_cal{};
 
@@ -88,33 +89,44 @@ __PACKED_STRUCT imu_cal_t {
             LL_TIM_EnableCounter(TIM12);
         }
 
-        accel[0] = 19;
-        accel[1] = 0;
-        LL_TIM_OC_SetCompareCH2(TIM12, accel[0]);
+        uint16_t cnt[2];
+        cnt[0] = 19;
+        cnt[1] = 0;
+        LL_TIM_OC_SetCompareCH2(TIM12, cnt[0]);
         tx_thread_sleep(300);
         LL_TIM_OC_SetCompareCH2(TIM12, 0);
 
-        gyro_offset[0] = 0.0f;
-        gyro_offset[1] = 0.0f;
-        gyro_offset[2] = 0.0f;
-
+        //Wait for IMU Heat
         while (bmi088.GetTem() < 49.0f) {
             tx_thread_sleep(100);
         }
         tx_thread_sleep(5000);
+
+        //Pre-set
+        gyro_offset[0] = 0.0f;
+        gyro_offset[1] = 0.0f;
+        gyro_offset[2] = 0.0f;
+        accel_f_norm[0] = 1.0f/LSB_ACC_16B_12G;
+
         /*Calibrate Gyro for 100 s*/
         for (uint16_t i = 0; i < 10000; i++) {
             bmi088.GetGyro((uint8_t *) gyro);
-            gyro_offset[0] -= (float) gyro[0] / 10000.0f;
-            gyro_offset[1] -= (float) gyro[1] / 10000.0f;
-            gyro_offset[2] -= (float) gyro[2] / 10000.0f;
-            if (++accel[1] == 100) {
-                LL_TIM_OC_SetCompareCH2(TIM12, accel[0]);
-                accel[0] = accel[0] ? 0 : 19;
-                accel[1] = 0;
+            bmi088.GetAccel((uint8_t *) accel);
+
+            gyro_offset[0] = 0.99f*gyro_offset[0] - 0.01f*static_cast<float>(gyro[0]);
+            gyro_offset[1] = 0.99f*gyro_offset[1] - 0.01f*static_cast<float>(gyro[1]);
+            gyro_offset[2] = 0.99f*gyro_offset[2] - 0.01f*static_cast<float>(gyro[2]);
+
+            accel_f_norm[0] = 0.99f*accel_f_norm[0] + 0.01f*sqrtf(static_cast<float>(accel[0]*accel[0]+accel[1]*accel[1]+accel[2]*accel[2]));
+
+            if (++cnt[1] == 100) {
+                LL_TIM_OC_SetCompareCH2(TIM12, cnt[0]);
+                cnt[0] = cnt[0] ? 0 : 19;
+                cnt[1] = 0;
             }
             tx_thread_sleep(10);
         }
+
         LL_TIM_OC_SetCompareCH2(TIM12, 19);
         __disable_interrupts();
         FLASH_EraseInitTypeDef EraseInitStruct{.TypeErase=FLASH_TYPEERASE_SECTORS, .Banks=FLASH_BANK_1, .Sector=FLASH_STORAGE_SECTOR, .NbSectors=1, .VoltageRange=FLASH_VOLTAGE_RANGE_3};
@@ -125,6 +137,7 @@ __PACKED_STRUCT imu_cal_t {
         imu_cal.gyro[0] = gyro_offset[0];
         imu_cal.gyro[1] = gyro_offset[1];
         imu_cal.gyro[2] = gyro_offset[2];
+        imu_cal.accel_k = 1.0f / (accel_f_norm[0]*static_cast<float>(LSB_ACC_16B_12G));
         imu_cal.crc = cal_crc8_table((uint8_t *) &imu_cal, sizeof(imu_cal_t) - 1);
         memcpy(write_buf, &imu_cal, sizeof(imu_cal_t));
         if (HAL_FLASHEx_Erase(&EraseInitStruct, &error_msg) != HAL_OK) {
@@ -152,9 +165,9 @@ __PACKED_STRUCT imu_cal_t {
 
         bmi088.GetAccel((uint8_t *) accel);
         bmi088.GetGyro((uint8_t *) gyro);
-        accel_f_norm[0] = static_cast<float>(accel[0]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY;
-        accel_f_norm[1] = static_cast<float>(accel[1]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY;
-        accel_f_norm[2] = static_cast<float>(accel[2]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY;
+        accel_f_norm[0] = static_cast<float>(accel[0]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
+        accel_f_norm[1] = static_cast<float>(accel[1]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
+        accel_f_norm[2] = static_cast<float>(accel[2]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
 
         /*100Hz LowPass BWT 2-Order*/
         /*Watch out! Orientation R-F-U*/
@@ -162,9 +175,9 @@ __PACKED_STRUCT imu_cal_t {
         accel_f_norm[1] = filter[1].Update(accel_f_norm[1]);
         accel_f_norm[2] = filter[2].Update(accel_f_norm[2]);
 
-        gyro_f[0] = static_cast<float> (gyro[0]) * static_cast<float> (LSB_GYRO_16B_1000_R);
-        gyro_f[1] = static_cast<float> (gyro[1]) * static_cast<float> (LSB_GYRO_16B_1000_R);
-        gyro_f[2] = static_cast<float> (gyro[2]) * static_cast<float> (LSB_GYRO_16B_1000_R);
+        gyro_f[0] = (static_cast<float> (gyro[0]) + imu_cal.gyro[0]) * static_cast<float> (LSB_GYRO_16B_1000_R);
+        gyro_f[1] = (static_cast<float> (gyro[1]) + imu_cal.gyro[1]) * static_cast<float> (LSB_GYRO_16B_1000_R);
+        gyro_f[2] = (static_cast<float> (gyro[2]) + imu_cal.gyro[2]) * static_cast<float> (LSB_GYRO_16B_1000_R);
 
         IMU_QuaternionEKF_Update(quaternion, gyro_f[0], gyro_f[1], gyro_f[2], accel_f_norm[0], accel_f_norm[1],
                                  accel_f_norm[2],
@@ -207,8 +220,8 @@ extern TX_BYTE_POOL ComPool;
 [[noreturn]] void IMUTemThreadFun(ULONG initial_input) {
     UNUSED(initial_input);
     float tmp_last;
-//    uint8_t *tx_buf;
-//    tx_byte_allocate(&ComPool, (void **) &tx_buf, 128, TX_NO_WAIT);
+    Msg_DBG_t dbg = {};
+    om_topic_t *dbg_topic = om_find_topic("DBG", UINT32_MAX);
 
     cDWT dwt;
     PID_Inc_f pid(8.0f, 0.5f, 3.0f, 0.0f, 0.32, 49, 0, false, 0, true, 1.5f);
@@ -241,9 +254,9 @@ extern TX_BYTE_POOL ComPool;
     for (;;) {
         tx_thread_sleep(320);
         LL_TIM_OC_SetCompareCH4(TIM3, (uint32_t) pid.Calculate(imu_handle->GetTem(), dwt.dt_sec()));
-//        fishPrintf(tx_buf, "tem=%f,cmp=%f\n", imu_handle->GetTem(), pid.Out());
-//        SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, strlen((char *) tx_buf));
-//        HAL_UART_Transmit_DMA(&huart10, tx_buf, strlen((char *) tx_buf));
+        dbg.dbg[0] = imu_handle->GetTem();
+        dbg.dbg[1] = pid.Out();
+        om_publish(dbg_topic, &dbg, sizeof(dbg), true, false);
     }
 }
 

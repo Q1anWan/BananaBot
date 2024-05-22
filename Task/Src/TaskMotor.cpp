@@ -2,6 +2,7 @@
 
 #include "DL_H723.h"
 #include "DWT.hpp"
+#include "Filter.hpp"
 
 #include "fdcan.h"
 
@@ -67,7 +68,7 @@ protected:
 
 public:
     /*通讯丢包计数*/
-    uint32_t loseCom = 5;
+    uint32_t loseCom = 0;
 
     /*减速箱编码器计算, 按照设定坐标系进行*/
     void UpdateMotor() {
@@ -160,7 +161,7 @@ CAN_Rev_t RxData1;
 CAN_Rev_t RxData2;
 uint8_t CAN_cnt;
 
-TX_SEMAPHORE MotorCANFULLSem;
+TX_SEMAPHORE MotorCANRecvSem;
 
 TX_THREAD MotorThread;
 uint8_t MotorThreadStack[4096] = {0};
@@ -178,18 +179,20 @@ uint8_t MotorThreadStack[4096] = {0};
     cDM4310 MotorUnit[6];
     cLinkSolver Link[2];//0L 1R
     cVelFusionKF kf;
+    cFilterBTW2_1000Hz_100Hz wheel_filter;
+    tx_thread_sleep(3000);
 
-    MotorUnit[0].SetID(&hfdcan1, 0x00);
+    MotorUnit[0].SetID(&hfdcan2, 0x01);
     MotorUnit[0].SetMotorMode(0, 0);//左前
-    MotorUnit[1].SetID(&hfdcan1, 0x01);
+    MotorUnit[1].SetID(&hfdcan2, 0x02);
     MotorUnit[1].SetMotorMode(0, 1);//左后
-    MotorUnit[2].SetID(&hfdcan2, 0x02);
+    MotorUnit[2].SetID(&hfdcan1, 0x03);
     MotorUnit[2].SetMotorMode(0, 0);//左轮
-    MotorUnit[3].SetID(&hfdcan1, 0x03);
+    MotorUnit[3].SetID(&hfdcan2, 0x04);
     MotorUnit[3].SetMotorMode(1, 0);//右前
-    MotorUnit[4].SetID(&hfdcan2, 0x04);
+    MotorUnit[4].SetID(&hfdcan1, 0x05);
     MotorUnit[4].SetMotorMode(1, 1);//右后
-    MotorUnit[5].SetID(&hfdcan2, 0x05);
+    MotorUnit[5].SetID(&hfdcan1, 0x06);
     MotorUnit[5].SetMotorMode(1, 0);//右轮
 
     tx_thread_sleep(150);
@@ -210,6 +213,7 @@ uint8_t MotorThreadStack[4096] = {0};
     for (auto &motor: MotorUnit) {
         motor.SetTorque(0);
         motor.MITTransmit();
+        tx_thread_sleep(2);
     }
 
     Msg_Motor_Ctr_t motor_ctr = {};
@@ -217,18 +221,16 @@ uint8_t MotorThreadStack[4096] = {0};
     om_suber_t *motor_recv_suber = om_subscribe(om_find_topic("MOTOR_CTR", UINT32_MAX));
     om_suber_t *ins_suber = om_subscribe(om_find_topic("INS", UINT32_MAX));
 
-    Msg_DBG_t dbg = {};
-    om_topic_t *dbg_topic = om_find_topic("DBG", UINT32_MAX);
+//    Msg_DBG_t dbg = {};
+//    om_topic_t *dbg_topic = om_find_topic("DBG", UINT32_MAX);
 
     ULONG time;
     ULONG last_topic_time = tx_time_get();
     bool last_enable = true;
-    RxData1.cnt = 0;
-    RxData2.cnt = 0;
-    CAN_cnt = 0;
+
     for (;;) {
         time = tx_time_get();
-        if (om_suber_export(motor_recv_suber, &motor_ctr, false) != OM_OK) {
+        if (om_suber_export(motor_recv_suber, &motor_ctr, false) == OM_OK) {
             last_topic_time = tx_time_get();
             if (motor_ctr.enable) {
                 for (uint8_t i = 0; i < 6; i++) {
@@ -246,40 +248,47 @@ uint8_t MotorThreadStack[4096] = {0};
             if (motor_ctr.enable) {
                 for (auto &motor: MotorUnit) {
                     motor.EnableMotor();
+                    tx_thread_sleep(1);
                 }
             } else {
                 for (auto &motor: MotorUnit) {
                     motor.DisableMotor();
+                    tx_thread_sleep(1);
                 }
             }
         }
         last_enable = motor_ctr.enable;
 
+        RxData1.cnt = 0;
+        RxData2.cnt = 0;
+        CAN_cnt = 0;
+
         for (auto &motor: MotorUnit) {
             motor.MITTransmit();
         }
 
-        if (tx_semaphore_get(&MotorCANFULLSem, 2) == TX_NO_INSTANCE) {
+        if (tx_semaphore_get(&MotorCANRecvSem, 2)) {
             status_msg.thread_id = Msg_ThreadID::MOTOR;
             status_msg.status = Msg_ErrorStatus::WARNING;
             om_publish(status_topic, &status_msg, sizeof(status_msg), true, false);
         }
 
-        for (uint8_t i = 0; i < RxData1.cnt; i++) {
-            MotorUnit[RxData1.data[i][0] & 0x0F].MessageDecode(RxData1.data[i]);
+        uint8_t id;
+        for (int i = 0; i < 3; ++i) {
+            id = static_cast<uint8_t>(RxData1.data[i][0] & 0x0F) - 1;
+            MotorUnit[id].MessageDecode(RxData1.data[i]);
+        }
+        for (int i = 0; i < 3; ++i) {
+            id = static_cast<uint8_t>(RxData2.data[i][0] & 0x0F) - 1;
+            MotorUnit[id].MessageDecode(RxData2.data[i]);
         }
 
-        for (uint8_t i = 0; i < RxData2.cnt; i++) {
-            MotorUnit[RxData2.data[i][0] & 0x0F].MessageDecode(RxData2.data[i]);
+        for (auto &motor: MotorUnit) {
+            motor.UpdateMotor();
         }
-
-        MotorUnit[0].UpdateMotor();
-        MotorUnit[1].UpdateMotor();
-        MotorUnit[3].UpdateMotor();
-        MotorUnit[4].UpdateMotor();
 
         //融合里程计
-        float vel_temp = 0.5f * (MotorUnit[0].GetVelocity() + MotorUnit[5].GetVelocity()) * WHEEL_R;
+        float vel_temp = 0.5f * (MotorUnit[2].GetVelocity() + MotorUnit[5].GetVelocity()) * WHEEL_R;
         if (om_suber_export(ins_suber, &ins, false) == OM_OK) {
             float q_inv[4] = {ins.quaternion[0], -ins.quaternion[1], -ins.quaternion[2], -ins.quaternion[3]};
             float a_body[4] = {0, ins.accel[0], ins.accel[1], ins.accel[2]};
@@ -302,12 +311,12 @@ uint8_t MotorThreadStack[4096] = {0};
         link_msg.angel_right[1] = MotorUnit[4].GetRadian();
         om_publish(link_topic, &link_msg, sizeof(link_msg), true, false);
 
-        tx_thread_sleep(2 - tx_time_get() + time);
+        uint8_t time_to_delay = tx_time_get() - time;
+        if (time_to_delay < 2) {
+            tx_thread_sleep(2 - time_to_delay);
+        }
     }
 }
-
-TX_THREAD MotorWThread;
-uint8_t MotorWThreadStack[2048] = {0};
 
 /*
 	在下面的两个FDCAN接收回调函数里面，选一个处理RM电机，选一个处理云台发送回来的数据
@@ -320,18 +329,19 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
         RxData1.cnt = 0;
     }
     if (++CAN_cnt == 0x06) {
-        tx_semaphore_put(&MotorCANFULLSem);
+        tx_semaphore_put(&MotorCANRecvSem);
     }
+
 }
 
 void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo1ITs) {
     FDCAN_RxHeaderTypeDef RxHeader;
-    HAL_FDCAN_GetRxMessage(&hfdcan2, FDCAN_RX_FIFO0, &RxHeader, RxData2.data[RxData2.cnt]);
+    HAL_FDCAN_GetRxMessage(&hfdcan2, FDCAN_RX_FIFO1, &RxHeader, RxData2.data[RxData2.cnt]);
     if (++RxData2.cnt == 3) {
         RxData2.cnt = 0;
     }
     if (++CAN_cnt == 0x06) {
-        tx_semaphore_put(&MotorCANFULLSem);
+        tx_semaphore_put(&MotorCANRecvSem);
     }
 }
 
@@ -339,7 +349,7 @@ void CANFilterConfig(void) {
     FDCAN_FilterTypeDef Filter;
     Filter.IdType = FDCAN_STANDARD_ID;
     Filter.FilterIndex = 0;
-    Filter.FilterConfig = FDCAN_FILTER_TO_RXFIFO1;
+    Filter.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
     Filter.FilterType = FDCAN_FILTER_MASK;
     Filter.FilterID1 = 0x0000;
     Filter.FilterID2 = 0x0000;
@@ -348,7 +358,7 @@ void CANFilterConfig(void) {
     HAL_FDCAN_ConfigFilter(&hfdcan1, &Filter);
     HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
 
-
+    Filter.FilterConfig = FDCAN_FILTER_TO_RXFIFO1;
     HAL_FDCAN_ConfigFilter(&hfdcan2, &Filter);
     HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO1_NEW_MESSAGE, 0);
 
