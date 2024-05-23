@@ -29,19 +29,31 @@ SRAM_SET_RAM_D3 uint8_t data_rx[32];
     UNUSED(initial_input);
     /* Remoter Topic */
     om_topic_t *remoter_topic = om_config_topic(nullptr, "CA", "REMOTER", sizeof(Msg_Remoter_t));
+    om_topic_t *status_topic = om_find_topic("STATUS", UINT32_MAX);
     Msg_Remoter_t msg_remoter{};
-
+    Msg_Thread_Status_t status_msg{};
 
     float rmt_half_rev = 2.0f / (float) (BUS_MAX - BUS_MIN);
     int16_t rmt_mid = (BUS_MAX + BUS_MIN) / 2;
     int16_t tmp_buf[7] = {0};
-
     HAL_UARTEx_ReceiveToIdle_DMA(&huart5, data_rx, RCV_BUS_SIZE);
     for (;;) {
-        if (tx_semaphore_get(&RemoterThreadSem, 100) != TX_SUCCESS) {
-            memset(&msg_remoter, 0, sizeof(Msg_Remoter_t));
+        while (tx_semaphore_get(&RemoterThreadSem, 100) != TX_SUCCESS) {
+            msg_remoter.ch_0 = 0.0f;
+            msg_remoter.ch_1 = 0.0f;
+            msg_remoter.ch_2 = 0.0f;
+            msg_remoter.ch_3 = 0.0f;
+            msg_remoter.wheel = 0.0f;
+            msg_remoter.online = false;
+            msg_remoter.switch_left = 3;
+            msg_remoter.switch_right = 3;
+            msg_remoter.timestamp = tx_time_get();
             om_publish(remoter_topic, &msg_remoter, sizeof(msg_remoter), true, false);
-            tx_semaphore_get(&RemoterThreadSem, TX_WAIT_FOREVER);
+            tx_thread_sleep(3);
+            status_msg.thread_id = Msg_ThreadID::REMOTER;
+            status_msg.status = Msg_ErrorStatus::ERROR;
+            om_publish(status_topic, &status_msg, sizeof(status_msg), true, false);
+            HAL_UARTEx_ReceiveToIdle_DMA(&huart5, data_rx, RCV_BUS_SIZE);
         }
 
         if (size_test == RCV_BUS_SIZE) {
@@ -79,6 +91,9 @@ SRAM_SET_RAM_D3 uint8_t data_rx[32];
 
             if(msg_remoter.ch_1<-1.1){
                 msg_remoter.online = false;
+                status_msg.thread_id = Msg_ThreadID::REMOTER;
+                status_msg.status = Msg_ErrorStatus::ERROR;
+                om_publish(status_topic, &status_msg, sizeof(status_msg), true, false);
             }
             else{
                 msg_remoter.online = true;

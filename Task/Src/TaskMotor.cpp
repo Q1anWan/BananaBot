@@ -18,7 +18,7 @@
 
 void CANFilterConfig(void);
 
-#define WHEEL_R 0.06f
+#define WHEEL_R 0.063f
 
 class cDM4310 : public cDMMotor {
     /*FDCAN Driver*/
@@ -167,6 +167,8 @@ TX_SEMAPHORE MotorCANRecvSem;
 TX_THREAD MotorThread;
 uint8_t MotorThreadStack[4096] = {0};
 
+    float VEL_DM4310;
+
 [[noreturn]] void MotorThreadFun(ULONG initial_input) {
     om_config_topic(nullptr, "CA", "MOTOR_CTR", sizeof(Msg_Motor_Ctr_t));
     om_topic_t *odometer_topic = om_config_topic(nullptr, "CA", "ODOMETER", sizeof(Msg_Odometer_t));
@@ -238,6 +240,11 @@ uint8_t MotorThreadStack[4096] = {0};
                     MotorUnit[i].SetTorque(motor_ctr.torque[i]);
                 }
             }
+            else{
+                for (auto &motor: MotorUnit) {
+                    motor.SetTorque(0);
+                }
+            }
         } else if (tx_time_get() - last_topic_time > 500) {
             for (auto &motor: MotorUnit) {
                 motor.SetTorque(0);
@@ -270,7 +277,7 @@ uint8_t MotorThreadStack[4096] = {0};
 
         if (tx_semaphore_get(&MotorCANRecvSem, 2)) {
             status_msg.thread_id = Msg_ThreadID::MOTOR;
-            status_msg.status = Msg_ErrorStatus::WARNING;
+            status_msg.status = Msg_ErrorStatus::ERROR;
             om_publish(status_topic, &status_msg, sizeof(status_msg), true, false);
         }
 
@@ -301,6 +308,7 @@ uint8_t MotorThreadStack[4096] = {0};
                       arm_cos_f32(atan2f(a_world[2], a_world[1]) - ins.euler[2]);
             kf.UpdateKalman(vel_temp, a);
         }
+        VEL_DM4310 = vel_temp;
         odometer_msg.v = kf.GetVhat();
         odometer_msg.x = kf.GetXhat();
         om_publish(odometer_topic, &odometer_msg, sizeof(odometer_msg), true, false);

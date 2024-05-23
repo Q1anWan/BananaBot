@@ -143,7 +143,8 @@ uint8_t HeartBeatThreadStack[2048] = {0};
 //        }
 //
         if (om_suber_export(dbg_suber, &dbg, false) == OM_OK) {
-            uint16_t len = fishPrintf(tx_buf, "dbg0=%f,dbg1=%f,dbg2=%f,dbg3=%f,dbg4=%f,dbg5=%f\n", dbg.dbg[0], dbg.dbg[1], dbg.dbg[2], dbg.dbg[3], dbg.dbg[4], dbg.dbg[5]);
+            uint16_t len = fishPrintf(tx_buf, "dbg0=%f,dbg1=%f,dbg2=%f,dbg3=%f,dbg4=%f,dbg5=%f\n", dbg.dbg[0],
+                                      dbg.dbg[1], dbg.dbg[2], dbg.dbg[3], dbg.dbg[4], dbg.dbg[5]);
             SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
             HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
             tx_thread_sleep(5);
@@ -162,11 +163,11 @@ uint8_t HeartBeatThreadStack[2048] = {0};
         bool is_error = false;
         uint8_t id = 0;
         while (om_suber_export(status_suber, &status, false) == OM_OK) {
-            if (status.status == Msg_ErrorStatus::WARNING && !is_error) {
-                is_warning = true;
-                id = static_cast<uint8_t>(status.thread_id);
-            } else if (status.status == Msg_ErrorStatus::ERROR) {
+            if (status.status == Msg_ErrorStatus::ERROR) {
                 is_error = true;
+                id = static_cast<uint8_t>(status.thread_id);
+            } else if (status.status == Msg_ErrorStatus::WARNING) {
+                is_warning = true;
                 id = static_cast<uint8_t>(status.thread_id);
             }
         }
@@ -195,8 +196,8 @@ uint8_t HeartBeatThreadStack[2048] = {0};
             tx_thread_sleep(500);
             LED.SetAllPixel(Screen::BLACK, 0.01f);
             LED.Refresh();
-            tx_thread_sleep(500);
         }
+        tx_thread_sleep(500);
 
     }
 }
