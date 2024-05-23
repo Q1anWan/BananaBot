@@ -17,7 +17,7 @@
 
 
 TX_THREAD ControlThread;
-uint8_t ControlThreadStack[2048] = {0};
+uint8_t ControlThreadStack[4096] = {0};
 float PID_P_T = 0.07f;
 float PID_I_T = 0.0f;
 float PID_D_T = 0.015f;
@@ -45,7 +45,7 @@ float X3;
 float X4;
 float X5;
 uint64_t FREQ;
-
+float ref_v = 0.0f;
 //{p800 d0.0005}
 /*Close-loop control wheels*/
 [[noreturn]] void ControlThreadFun(ULONG initial_input) {
@@ -91,6 +91,7 @@ uint64_t FREQ;
     TASK_CONTROL::cLQR lqr;
     lqr.InitMatX(&mat_target, &mat_observed);
     float x0_last = 0;
+
     for (;;) {
         FREQ = tx_time_get();
         om_suber_export(remoter_suber, &remoter, false);
@@ -100,7 +101,7 @@ uint64_t FREQ;
 
         pid_phi0.SetRef(0.0f);
 //        pid_phi0.SetParam(0.07, 0, 0.015, 0.0f, 0.0f, 5, -5, false, false, false, 0.0f);
-        pid_phi0.SetParam(0.04, 0, 0.008, 0.0f, 0.0f, 5, -5, false, false, false, 0.0f);
+        pid_phi0.SetParam(0.05, 0, 0.0f, 0.0f, 0.0f, 5, -5, false, false, false, 0.0f);
         LEG_LEN_TARGET = leg_length_target;
 
         link_solver[0].InputLink(link.angel_left[0], link.angel_left[1]);
@@ -109,7 +110,7 @@ uint64_t FREQ;
         link_solver[1].Resolve();
 
         observed_x[0] = -(0.5f*(link_solver[0].GetPendulumRadian()+link_solver[1].GetPendulumRadian()) + ins.euler[1] - PI/2.0f);
-        observed_x[1] = -(0.2f*observed_x[1] + 400.0f*(observed_x[0] - x0_last));
+        observed_x[1] = 0.2f*observed_x[1] - 400.0f*(observed_x[0] - x0_last);
         observed_x[2] = odometer.x;
         observed_x[3] = odometer.v;
         observed_x[4] = ins.euler[1];
@@ -124,6 +125,7 @@ uint64_t FREQ;
         X4 = observed_x[4];
         X5 = observed_x[5];
 
+        ref_v = remoter.ch_1*0.5f;
         if ((!remoter.online) || (remoter.switch_left != 1)) {
             for (auto &i: motor.torque) {
                 i = 0;
@@ -189,10 +191,12 @@ uint64_t FREQ;
             force_torque_right[1] -= pid_phi0.Out();
 
 
+
 //            //Balance LQR
             target_x[0] = 0.0f;
             target_x[1] = 0.0f;
-            target_x[3] = 0.0f;
+            target_x[2] = target_x[2] - ref_v/500.0f;
+            target_x[3] = -ref_v;
             target_x[4] = 0.0f;
             target_x[5] = 0.0f;
 
@@ -226,17 +230,17 @@ uint64_t FREQ;
             motor.torque[2] = wheel_torque[0];
             motor.torque[5] = wheel_torque[1];
 
-            if (motor.torque[0] > 4.0f) {
-                motor.torque[0] = 4.0f;
-            } else if (motor.torque[0] < -4.0f) {
-                motor.torque[0] = -4.0f;
-            }
-
-            if (motor.torque[1] > 4.0f) {
-                motor.torque[1] = 4.0f;
-            } else if (motor.torque[1] < -4.0f) {
-                motor.torque[1] = -4.0f;
-            }
+//            if (motor.torque[0] > 4.0f) {
+//                motor.torque[0] = 4.0f;
+//            } else if (motor.torque[0] < -4.0f) {
+//                motor.torque[0] = -4.0f;
+//            }
+//
+//            if (motor.torque[1] > 4.0f) {
+//                motor.torque[1] = 4.0f;
+//            } else if (motor.torque[1] < -4.0f) {
+//                motor.torque[1] = -4.0f;
+//            }
 
 //            if (motor.torque[2] > 4.0f) {
 //                motor.torque[2] = 4.0f;
@@ -244,17 +248,17 @@ uint64_t FREQ;
 //                motor.torque[2] = -4.0f;
 //            }
 
-            if (motor.torque[3] > 4.0f) {
-                motor.torque[3] = 4.0f;
-            } else if (motor.torque[3] < -4.0f) {
-                motor.torque[3] = -4.0f;
-            }
-
-            if (motor.torque[4] > 4.0f) {
-                motor.torque[4] = 4.0f;
-            } else if (motor.torque[4] < -4.0f) {
-                motor.torque[4] = -4.0f;
-            }
+//            if (motor.torque[3] > 4.0f) {
+//                motor.torque[3] = 4.0f;
+//            } else if (motor.torque[3] < -4.0f) {
+//                motor.torque[3] = -4.0f;
+//            }
+//
+//            if (motor.torque[4] > 4.0f) {
+//                motor.torque[4] = 4.0f;
+//            } else if (motor.torque[4] < -4.0f) {
+//                motor.torque[4] = -4.0f;
+//            }
 
 //            if (motor.torque[5] > 4.0f) {
 //                motor.torque[5] = 4.0f;

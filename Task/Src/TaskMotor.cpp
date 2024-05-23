@@ -167,7 +167,10 @@ TX_SEMAPHORE MotorCANRecvSem;
 TX_THREAD MotorThread;
 uint8_t MotorThreadStack[4096] = {0};
 
-    float VEL_DM4310;
+float VEL_DM4310;
+
+bool MOTOR_ONLINE[6] = {0, 0, 0, 0, 0,0};
+
 
 [[noreturn]] void MotorThreadFun(ULONG initial_input) {
     om_config_topic(nullptr, "CA", "MOTOR_CTR", sizeof(Msg_Motor_Ctr_t));
@@ -233,14 +236,14 @@ uint8_t MotorThreadStack[4096] = {0};
 
     for (;;) {
         time = tx_time_get();
+        bool update_flag[6] = {0, 0, 0, 0, 0,0};
         if (om_suber_export(motor_recv_suber, &motor_ctr, false) == OM_OK) {
             last_topic_time = tx_time_get();
             if (motor_ctr.enable) {
                 for (uint8_t i = 0; i < 6; i++) {
                     MotorUnit[i].SetTorque(motor_ctr.torque[i]);
                 }
-            }
-            else{
+            } else {
                 for (auto &motor: MotorUnit) {
                     motor.SetTorque(0);
                 }
@@ -285,11 +288,20 @@ uint8_t MotorThreadStack[4096] = {0};
         for (int i = 0; i < 3; ++i) {
             id = static_cast<uint8_t>(RxData1.data[i][0] & 0x0F) - 1;
             MotorUnit[id].MessageDecode(RxData1.data[i]);
+            update_flag[id] = true;
         }
         for (int i = 0; i < 3; ++i) {
             id = static_cast<uint8_t>(RxData2.data[i][0] & 0x0F) - 1;
             MotorUnit[id].MessageDecode(RxData2.data[i]);
+            update_flag[id] = true;
         }
+
+        for (int i = 0; i < 6; ++i) {
+            if (!update_flag[i]) {
+                MOTOR_ONLINE[i] = true;
+            }
+        }
+
 
         for (auto &motor: MotorUnit) {
             motor.UpdateMotor();

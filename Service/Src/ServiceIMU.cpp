@@ -67,6 +67,7 @@ __PACKED_STRUCT imu_cal_t {
         gyro_offset[0] = 0.0f;
         gyro_offset[1] = 0.0f;
         gyro_offset[2] = 0.0f;
+        imu_cal.accel_k = 1.0f;
     }
 
     cSPI spi_accel(&hspi2, SPI2_CS0_GPIO_Port, SPI2_CS0_Pin, UINT32_MAX);
