@@ -23,10 +23,10 @@
   <component name="ChangeListManager">
     <list default="true" id="acdfb305-f91f-4fb5-bdbe-fed7fc03e98b" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module/Motor/Src/LinkSolver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Module/Motor/Src/LinkSolver.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/Src/ServiceRemoter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Src/ServiceRemoter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/Src/ServiceIMU.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Src/ServiceIMU.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Inc/TaskControl.h" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Inc/TaskControl.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Src/TaskControl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskControl.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task/Src/TaskMotor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskMotor.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/matlab/BananaBotLQR.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/BananaBotLQR.m" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -179,7 +179,7 @@
       <workItem from="1716255650699" duration="3480000" />
       <workItem from="1716273098563" duration="49459000" />
       <workItem from="1716432099441" duration="36042000" />
-      <workItem from="1716528974511" duration="9950000" />
+      <workItem from="1716528974511" duration="18530000" />
     </task>
     <servers />
   </component>
@@ -195,20 +195,6 @@
     <isAutomaticReloadCMake value="true" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Service/Src/ServiceIMU.cpp</url>
-          <line>62</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Service/Src/ServiceIMU.cpp</url>
-          <line>63</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
         <watch expression="data_rx" />

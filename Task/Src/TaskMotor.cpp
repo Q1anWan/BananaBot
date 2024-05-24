@@ -82,10 +82,6 @@ public:
         if (this->MotorMode[1]) { tmp = tmp + PI - this->LimitOffset; }
         else { tmp = tmp + this->LimitOffset; }
 
-        /* 归一化到 [0,2PI) */
-        if (tmp < 0) { tmp = tmp + 2 * PI; }
-        else if (tmp > 2 * PI) { tmp = tmp - 2 * PI; }
-        else { tmp = tmp; }
         this->Radian = tmp;
     }
 
@@ -104,7 +100,7 @@ public:
     }
 };
 
-#define t  0.002f
+#define t  0.001f
 #define t2 0.000001f
 #define t3 0.000000001f
 #define t4 0.000000000001f
@@ -183,9 +179,8 @@ bool MOTOR_ONLINE[6] = {0, 0, 0, 0, 0,0};
 
     CANFilterConfig();
     cDM4310 MotorUnit[6];
-    cLinkSolver Link[2];//0L 1R
     cVelFusionKF kf;
-    cFilterBTW2_1000Hz_100Hz wheel_filter;
+    cFilterBTW2_1000Hz_100Hz filter[8];
     tx_thread_sleep(3000);
 
     MotorUnit[0].SetID(&hfdcan2, 0x01);
@@ -236,7 +231,7 @@ bool MOTOR_ONLINE[6] = {0, 0, 0, 0, 0,0};
 
     for (;;) {
         time = tx_time_get();
-        bool update_flag[6] = {0, 0, 0, 0, 0,0};
+//        bool update_flag[6] = {0, 0, 0, 0, 0,0};
         if (om_suber_export(motor_recv_suber, &motor_ctr, false) == OM_OK) {
             last_topic_time = tx_time_get();
             if (motor_ctr.enable) {
@@ -278,7 +273,7 @@ bool MOTOR_ONLINE[6] = {0, 0, 0, 0, 0,0};
             motor.MITTransmit();
         }
 
-        if (tx_semaphore_get(&MotorCANRecvSem, 2)) {
+        if (tx_semaphore_get(&MotorCANRecvSem, 1)) {
             status_msg.thread_id = Msg_ThreadID::MOTOR;
             status_msg.status = Msg_ErrorStatus::ERROR;
             om_publish(status_topic, &status_msg, sizeof(status_msg), true, false);
@@ -288,20 +283,19 @@ bool MOTOR_ONLINE[6] = {0, 0, 0, 0, 0,0};
         for (int i = 0; i < 3; ++i) {
             id = static_cast<uint8_t>(RxData1.data[i][0] & 0x0F) - 1;
             MotorUnit[id].MessageDecode(RxData1.data[i]);
-            update_flag[id] = true;
+//            update_flag[id] = true;
         }
         for (int i = 0; i < 3; ++i) {
             id = static_cast<uint8_t>(RxData2.data[i][0] & 0x0F) - 1;
             MotorUnit[id].MessageDecode(RxData2.data[i]);
-            update_flag[id] = true;
+//            update_flag[id] = true;
         }
 
-        for (int i = 0; i < 6; ++i) {
-            if (!update_flag[i]) {
-                MOTOR_ONLINE[i] = true;
-            }
-        }
-
+//        for (int i = 0; i < 6; ++i) {
+//            if (!update_flag[i]) {
+//                MOTOR_ONLINE[i] = true;
+//            }
+//        }
 
         for (auto &motor: MotorUnit) {
             motor.UpdateMotor();
@@ -326,24 +320,24 @@ bool MOTOR_ONLINE[6] = {0, 0, 0, 0, 0,0};
         om_publish(odometer_topic, &odometer_msg, sizeof(odometer_msg), true, false);
 
         //电机角度回报
-        link_msg.angel_left[0] = MotorUnit[0].GetRadian();
-        link_msg.angel_left[1] = MotorUnit[1].GetRadian();
-        link_msg.angel_right[0] = MotorUnit[3].GetRadian();
-        link_msg.angel_right[1] = MotorUnit[4].GetRadian();
+        link_msg.angel_left[0] = filter[0].Update(MotorUnit[0].GetRadian());
+        link_msg.angel_left[1] = filter[1].Update(MotorUnit[1].GetRadian());
+        link_msg.angel_right[0] = filter[2].Update(MotorUnit[3].GetRadian());
+        link_msg.angel_right[1] = filter[3].Update(MotorUnit[4].GetRadian());
         link_msg.torque_left[0] = MotorUnit[0].GetToqReal();
         link_msg.torque_left[1] = MotorUnit[1].GetToqReal();
         link_msg.torque_right[0] = MotorUnit[3].GetToqReal();
         link_msg.torque_right[1] = MotorUnit[4].GetToqReal();
-        link_msg.vel_left[0] = MotorUnit[0].GetVelocity();
-        link_msg.vel_left[1] = MotorUnit[1].GetVelocity();
-        link_msg.vel_right[0] = MotorUnit[3].GetVelocity();
-        link_msg.vel_right[1] = MotorUnit[4].GetVelocity();
+        link_msg.vel_left[0] = filter[4].Update(MotorUnit[0].GetVelocity());
+        link_msg.vel_left[1] = filter[5].Update(MotorUnit[1].GetVelocity());
+        link_msg.vel_right[0] = filter[6].Update(MotorUnit[3].GetVelocity());
+        link_msg.vel_right[1] = filter[7].Update(MotorUnit[4].GetVelocity());
 
         om_publish(link_topic, &link_msg, sizeof(link_msg), true, false);
 
         uint8_t time_to_delay = tx_time_get() - time;
-        if (time_to_delay < 2) {
-            tx_thread_sleep(2 - time_to_delay);
+        if (time_to_delay < 1) {
+            tx_thread_sleep(1 - time_to_delay);
         }
     }
 }

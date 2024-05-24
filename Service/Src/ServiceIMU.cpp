@@ -26,7 +26,6 @@ using namespace PID;
 
 static uint8_t BMI088_Config(cBMI088 &bmi088);
 
-//extern bool imu_rst;
 static cIMUA *imu_handle = nullptr;
 
 TX_THREAD IMUThread;
@@ -38,9 +37,7 @@ __PACKED_STRUCT imu_cal_t {
     uint8_t crc;
 };
 
-
-//float gyro_offset[3] = {0};
-
+float YAW_T;
 [[noreturn]] void IMUThreadFun(ULONG initial_input) {
     UNUSED(initial_input);
     /* INS Topic */
@@ -53,6 +50,8 @@ __PACKED_STRUCT imu_cal_t {
     float gyro_f[3];
     float gyro_offset[3] = {0};
     float quaternion[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+    float last_yaw = 0.0f;
+    float multi_yaw = 0.0f;
 
     cFilterBTW2_1000Hz_100Hz filter[3];
     Msg_INS_t msg_ins{};
@@ -107,18 +106,20 @@ __PACKED_STRUCT imu_cal_t {
         gyro_offset[0] = 0.0f;
         gyro_offset[1] = 0.0f;
         gyro_offset[2] = 0.0f;
-        accel_f_norm[0] = 1.0f/LSB_ACC_16B_12G;
+        accel_f_norm[0] = 1.0f / LSB_ACC_16B_12G;
 
         /*Calibrate Gyro for 100 s*/
         for (uint16_t i = 0; i < 10000; i++) {
             bmi088.GetGyro((uint8_t *) gyro);
             bmi088.GetAccel((uint8_t *) accel);
 
-            gyro_offset[0] = 0.99f*gyro_offset[0] - 0.01f*static_cast<float>(gyro[0]);
-            gyro_offset[1] = 0.99f*gyro_offset[1] - 0.01f*static_cast<float>(gyro[1]);
-            gyro_offset[2] = 0.99f*gyro_offset[2] - 0.01f*static_cast<float>(gyro[2]);
+            gyro_offset[0] = 0.99f * gyro_offset[0] - 0.01f * static_cast<float>(gyro[0]);
+            gyro_offset[1] = 0.99f * gyro_offset[1] - 0.01f * static_cast<float>(gyro[1]);
+            gyro_offset[2] = 0.99f * gyro_offset[2] - 0.01f * static_cast<float>(gyro[2]);
 
-            accel_f_norm[0] = 0.99f*accel_f_norm[0] + 0.01f*sqrtf(static_cast<float>(accel[0]*accel[0]+accel[1]*accel[1]+accel[2]*accel[2]));
+            accel_f_norm[0] = 0.99f * accel_f_norm[0] + 0.01f * sqrtf(static_cast<float>(accel[0] * accel[0] +
+                                                                                         accel[1] * accel[1] +
+                                                                                         accel[2] * accel[2]));
 
             if (++cnt[1] == 100) {
                 LL_TIM_OC_SetCompareCH2(TIM12, cnt[0]);
@@ -138,7 +139,7 @@ __PACKED_STRUCT imu_cal_t {
         imu_cal.gyro[0] = gyro_offset[0];
         imu_cal.gyro[1] = gyro_offset[1];
         imu_cal.gyro[2] = gyro_offset[2];
-        imu_cal.accel_k = 1.0f / (accel_f_norm[0]*static_cast<float>(LSB_ACC_16B_12G));
+        imu_cal.accel_k = 1.0f / (accel_f_norm[0] * static_cast<float>(LSB_ACC_16B_12G));
         imu_cal.crc = cal_crc8_table((uint8_t *) &imu_cal, sizeof(imu_cal_t) - 1);
         memcpy(write_buf, &imu_cal, sizeof(imu_cal_t));
         if (HAL_FLASHEx_Erase(&EraseInitStruct, &error_msg) != HAL_OK) {
@@ -155,20 +156,16 @@ __PACKED_STRUCT imu_cal_t {
     IMU_QuaternionEKF_Init(10, 0.001, 10000000, 1);
     dwt.update();
     for (;;) {
-
-        /*Rst quaternion*/
-//        if (imu_rst) {
-//            imu_rst = false;
-//            IMU_QuaternionEKF_Reset();
-//        }
-
         tx_thread_sleep(1);
 
         bmi088.GetAccel((uint8_t *) accel);
         bmi088.GetGyro((uint8_t *) gyro);
-        accel_f_norm[0] = static_cast<float>(accel[0]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
-        accel_f_norm[1] = static_cast<float>(accel[1]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
-        accel_f_norm[2] = static_cast<float>(accel[2]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
+        accel_f_norm[0] =
+                static_cast<float>(accel[0]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
+        accel_f_norm[1] =
+                static_cast<float>(accel[1]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
+        accel_f_norm[2] =
+                static_cast<float>(accel[2]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
 
         /*100Hz LowPass BWT 2-Order*/
         /*Watch out! Orientation R-F-U*/
@@ -202,10 +199,22 @@ __PACKED_STRUCT imu_cal_t {
         msg_ins.euler[1] =
                 asinf(-2.0f * (quaternion[1] * quaternion[3] -
                                quaternion[0] * quaternion[2]));
-        msg_ins.euler[2] = atan2f(2.0f * (quaternion[0] * quaternion[3] +
-                                          quaternion[1] * quaternion[2]),
-                                  2.0f * (quaternion[0] * quaternion[0] +
-                                          quaternion[1] * quaternion[1]) - 1.0f);
+
+        float yaw_tmp = atan2f(2.0f * (quaternion[0] * quaternion[3] +
+                                       quaternion[1] * quaternion[2]),
+                               2.0f * (quaternion[0] * quaternion[0] +
+                                       quaternion[1] * quaternion[1]) - 1.0f);
+        float yaw_diff = yaw_tmp - last_yaw;
+        if (yaw_diff > PI) {
+            multi_yaw += yaw_diff - 2 * PI;
+        } else if (yaw_diff < -PI) {
+            multi_yaw += yaw_diff + 2 * PI;
+        } else {
+            multi_yaw += yaw_diff;
+        }
+        msg_ins.euler[2] = multi_yaw;
+        YAW_T = multi_yaw;
+        last_yaw = yaw_tmp;
 
         om_publish(ins_topic, &msg_ins, sizeof(msg_ins), true, false);
     }
