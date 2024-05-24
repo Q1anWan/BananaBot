@@ -48,6 +48,7 @@ SRAM_SET_RAM_D3 uint8_t data_rx[32];
             msg_remoter.switch_left = 3;
             msg_remoter.switch_right = 3;
             msg_remoter.timestamp = tx_time_get();
+            HAL_UART_Abort(&huart5);
             om_publish(remoter_topic, &msg_remoter, sizeof(msg_remoter), true, false);
             tx_thread_sleep(3);
             status_msg.thread_id = Msg_ThreadID::REMOTER;

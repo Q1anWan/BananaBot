@@ -93,7 +93,7 @@ void cLinkSolver::VMCRevCal(float *FT, float *Tmotor)
 	/*求逆*/
 	arm_mat_inverse_f32(&this->MatVMCJ,&this->MatVMCJRev);
 	FT[0] = this->JacobianRevBuf[0]*Tmotor[0] + this->JacobianRevBuf[1]*Tmotor[1];
-	FT[1] = this->JacobianRevBuf[2]*Tmotor[0] + this->JacobianRevBuf[3]*Tmotor[1];	
+	FT[1] = this->JacobianRevBuf[2]*Tmotor[0] + this->JacobianRevBuf[3]*Tmotor[1];
 }
 /*逆向VMC 由电机角速度->摆长速度和摆长角速度*/
 void cLinkSolver::VMCRevCal_Radian(float *R,float *x_dot)

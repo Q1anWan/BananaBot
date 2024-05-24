@@ -18,9 +18,9 @@
 
 TX_THREAD ControlThread;
 uint8_t ControlThreadStack[4096] = {0};
-float PID_P_T = 0.07f;
+float PID_P_T = 0.04f;
 float PID_I_T = 0.0f;
-float PID_D_T = 0.015f;
+float PID_D_T = -0.015f;
 float PID_OUT_T = 0.0f;
 float VMC_OUT_0 = 0.0f;
 float VMC_OUT_1 = 0.0f;
@@ -101,7 +101,7 @@ float ref_v = 0.0f;
 
         pid_phi0.SetRef(0.0f);
 //        pid_phi0.SetParam(0.07, 0, 0.015, 0.0f, 0.0f, 5, -5, false, false, false, 0.0f);
-        pid_phi0.SetParam(0.05, 0, 0.0f, 0.0f, 0.0f, 5, -5, false, false, false, 0.0f);
+        pid_phi0.SetParam(0.03, 0, -0.015, 0.0f, 0.0f, 5, -5, false, 0, true, 0.2);
         LEG_LEN_TARGET = leg_length_target;
 
         link_solver[0].InputLink(link.angel_left[0], link.angel_left[1]);
@@ -109,12 +109,13 @@ float ref_v = 0.0f;
         link_solver[0].Resolve();
         link_solver[1].Resolve();
 
-        observed_x[0] = -(0.5f*(link_solver[0].GetPendulumRadian()+link_solver[1].GetPendulumRadian()) + ins.euler[1] - PI/2.0f);
-        observed_x[1] = 0.2f*observed_x[1] - 400.0f*(observed_x[0] - x0_last);
+        observed_x[0] = 0.5f*(link_solver[0].GetPendulumRadian()+link_solver[1].GetPendulumRadian()) + ins.euler[1] - PI/2.0f;
+        observed_x[1] = 0.2f*observed_x[1] + 400.0f*(observed_x[0] - x0_last);
         observed_x[2] = odometer.x;
         observed_x[3] = odometer.v;
-        observed_x[4] = ins.euler[1];
-        observed_x[5] = ins.gyro[1];
+        observed_x[4] = -ins.euler[1];
+        observed_x[5] = -ins.gyro[1];
+
 
         x0_last = observed_x[0];
 
@@ -195,7 +196,10 @@ float ref_v = 0.0f;
 //            //Balance LQR
             target_x[0] = 0.0f;
             target_x[1] = 0.0f;
-            target_x[2] = target_x[2] - ref_v/500.0f;
+            if(fabs(ref_v)>0.1f){
+                target_x[2] = observed_x[2] + ref_v/500.0f;
+            }
+//            target_x[2] = target_x[2];
             target_x[3] = -ref_v;
             target_x[4] = 0.0f;
             target_x[5] = 0.0f;
@@ -214,10 +218,13 @@ float ref_v = 0.0f;
 
             LQR_OUT_F = force_torque_left[0];
             LQR_OUT_T = lqr_out[1];
-            wheel_torque[0] -= 0.5f*lqr_out[0];
-            wheel_torque[1] -= 0.5f*lqr_out[0];
+            wheel_torque[0] += 0.5f*lqr_out[0];
+            wheel_torque[1] += 0.5f*lqr_out[0];
 
             //VMC
+//            force_torque_left[1] = 0;
+//            force_torque_right[1] = 0;
+
             link_solver[0].VMCCal(force_torque_left, motor_torque_left);
             link_solver[1].VMCCal(force_torque_right, motor_torque_right);
 
