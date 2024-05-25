@@ -76,7 +76,7 @@ public:
         /*先直接按电机校正后的编码器计数*/
         float tmp = this->cDMMotor::GetRadian();
         /*右侧翻转电机*/
-        if (this->MotorMode[0]) { tmp = 2 * PI - tmp; }
+        if (this->MotorMode[0]) { tmp = -tmp; }
 
         /*零位校准补偿*/
         if (this->MotorMode[1]) { tmp = tmp + PI - this->LimitOffset; }
@@ -166,7 +166,10 @@ uint8_t MotorThreadStack[4096] = {0};
 float VEL_DM4310;
 
 bool MOTOR_ONLINE[6] = {0, 0, 0, 0, 0,0};
-
+float ZERO0;
+float ZERO1;
+float ZERO3;
+float ZERO4;
 
 [[noreturn]] void MotorThreadFun(ULONG initial_input) {
     om_config_topic(nullptr, "CA", "MOTOR_CTR", sizeof(Msg_Motor_Ctr_t));
@@ -333,6 +336,10 @@ bool MOTOR_ONLINE[6] = {0, 0, 0, 0, 0,0};
         link_msg.vel_right[0] = filter[6].Update(MotorUnit[3].GetVelocity());
         link_msg.vel_right[1] = filter[7].Update(MotorUnit[4].GetVelocity());
 
+        ZERO0 = link_msg.angel_left[0];
+        ZERO1 = link_msg.angel_left[1];
+        ZERO3 = link_msg.angel_right[0];
+        ZERO4 = link_msg.angel_right[1];
         om_publish(link_topic, &link_msg, sizeof(link_msg), true, false);
 
         uint8_t time_to_delay = tx_time_get() - time;

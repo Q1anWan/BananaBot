@@ -1,5 +1,4 @@
 clear;
-fprintf('\n\t//-K in Arm Math Matrix Order: K00 K01 K02 K03 K04 K05 K10 K11 K12 K13 K14 K15\n')
 
 % Warning: Calculated as a whole body, 2 legs are simulated in 1.
 g =	    9.81;  %重力加速度(SZ)
@@ -24,107 +23,35 @@ ConstA = [0,0,0,1,0,0];
 
 BasicData=[g,M/2,R,l,mw,mp_board,Iw];
 
-Q = [200 0 0 0 0 0; 0 60 0 0 0 0; 0 0 500 0 0 0; 0 0 0 50 0 0; 0 0 0 0 5000 0; 0 0 0 0 0 10]; %权重矩阵 Q 的设计
+Q = [100 0 0 0 0 0; 0 50 0 0 0 0; 0 0 500 0 0 0; 0 0 0 100 0 0; 0 0 0 0 5000 0; 0 0 0 0 0 10]; %权重矩阵 Q 的设计
 %R = [100 0; 0 80]; %权重矩阵 R 的设计
 %R = [150 0; 0 6.2]; %权重矩阵 R 的设计
 %R = [4.5 0; 0 120];
-R = [8 0; 0 13];
-%腿长200mm    
-Leg_lenth = 0.200;
 
-[L,Lp,Im,Ip] = VarCal(Leg_lenth,M,mp_board,mp_stator,Ibox,Istator,leg_width,length_big,length_small);
-VarData = [L,Lp,Im,Ip];
-[K,A,B,C,D] = LQRFun2(BasicData,VarData,Q,R);
+R00 = 4; 
+R11 = 10;
 
-fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_lenth,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6))
-fprintf('\t/* OffGround -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{0, 0, 0, 0, 0, 0, %8.6f, %8.6f, 0, 0, 0, 0},\n',Leg_lenth,R(1,1),R(2,2),-K(2,1),-K(2,2))
+R_Step = 0;
+R_Threadhold = 0.25;
+R = [R00 0; 0 R11];
 
-Leg_lenth = 0.210;
+Leg_lengths = 0.150:0.005:0.350; % 定义Leg_length的范围
 
-[L,Lp,Im,Ip] = VarCal(Leg_lenth,M,mp_board,mp_stator,Ibox,Istator,leg_width,length_big,length_small);
-VarData = [L,Lp,Im,Ip];
-[K,A,B,C,D] = LQRFun2(BasicData,VarData,Q,R);
 
-fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_lenth,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6))
-fprintf('\t/* OffGround -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{0, 0, 0, 0, 0, 0, %8.6f, %8.6f, 0, 0, 0, 0},\n',Leg_lenth,R(1,1),R(2,2),-K(2,1),-K(2,2))
+fprintf('\n\t//-K in Arm Math Matrix Order: K00 K01 K02 K03 K04 K05 K10 K11 K12 K13 K14 K15\n');
+fprintf('\t// size(K) = %d\t, step(L) = %f\n', length(Leg_lengths), Leg_lengths(2)-Leg_lengths(1));
 
-Leg_lenth = 0.220;
-
-[L,Lp,Im,Ip] = VarCal(Leg_lenth,M,mp_board,mp_stator,Ibox,Istator,leg_width,length_big,length_small);
-VarData = [L,Lp,Im,Ip];
-[K,A,B,C,D] = LQRFun2(BasicData,VarData,Q,R);
-
-fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_lenth,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6))
-fprintf('\t/* OffGround -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{0, 0, 0, 0, 0, 0, %8.6f, %8.6f, 0, 0, 0, 0},\n',Leg_lenth,R(1,1),R(2,2),-K(2,1),-K(2,2))
-
-Leg_lenth = 0.230;
-
-[L,Lp,Im,Ip] = VarCal(Leg_lenth,M,mp_board,mp_stator,Ibox,Istator,leg_width,length_big,length_small);
-VarData = [L,Lp,Im,Ip];
-[K,A,B,C,D] = LQRFun2(BasicData,VarData,Q,R);
-
-fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_lenth,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6))
-fprintf('\t/* OffGround -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{0, 0, 0, 0, 0, 0, %8.6f, %8.6f, 0, 0, 0, 0},\n',Leg_lenth,R(1,1),R(2,2),-K(2,1),-K(2,2))
-
-Leg_lenth = 0.240;
-
-[L,Lp,Im,Ip] = VarCal(Leg_lenth,M,mp_board,mp_stator,Ibox,Istator,leg_width,length_big,length_small);
-VarData = [L,Lp,Im,Ip];
-[K,A,B,C,D] = LQRFun2(BasicData,VarData,Q,R);
-
-fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_lenth,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6))
-fprintf('\t/* OffGround -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{0, 0, 0, 0, 0, 0, %8.6f, %8.6f, 0, 0, 0, 0},\n',Leg_lenth,R(1,1),R(2,2),-K(2,1),-K(2,2))
-
-Leg_lenth = 0.250;
-
-[L,Lp,Im,Ip] = VarCal(Leg_lenth,M,mp_board,mp_stator,Ibox,Istator,leg_width,length_big,length_small);
-VarData = [L,Lp,Im,Ip];
-[K,A,B,C,D] = LQRFun2(BasicData,VarData,Q,R);
-
-fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_lenth,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6))
-fprintf('\t/* OffGround -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{0, 0, 0, 0, 0, 0, %8.6f, %8.6f, 0, 0, 0, 0},\n',Leg_lenth,R(1,1),R(2,2),-K(2,1),-K(2,2))
-
-Leg_lenth = 0.260;
-
-[L,Lp,Im,Ip] = VarCal(Leg_lenth,M,mp_board,mp_stator,Ibox,Istator,leg_width,length_big,length_small);
-VarData = [L,Lp,Im,Ip];
-[K,A,B,C,D] = LQRFun2(BasicData,VarData,Q,R);
-
-fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_lenth,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6))
-fprintf('\t/* OffGround -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{0, 0, 0, 0, 0, 0, %8.6f, %8.6f, 0, 0, 0, 0},\n',Leg_lenth,R(1,1),R(2,2),-K(2,1),-K(2,2))
-
-Leg_lenth = 0.270;
-
-[L,Lp,Im,Ip] = VarCal(Leg_lenth,M,mp_board,mp_stator,Ibox,Istator,leg_width,length_big,length_small);
-VarData = [L,Lp,Im,Ip];
-[K,A,B,C,D] = LQRFun2(BasicData,VarData,Q,R);
-
-fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_lenth,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6))
-fprintf('\t/* OffGround -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{0, 0, 0, 0, 0, 0, %8.6f, %8.6f, 0, 0, 0, 0},\n',Leg_lenth,R(1,1),R(2,2),-K(2,1),-K(2,2))
-
-Leg_lenth = 0.280;
-
-[L,Lp,Im,Ip] = VarCal(Leg_lenth,M,mp_board,mp_stator,Ibox,Istator,leg_width,length_big,length_small);
-VarData = [L,Lp,Im,Ip];
-[K,A,B,C,D] = LQRFun2(BasicData,VarData,Q,R);
-
-fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_lenth,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6))
-fprintf('\t/* OffGround -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{0, 0, 0, 0, 0, 0, %8.6f, %8.6f, 0, 0, 0, 0},\n',Leg_lenth,R(1,1),R(2,2),-K(2,1),-K(2,2))
-
-Leg_lenth = 0.290;
-
-[L,Lp,Im,Ip] = VarCal(Leg_lenth,M,mp_board,mp_stator,Ibox,Istator,leg_width,length_big,length_small);
-VarData = [L,Lp,Im,Ip];
-[K,A,B,C,D] = LQRFun2(BasicData,VarData,Q,R);
-
-fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_lenth,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6))
-fprintf('\t/* OffGround -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{0, 0, 0, 0, 0, 0, %8.6f, %8.6f, 0, 0, 0, 0},\n',Leg_lenth,R(1,1),R(2,2),-K(2,1),-K(2,2))
-
-Leg_lenth = 0.300;
-
-[L,Lp,Im,Ip] = VarCal(Leg_lenth,M,mp_board,mp_stator,Ibox,Istator,leg_width,length_big,length_small);
-VarData = [L,Lp,Im,Ip];
-[K,A,B,C,D] = LQRFun2(BasicData,VarData,Q,R);
-
-fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_lenth,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6))
-fprintf('\t/* OffGround -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{0, 0, 0, 0, 0, 0, %8.6f, %8.6f, 0, 0, 0, 0},\n',Leg_lenth,R(1,1),R(2,2),-K(2,1),-K(2,2))
+for i = 1:length(Leg_lengths)
+    Leg_length = Leg_lengths(i);
+    if Leg_length > R_Threadhold
+        R00 = R_Step + R00;
+        R11 = R_Step + R11;
+    end
+    R = [R00 0; 0 R11];
+    [L, Lp, Im, Ip] = VarCal(Leg_length, M, mp_board, mp_stator, Ibox, Istator, leg_width, length_big, length_small);
+    VarData = [L, Lp, Im, Ip];
+    [K, A, B, C, D] = LQRFun2(BasicData, VarData, Q, R);
+    
+    fprintf('\t/* Normal -K\tL=%8.6f\tR00=%2.2f\tR11=%2.2f */\n \t{%8.5f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f, %8.6f},\n',Leg_length,R(1,1),R(2,2),-K(1,1),-K(1,2),-K(1,3),-K(1,4),-K(1,5),-K(1,6),-K(2,1),-K(2,2),-K(2,3),-K(2,4),-K(2,5),-K(2,6));
+end
+fprintf('\n');

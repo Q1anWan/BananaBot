@@ -29,11 +29,11 @@ float PID_I_PSI = 0.0f;
 float PID_D_PSI = 0.0f;
 float PID_OUT_PSI = 0.0f;
 
-float LEG_LEN = 0.0f;
-float LEG_LEN_TARGET;
-float LEG_LEN_STARTUP = 0.15f;
-float LEG_LEN_MIN = 0.15f;
-float LEG_LEN_MAX = 0.30f;
+//float LEG_LEN = 0.0f;
+//float LEG_LEN_TARGET;
+//float LEG_LEN_STARTUP = 0.15f;
+//float LEG_LEN_MIN = 0.15f;
+//float LEG_LEN_MAX = 0.35f;
 
 float observed_x[6];
 float target_x[6];
@@ -49,6 +49,7 @@ float X5;
 float ref_v;
 float ref_yaw;
 float ref_length;
+bool break_enable;
 
 /*Close-loop control wheels*/
 [[noreturn]] void ControlThreadFun(ULONG initial_input) {
@@ -60,6 +61,7 @@ float ref_length;
     om_suber_t *ins_suber = om_subscribe(om_find_topic("INS", UINT32_MAX));
 
     om_topic_t *dbg_topic = om_find_topic("DBG", UINT32_MAX);
+    om_topic_t *status_topic = om_find_topic("STATUS", UINT32_MAX);
 
     Msg_DBG_t dbg{};
     Msg_Remoter_t remoter{};
@@ -67,6 +69,7 @@ float ref_length;
     Msg_Link_t link{};
     Msg_Odometer_t odometer{};
     Msg_Motor_Ctr_t motor{};
+    Msg_Thread_Status_t status_msg = {};
 
     //workspace 0.15 to 0.30
     TASK_CONTROL::cLegUpdate leg_length_updater(0.15f, 0.1f / 500.0f);
@@ -83,7 +86,7 @@ float ref_length;
 
     PID::PID_Inc_f pid_psi_dot; //Yaw inside loop
     cDWT dwt_psi_dot;
-    pid_psi_dot.SetParam(PID_P_PSI,PID_I_PSI,PID_D_PSI,0,0,2,-2,false,0,false,0);
+    pid_psi_dot.SetParam(PID_P_PSI, PID_I_PSI, PID_D_PSI, 0, 0, 2, -2, false, 0, false, 0);
 
     PID::PID_Inc_f pid_psi; //Yaw outside loop
     cDWT dwt_psi;
@@ -99,8 +102,9 @@ float ref_length;
     arm_matrix_instance_f32 mat_target = {6, 1, target_x};
     lqr.InitMatX(&mat_target, &mat_observed);
 
+    cFilterBTW2_500Hz_2Hz refv_filter;
     float x0_last = 0;
-    bool break_enable;
+    bool link_error = false;
 
     for (;;) {
         om_suber_export(remoter_suber, &remoter, false);
@@ -113,7 +117,7 @@ float ref_length;
         // 0.01f 0 0
         pid_phi0.SetParam(PID_P_T, 0, PID_D_T, 0.0f, 0.0f, 5, -5, false, 0, true, 0.2);
 
-        pid_psi_dot.SetParam(PID_P_PSI,PID_I_PSI,PID_D_PSI,0,0,2,-2,false,0,false,0);
+        pid_psi_dot.SetParam(PID_P_PSI, PID_I_PSI, PID_D_PSI, 0, 0, 2, -2, false, 0, false, 0);
 
 
         link_solver[0].InputLink(radian[0].Update(link.angel_left[0]), radian[1].Update(link.angel_left[1]));
@@ -124,7 +128,7 @@ float ref_length;
         observed_x[0] =
                 0.5f * (link_solver[0].GetPendulumRadian() + link_solver[1].GetPendulumRadian()) + ins.euler[1] -
                 PI / 2.0f;
-        observed_x[1] = 0.2f * observed_x[1] + 400.0f * (observed_x[0] - x0_last);
+        observed_x[1] = 0.95f * observed_x[1] + 25.0f * (observed_x[0] - x0_last);
         observed_x[2] = odometer.x;
         observed_x[3] = odometer.v;
         observed_x[4] = -ins.euler[1];
@@ -140,13 +144,22 @@ float ref_length;
         X4 = observed_x[4];
         X5 = observed_x[5];
 
+        ref_v = refv_filter.Update(remoter.ch_1);
+        ref_yaw = remoter.ch_0;
+        ref_length = LEG_MIN_LEN + (LEG_MAX_LEN - LEG_MIN_LEN) * ((remoter.wheel + 1.0f) / 2.0f);
+        if (ref_length > LEG_MAX_LEN) {
+            ref_length = LEG_MAX_LEN;
+        } else if (ref_length < LEG_MIN_LEN) {
+            ref_length = LEG_MIN_LEN;
+        }
+
         if ((!remoter.online) || (remoter.switch_left != 1)) {
             for (auto &i: motor.torque) {
                 i = 0;
             }
             motor.enable = false;
             om_publish(motor_control, &motor, sizeof(Msg_Motor_Ctr_t), true, false);
-            leg_length_updater.Set_Length(LEG_LEN_STARTUP);
+            leg_length_updater.Set_Length(LEG_START_LEN);
             dwt_len[0].update();
             dwt_len[1].update();
             dwt_phi0.update();
@@ -161,6 +174,8 @@ float ref_length;
             target_x[4] = 0;
             target_x[5] = 0;
 
+            link_error = false;
+
         } else if (remoter.switch_left == 1) {
             //LQR Input
             float force_torque_left[2] = {0.0f, 0.0f};
@@ -171,24 +186,12 @@ float ref_length;
             float motor_torque_right[2] = {0.0f, 0.0f};
             float wheel_torque[2] = {0.0f, 0.0f};
 
-            //Enable?
-            motor.enable = true;
-
-            ref_v = remoter.ch_1;
-            ref_yaw = remoter.ch_0;
-            ref_length = LEG_LEN_MIN + (LEG_LEN_MAX - LEG_LEN_MIN) * ((remoter.wheel + 1.0f) / 2.0f);
-            if (ref_length > LEG_LEN_MAX) {
-                ref_length = LEG_LEN_MAX;
-            } else if (ref_length < LEG_LEN_MIN) {
-                ref_length = LEG_LEN_MIN;
-            }
 
             float vel[4];
             vel[0] = link.vel_left[0];
             vel[1] = link.vel_left[1];
             vel[2] = link.vel_right[0];
             vel[3] = link.vel_right[1];
-
 
             //Length PID
             float leg_len_set_val = leg_length_updater.update_val(ref_length);
@@ -219,8 +222,8 @@ float ref_length;
             pid_psi_dot.SetRef(ref_yaw);
             PID_OUT_PSI = pid_psi_dot.Calculate(ins.gyro[2], dwt_psi_dot.dt_sec());
 
-            wheel_torque[0] += pid_psi_dot.Out();
-            wheel_torque[1] -= pid_psi_dot.Out();
+            wheel_torque[0] -= pid_psi_dot.Out();
+            wheel_torque[1] += pid_psi_dot.Out();
 
 
             //Balance LQR
@@ -229,14 +232,14 @@ float ref_length;
             if (fabs(ref_v) > 0.1f) {
                 target_x[2] = observed_x[2] + ref_v / 500.0f;
                 break_enable = true;
-            }
-            else if(break_enable){
-                if(fabs(odometer.v)<0.01f){
+            } else if (break_enable) {
+                if (fabs(odometer.v) < 0.01f) {
                     break_enable = false;
                     target_x[2] = observed_x[2];
                 }
             }
             target_x[3] = ref_v;
+
             target_x[4] = 0.0f;
             target_x[5] = 0.0f;
 
@@ -256,12 +259,38 @@ float ref_length;
             link_solver[0].VMCCal(force_torque_left, motor_torque_left);
             link_solver[1].VMCCal(force_torque_right, motor_torque_right);
 
-            motor.torque[0] = motor_torque_left[0];
-            motor.torque[1] = motor_torque_left[1];
-            motor.torque[3] = motor_torque_right[0];
-            motor.torque[4] = motor_torque_right[1];
-            motor.torque[2] = wheel_torque[0];
-            motor.torque[5] = wheel_torque[1];
+
+            if (link.angel_left[0] > PI / 2) {
+                link_error = true;
+            } else if (link.angel_left[1] < PI / 2) {
+                link_error = true;
+            } else if (link.angel_right[0] > PI / 2) {
+                link_error = true;
+            } else if (link.angel_right[1] < PI / 2) {
+                link_error = true;
+            }
+
+            if(link_error){
+                motor.enable = false;
+                motor.torque[0] = 0;
+                motor.torque[1] = 0;
+                motor.torque[3] = 0;
+                motor.torque[4] = 0;
+                motor.torque[2] = 0;
+                motor.torque[5] = 0;
+                status_msg.thread_id = Msg_ThreadID::CONTROL;
+                status_msg.status = Msg_ErrorStatus::WARNING;
+                om_publish(status_topic, &status_msg, sizeof(Msg_Thread_Status_t), true, false);
+            }
+            else{
+                motor.enable = true;
+                motor.torque[0] = motor_torque_left[0];
+                motor.torque[1] = motor_torque_left[1];
+                motor.torque[3] = motor_torque_right[0];
+                motor.torque[4] = motor_torque_right[1];
+                motor.torque[2] = wheel_torque[0];
+                motor.torque[5] = wheel_torque[1];
+            }
 
             om_publish(motor_control, &motor, sizeof(Msg_Motor_Ctr_t), true, false);
         }

@@ -63,6 +63,7 @@ enum class Msg_ThreadID: uint8_t {
     IMU_HEAT = 2,
     MOTOR = 3,
     REMOTER = 4,
+    CONTROL = 5,
     MAX_ID
 };
 

@@ -23,7 +23,7 @@ class cFilterBTW2_1000Hz_100Hz
         arm_biquad_cascade_df1_f32(&BTW, &data, &tmp ,1);
         return tmp*this->Gain;
     }
-	void CleanBuf(void)
+	void CleanBuf()
 	{IIRBuf[0]=0;IIRBuf[1]=0;IIRBuf[2]=0;IIRBuf[3]=0;}
 };
 
@@ -41,7 +41,43 @@ public:
         arm_biquad_cascade_df1_f32(&BTW, &data, &tmp ,1);
         return tmp*this->Gain;
     }
-    void CleanBuf(void)
+    void CleanBuf()
+    {IIRBuf[0]=0;IIRBuf[1]=0;IIRBuf[2]=0;IIRBuf[3]=0;}
+};
+
+class cFilterBTW2_500Hz_10Hz
+{
+    arm_biquad_casd_df1_inst_f32 BTW{};
+    float IIRBuf[4]={0};
+    float IIRCoeff[5]={1.0f, 2.0f, 1.0f, 1.822694925196308268766642868285998702049f, -0.837181651256022618667884671594947576523};
+    float Gain = 0.003621681514928642119099944096660692594f;
+
+public:
+    cFilterBTW2_500Hz_10Hz(){arm_biquad_cascade_df1_init_f32(&BTW, 1, IIRCoeff, IIRBuf);}
+    float Update(float data){
+        float tmp;
+        arm_biquad_cascade_df1_f32(&BTW, &data, &tmp ,1);
+        return tmp*this->Gain;
+    }
+    void CleanBuf()
+    {IIRBuf[0]=0;IIRBuf[1]=0;IIRBuf[2]=0;IIRBuf[3]=0;}
+};
+
+class cFilterBTW2_500Hz_2Hz
+{
+    arm_biquad_casd_df1_inst_f32 BTW{};
+    float IIRBuf[4]={0};
+    float IIRCoeff[5]={1.0f, 2.0f, 1.0f, 1.964460580205231954309397224278654903173f, -0.965081173899134947546940566098783165216};
+    float Gain = 0.000155148423475699032397095988855539872f;
+
+public:
+    cFilterBTW2_500Hz_2Hz(){arm_biquad_cascade_df1_init_f32(&BTW, 1, IIRCoeff, IIRBuf);}
+    float Update(float data){
+        float tmp;
+        arm_biquad_cascade_df1_f32(&BTW, &data, &tmp ,1);
+        return tmp*this->Gain;
+    }
+    void CleanBuf()
     {IIRBuf[0]=0;IIRBuf[1]=0;IIRBuf[2]=0;IIRBuf[3]=0;}
 };
 #endif
