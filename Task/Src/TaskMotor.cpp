@@ -186,7 +186,7 @@ float ZERO4;
     cDM4310 MotorUnit[6];
     cVelFusionKF kf;
     cFilterBTW2_1000Hz_100Hz filter[8];
-    tx_thread_sleep(3000);
+    tx_thread_sleep(1000);
 
     MotorUnit[0].SetID(&hfdcan2, 0x01);
     MotorUnit[0].SetMotorMode(0, 0);//左前

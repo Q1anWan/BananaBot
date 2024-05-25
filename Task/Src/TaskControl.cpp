@@ -18,9 +18,17 @@
 
 TX_THREAD ControlThread;
 uint8_t ControlThreadStack[4096] = {0};
-float PID_P_T = 0.018f;
+
+//float LEG_P = 800.0f;
+//float LEG_D = 0.06f;
+
+//float PID_P_T = 0.018f;
+//float PID_I_T = 0.0f;
+//float PID_D_T = -0.008f;
+
+float PID_P_T = 0.01f;
 float PID_I_T = 0.0f;
-float PID_D_T = -0.008f;
+float PID_D_T = 0.0f;
 
 float PID_OUT_T = 0.0f;
 
@@ -33,11 +41,14 @@ float PN;
 float FN;
 float FL;
 float FR;
-//float LEG_LEN = 0.0f;
-//float LEG_LEN_TARGET;
-//float LEG_LEN_STARTUP = 0.15f;
-//float LEG_LEN_MIN = 0.15f;
-//float LEG_LEN_MAX = 0.35f;
+
+float P_RADIAN;
+float P_LEN;
+float P_PHI0;
+float P_PHI0_DOT;
+float P_THETA;
+float P_THETA_DOT;
+float P_VT;
 
 float observed_x[6];
 float target_x[6];
@@ -80,8 +91,8 @@ uint8_t ID_T;
     //workspace 0.15 to 0.30
     TASK_CONTROL::cLegUpdate leg_length_updater(LEG_START_LEN, 0.2f / 500.0f);
     TASK_CONTROL::cPID_Len pid_len[2];
-    pid_len[0].SetParam(850.0f, 0.0005f, 3000.0f, -3000.0f);
-    pid_len[1].SetParam(850.0f, 0.0005f, 3000.0f, -3000.0f);
+    pid_len[0].SetParam(850.0f, 0.06f, 3000.0f, -3000.0f);
+    pid_len[1].SetParam(850.0f, 0.06f, 3000.0f, -3000.0f);
 
     cFilterBTW2_500Hz_100Hz radian[4];
     cDWT dwt_len[2];
@@ -112,15 +123,15 @@ uint8_t ID_T;
     bool link_error = false;
 
     float leg_theta;
-    float leg_theta_last;
     float leg_theta_dot;
     float leg_theta_dot_last;
 
-
     float leg_len;
-    float leg_len_last;
     float leg_len_dot;
     float leg_len_dot_last;
+
+    float x_dot_right[2];
+    float x_dot_left[2];
     for (;;) {
         om_suber_export(remoter_suber, &remoter, false);
         om_suber_export(ins_suber, &ins, false);
@@ -131,23 +142,30 @@ uint8_t ID_T;
 
         // 0.01f 0 0
         pid_phi0.SetParam(PID_P_T, 0, PID_D_T, 0.0f, 0.0f, 5, -5, false, 0, true, 0.2);
-
         pid_psi_dot.SetParam(PID_P_PSI, PID_I_PSI, PID_D_PSI, 0, 0, 2, -2, false, 0, false, 0);
 
+//        pid_len[0].SetParam(LEG_P, LEG_D, 3000.0f, -3000.0f);
 
         link_solver[0].Resolve(link.angel_left[0], link.angel_left[1]);
         link_solver[1].Resolve(link.angel_right[0], link.angel_right[1]);
 
+        float vel[4];
+        vel[0] = link.vel_left[0];
+        vel[1] = link.vel_left[1];
+        vel[2] = link.vel_right[0];
+        vel[3] = link.vel_right[1];
+        link_solver[1].VMCVelCal(vel + 2, x_dot_right);
+        link_solver[0].VMCVelCal(vel, x_dot_left);
+
 
         observed_x[0] =
                 0.5f * (link_solver[0].GetPendulumRadian() + link_solver[1].GetPendulumRadian()) + ins.euler[1] -
-                PI / 2.0f;
-        observed_x[1] = 0.95f * observed_x[1] + 25.0f * (observed_x[0] - leg_theta_last);
+                0.5f * PI;
+        observed_x[1] = 0.5f*(x_dot_right[1] + x_dot_left[1]) + ins.gyro[1];
         observed_x[2] = odometer.x;
         observed_x[3] = odometer.v;
         observed_x[4] = -ins.euler[1];
         observed_x[5] = -ins.gyro[1];
-
 
         X0 = observed_x[0];
         X1 = observed_x[1];
@@ -156,29 +174,27 @@ uint8_t ID_T;
         X4 = observed_x[4];
         X5 = observed_x[5];
 
-        float speed_max;
 
         leg_theta = observed_x[0];
         leg_theta_dot = observed_x[1];
         leg_len = 0.5f * (link_solver[0].GetPendulumLen() + link_solver[1].GetPendulumLen());
-        leg_len_dot = leg_len - leg_len_last;
+        leg_len_dot = 0.5f* (x_dot_right[0] + x_dot_left[0]);
 
+
+        float speed_max;
         stop_flag = false;
-
         //Break when stick is free, or the direction is opposite
-        if ((fabsf(remoter.ch_1) < 0.01f) || (remoter.ch_1 * ref_v_slop < -0.01f)) {
-            if (ref_v_slop < -0.01f) {
+        if ((fabsf(remoter.ch_1) < 0.001f) || (remoter.ch_1 * ref_v_slop < -0.01f)) {
+            if (ref_v_slop < -0.001f) {
                 ref_v_slop += V_STOP * 0.002f;
-            } else if (ref_v_slop > 0.01f) {
+            } else if (ref_v_slop > 0.001f) {
                 ref_v_slop -= V_STOP * 0.002f;
             } else {
                 ref_v_slop = 0;
                 stop_flag = true;
             }
-        } else if (remoter.ch_1 > 0.01f) {
-            ref_v_slop += V_ACCEL * 0.002f;
-        } else if (remoter.ch_1 < -0.01f) {
-            ref_v_slop -= V_ACCEL * 0.002f;
+        } else if (fabsf(remoter.ch_1) > 0.001f) {
+            ref_v_slop += V_ACCEL * 0.002f * remoter.ch_1;
         }
 
         if (leg_len > V_LIMIT_LEN) {
@@ -216,6 +232,9 @@ uint8_t ID_T;
             dwt_gamma.update();
             dwt_psi_dot.update();
 
+            pid_phi0.Rst();
+            pid_psi.Rst();
+
             target_x[0] = 0;
             target_x[1] = 0;
             target_x[2] = observed_x[2];
@@ -238,22 +257,12 @@ uint8_t ID_T;
             float wheel_torque[2] = {0.0f, 0.0f};
 
 
-            float vel[4];
-            vel[0] = link.vel_left[0];
-            vel[1] = link.vel_left[1];
-            vel[2] = link.vel_right[0];
-            vel[3] = link.vel_right[1];
-
             //Length PID
             float leg_len_set_val = leg_length_updater.update_val(ref_length);
 
-            float x_dot_left[2];
-            link_solver[0].VMCVelCal(vel, x_dot_left);
             pid_len[0].SetRef(leg_len_set_val);
             pid_len[0].Calculate(link_solver[0].GetPendulumLen(), x_dot_left[0], dwt_len[0].dt_sec());
 
-            float x_dot_right[2];
-            link_solver[1].VMCVelCal(vel + 2, x_dot_right);
             pid_len[1].SetRef(leg_len_set_val);
             pid_len[1].Calculate(link_solver[1].GetPendulumLen(), x_dot_right[0], dwt_len[1].dt_sec());
 
@@ -269,12 +278,13 @@ uint8_t ID_T;
             force_torque_right[1] -= pid_phi0.Out();
 
 
-            //PSI PID
-            pid_psi_dot.SetRef(ref_yaw);
-            PID_OUT_PSI = pid_psi_dot.Calculate(ins.gyro[2], dwt_psi_dot.dt_sec());
 
-            wheel_torque[0] -= pid_psi_dot.Out();
-            wheel_torque[1] += pid_psi_dot.Out();
+//            //PSI PID
+//            pid_psi_dot.SetRef(ref_yaw);
+//            PID_OUT_PSI = pid_psi_dot.Calculate(ins.gyro[2], dwt_psi_dot.dt_sec());
+
+//            wheel_torque[0] -= pid_psi_dot.Out();
+//            wheel_torque[1] += pid_psi_dot.Out();
 
 
             //Balance LQR
@@ -325,7 +335,6 @@ uint8_t ID_T;
             force_torque_left[1] += 0.5f * lqr_out[1];
             force_torque_right[1] += 0.5f * lqr_out[1];
 
-
             wheel_torque[0] += 0.5f * lqr_out[0];
             wheel_torque[1] += 0.5f * lqr_out[0];
 
@@ -346,7 +355,6 @@ uint8_t ID_T;
             }
 
 
-            link_error = true;
             if (link_error) {
                 motor.enable = false;
                 motor.torque[0] = 0;
@@ -371,9 +379,8 @@ uint8_t ID_T;
             om_publish(motor_control, &motor, sizeof(Msg_Motor_Ctr_t), true, false);
         }
 
-        leg_len_last = leg_len;
+
         leg_len_dot_last = leg_len_dot;
-        leg_theta_last = observed_x[0];
         leg_theta_dot_last = observed_x[1];
 
         tx_thread_sleep(2);

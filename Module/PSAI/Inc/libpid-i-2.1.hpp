@@ -133,7 +133,7 @@ namespace PID {
             _inter_range = inter_range;
             _en_differ_separation = en_differ_separation;
             _differ_range = differ_range;
-            Rst();
+//            Rst();
         }
 
         void Rst() override {
