@@ -17,16 +17,21 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="RelWithDebInfo-MinGW" ENABLED="true" CONFIG_NAME="RelWithDebInfo" TOOLCHAIN_NAME="MinGW" />
+      <configuration PROFILE_NAME="Debug-MinGW" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="MinGW" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acdfb305-f91f-4fb5-bdbe-fed7fc03e98b" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module/BSP/Inc/Filter.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Module/BSP/Inc/Filter.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/Motor/Inc/LinkSolver.h" beforeDir="false" afterPath="$PROJECT_DIR$/Module/Motor/Inc/LinkSolver.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/Motor/Src/LinkSolver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Module/Motor/Src/LinkSolver.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Service/Inc/BananaMsgs.h" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Inc/BananaMsgs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/Inc/ServiceIMU.h" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Inc/ServiceIMU.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/Src/ServiceIMU.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Src/ServiceIMU.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/Src/ServiceRemoter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Src/ServiceRemoter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Inc/TaskControl.h" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Inc/TaskControl.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Src/TaskControl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskControl.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task/Src/TaskHeatbeat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskHeatbeat.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Src/TaskMotor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskMotor.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/matlab/BananaBotLQR.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/BananaBotLQR.m" afterDir="false" />
     </list>
@@ -54,7 +59,7 @@
       </list>
     </option>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:RelWithDebInfo-MinGW" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-MinGW" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -102,7 +107,12 @@
     <option name="rtosType" value="Azure RTOS ThreadX" />
   </component>
   <component name="RunManager" selected="OpenOCD 下载并运行.OCD BananaBot">
-    <configuration name="BananaBot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="BananaBot.elf" CONFIG_NAME="RelWithDebInfo-MinGW" RUN_TARGET_PROJECT_NAME="BananaBot" RUN_TARGET_NAME="BananaBot.elf">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BananaBot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="BananaBot.elf" CONFIG_NAME="Debug-MinGW" RUN_TARGET_PROJECT_NAME="BananaBot" RUN_TARGET_NAME="BananaBot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -112,7 +122,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OneMessage" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="OneMessage" CONFIG_NAME="RelWithDebInfo-MinGW">
+    <configuration name="OneMessage" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="OneMessage" CONFIG_NAME="Debug-MinGW">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -181,7 +191,7 @@
       <workItem from="1716273098563" duration="49459000" />
       <workItem from="1716432099441" duration="36042000" />
       <workItem from="1716528974511" duration="18530000" />
-      <workItem from="1716605605317" duration="10152000" />
+      <workItem from="1716605605317" duration="28421000" />
     </task>
     <servers />
   </component>

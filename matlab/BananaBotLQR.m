@@ -23,20 +23,20 @@ ConstA = [0,0,0,1,0,0];
 
 BasicData=[g,M/2,R,l,mw,mp_board,Iw];
 
-Q = [100 0 0 0 0 0; 0 50 0 0 0 0; 0 0 500 0 0 0; 0 0 0 100 0 0; 0 0 0 0 5000 0; 0 0 0 0 0 10]; %权重矩阵 Q 的设计
+Q = [140 0 0 0 0 0; 0 22.5 0 0 0 0; 0 0 300 0 0 0; 0 0 0 100 0 0; 0 0 0 0 5000 0; 0 0 0 0 0 10]; %权重矩阵 Q 的设计
 %R = [100 0; 0 80]; %权重矩阵 R 的设计
 %R = [150 0; 0 6.2]; %权重矩阵 R 的设计
 %R = [4.5 0; 0 120];
 
-R00 = 4; 
-R11 = 10;
+R00 = 1.5; 
+R11 = 14;
+%R11 = 18;
 
-R_Step = 0;
-R_Threadhold = 0.25;
-R = [R00 0; 0 R11];
+R_Step_R00 = 1;
+R_Step_R11 = 2;
+R_Threadhold = 0.27;
 
 Leg_lengths = 0.150:0.005:0.350; % 定义Leg_length的范围
-
 
 fprintf('\n\t//-K in Arm Math Matrix Order: K00 K01 K02 K03 K04 K05 K10 K11 K12 K13 K14 K15\n');
 fprintf('\t// size(K) = %d\t, step(L) = %f\n', length(Leg_lengths), Leg_lengths(2)-Leg_lengths(1));
@@ -44,10 +44,12 @@ fprintf('\t// size(K) = %d\t, step(L) = %f\n', length(Leg_lengths), Leg_lengths(
 for i = 1:length(Leg_lengths)
     Leg_length = Leg_lengths(i);
     if Leg_length > R_Threadhold
-        R00 = R_Step + R00;
-        R11 = R_Step + R11;
+        R00 = R_Step_R00 + R00;
+        R11 = R_Step_R11 + R11;
     end
     R = [R00 0; 0 R11];
+
+    %Auto calculate or type in by hand
     [L, Lp, Im, Ip] = VarCal(Leg_length, M, mp_board, mp_stator, Ibox, Istator, leg_width, length_big, length_small);
     VarData = [L, Lp, Im, Ip];
     [K, A, B, C, D] = LQRFun2(BasicData, VarData, Q, R);

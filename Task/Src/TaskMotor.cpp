@@ -89,6 +89,8 @@ public:
         this->MITUpdate(0, 0, 0, 0, MotorMode[0] ? -torque : torque);
     }
 
+    float GetToqReal() override { return this->MotorMode[0] ? -MTR.toq : MTR.toq; }
+
     float GetRadian() override { return this->Radian; }
 
     float GetVelocity() override { return this->MotorMode[0] ? -MTR.vel : MTR.vel; }
@@ -165,7 +167,7 @@ uint8_t MotorThreadStack[4096] = {0};
 
 float VEL_DM4310;
 
-bool MOTOR_ONLINE[6] = {0, 0, 0, 0, 0,0};
+bool MOTOR_ONLINE[6] = {0, 0, 0, 0, 0, 0};
 float ZERO0;
 float ZERO1;
 float ZERO3;
@@ -315,13 +317,16 @@ float ZERO4;
             arm_quaternion_product_f32(tmp, q_inv, a_world, 1);
             float a = sqrtf(a_world[1] * a_world[1] + a_world[2] * a_world[2]) *
                       arm_cos_f32(atan2f(a_world[2], a_world[1]) - ins.euler[2]);
+
             kf.UpdateKalman(vel_temp, a);
+
+            odometer_msg.v = kf.GetVhat();
+            odometer_msg.x = kf.GetXhat();
+            odometer_msg.a_z = a_world[3];
         }
         VEL_DM4310 = vel_temp;
-        odometer_msg.v = kf.GetVhat();
-        odometer_msg.x = kf.GetXhat();
-        om_publish(odometer_topic, &odometer_msg, sizeof(odometer_msg), true, false);
 
+        om_publish(odometer_topic, &odometer_msg, sizeof(odometer_msg), true, false);
         //电机角度回报
         link_msg.angel_left[0] = filter[0].Update(MotorUnit[0].GetRadian());
         link_msg.angel_left[1] = filter[1].Update(MotorUnit[1].GetRadian());

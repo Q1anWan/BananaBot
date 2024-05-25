@@ -38,6 +38,8 @@ __PACKED_STRUCT imu_cal_t {
 };
 
 float YAW_T;
+float GRAVITY_FIXED = GRAVITY_RAW;
+
 [[noreturn]] void IMUThreadFun(ULONG initial_input) {
     UNUSED(initial_input);
     /* INS Topic */
@@ -59,9 +61,10 @@ float YAW_T;
 
     Flash::cFlashCore::flash_memcpy((uint8_t *) &imu_cal, (uint8_t *) FLASH_STORAGE_BASE_ADDRESS, sizeof(imu_cal_t));
     if (imu_cal.crc == cal_crc8_table((uint8_t *) &imu_cal, sizeof(imu_cal_t) - 1)) {
-        gyro_offset[0] = (float) imu_cal.gyro[0];
-        gyro_offset[1] = (float) imu_cal.gyro[1];
-        gyro_offset[2] = (float) imu_cal.gyro[2];
+        gyro_offset[0] = imu_cal.gyro[0];
+        gyro_offset[1] = imu_cal.gyro[1];
+        gyro_offset[2] = imu_cal.gyro[2];
+        GRAVITY_FIXED = GRAVITY_RAW * imu_cal.accel_k;
     } else {
         gyro_offset[0] = 0.0f;
         gyro_offset[1] = 0.0f;
@@ -153,6 +156,7 @@ float YAW_T;
         NVIC_SystemReset();
     }
 
+
     IMU_QuaternionEKF_Init(10, 0.001, 10000000, 1);
     dwt.update();
     for (;;) {
@@ -161,11 +165,11 @@ float YAW_T;
         bmi088.GetAccel((uint8_t *) accel);
         bmi088.GetGyro((uint8_t *) gyro);
         accel_f_norm[0] =
-                static_cast<float>(accel[0]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
+                static_cast<float>(accel[0]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY_FIXED;
         accel_f_norm[1] =
-                static_cast<float>(accel[1]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
+                static_cast<float>(accel[1]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY_FIXED;
         accel_f_norm[2] =
-                static_cast<float>(accel[2]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY * imu_cal.accel_k;
+                static_cast<float>(accel[2]) * static_cast<float>(LSB_ACC_16B_12G) * GRAVITY_FIXED;
 
         /*100Hz LowPass BWT 2-Order*/
         /*Watch out! Orientation R-F-U*/

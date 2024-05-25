@@ -12,6 +12,7 @@ TX_SEMAPHORE RemoterThreadSem;
 #define BUS_MAX         1800
 #define BUS_DEATH_ZONE  10
 
+#define SWITCH_DEFAULT  3
 uint8_t map_value(int16_t value) {
     if (value == 200) {
         return 3;
@@ -20,6 +21,7 @@ uint8_t map_value(int16_t value) {
     } else if (value == 1800) {
         return 1;
     }
+    return SWITCH_DEFAULT;
 }
 
 static uint8_t size_test;
@@ -45,8 +47,8 @@ SRAM_SET_RAM_D3 uint8_t data_rx[32];
             msg_remoter.ch_3 = 0.0f;
             msg_remoter.wheel = 0.0f;
             msg_remoter.online = false;
-            msg_remoter.switch_left = 3;
-            msg_remoter.switch_right = 3;
+            msg_remoter.switch_left = SWITCH_DEFAULT;
+            msg_remoter.switch_right = SWITCH_DEFAULT;
             msg_remoter.timestamp = tx_time_get();
             HAL_UART_Abort(&huart5);
             om_publish(remoter_topic, &msg_remoter, sizeof(msg_remoter), true, false);

@@ -40,6 +40,7 @@ struct Msg_Motor_Ctr_t {
 struct Msg_Odometer_t {
     float x;
     float v;
+    float a_z;
 };
 
 struct Msg_Link_t {

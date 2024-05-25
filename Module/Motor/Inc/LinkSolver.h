@@ -1,3 +1,4 @@
+#pragma once
 #ifndef 	LINKSOLVER_H
 #define		LINKSOLVER_H
 
@@ -5,20 +6,15 @@
 #include "arm_math.h"
 #ifdef __cplusplus
 
-enum eLinkStatue
-{
-	LINK_NORMAL	= 0,
-	LINK_ERROR	= 1
-};
-
 class cLinkSolver
 {
 	protected:
-	float JacobianBuf[4]={0};
-	float JacobianRevBuf[4]={0};
-	/*Jacobian 矩阵*/
-	arm_matrix_instance_f32 MatVMCJ = {2, 2, JacobianBuf};
-	arm_matrix_instance_f32 MatVMCJRev = {2, 2, JacobianRevBuf};
+    /*Jacobian矩阵 {00,01,10,11}*/
+
+    float MTRTJ_mat[4]={0};
+	float JTRM_mat[4]={0};
+	float JTRMRev_mat[4]={0};
+
 	/*单位mm*/
 	//腿长
 	float L1 = 0.120f;
@@ -35,8 +31,6 @@ class cLinkSolver
 	float phi4_max = PI / 2;
     float phi1_min = PI / 2;
     float phi4_min = 0.0f;
-	/*杆状态*/
-	eLinkStatue LinkStatue = LINK_ERROR;
 	
 	/*倒立摆长度*/
 	float PendulumLength = 0.0f;
@@ -53,26 +47,15 @@ class cLinkSolver
 
 	
 	public:
-	void	Resolve(void);
-	void	VMCUpdate(void);
+	void	Resolve(float phi4_radian, float psi1_radian);
 	void	VMCCal(float *F, float *T);
 	void	VMCRevCal(float *F, float *T);
-	void    VMCRevCal_Radian(float *R,float *x_dot);
-	void	SetRadLimit(float phi4_max, float phi1_max)
-	{
-		this->phi4_max = phi4_max;
-		this->phi1_max = phi1_max;
-	}
-	
-	uint8_t	InputLink(float phi4_radian, float psi1_radian);
-	
-	inline uint8_t GetLinkStatue(void)
-	{return (uint8_t)this->LinkStatue;}
-	
-	inline float GetPendulumLen(void)
+    void    VMCVelCal(float *phi_dot, float *phi0_dot_vt_dot);
+
+	inline float GetPendulumLen()
 	{return PendulumLength;}
 	
-	inline float GetPendulumRadian(void)
+	inline float GetPendulumRadian()
 	{return PendulumRadian;}
 	
 	inline void GetPendulumCoor(float* Coor) 

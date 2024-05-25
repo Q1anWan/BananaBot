@@ -93,7 +93,7 @@ uint8_t HeartBeatThreadStack[2048] = {0};
 
         //Enable Detection
         if (battery_voltage > 9.0f) {
-            if (battery_voltage < 19.2) {
+            if (battery_voltage < 22.2) {
                 LL_TIM_OC_SetCompareCH2(TIM12, buzzer_value);
                 if (buzzer_value == 0) {
                     buzzer_value = 49;
