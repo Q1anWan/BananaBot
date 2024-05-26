@@ -14,10 +14,12 @@
 #define LEG_MAX_LEN 0.350f
 #define LEG_MIN_LEN 0.150f
 #define LEG_START_LEN 0.150f
+#define LEG_NORMAL_PATH 0.0004f
 
 #define JUMP_START_LEN 0.150f
 #define JUMP_REC_LEN 0.200f
 #define JUMP_TOP_LEN 0.300f
+#define LEG_REC_PATH 0.002f
 
 #define LQR_MAX_LEN_CTRL 0.350f
 #define LQR_MIN_LEN_CTRL 0.130f

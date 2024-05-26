@@ -138,7 +138,7 @@ float L_Check(float len) {
     Msg_Thread_Status_t status_msg = {};
 
     //workspace 0.15 to 0.35
-    TASK_CONTROL::cValUpdate leg_length_updater(LEG_START_LEN, 0.2f / 500.0f);
+    TASK_CONTROL::cValUpdate leg_length_updater(LEG_START_LEN, LEG_NORMAL_PATH);
 
     TASK_CONTROL::cPID_Len pid_len[2];
     pid_len[0].SetParam(850.0f, 0.06f, 3000.0f, -3000.0f);
@@ -194,7 +194,8 @@ float L_Check(float len) {
     bool stop_flag;
 
     bool jump_mode = false;
-    uint8_t jump_stage;
+    uint8_t jump_stage = 0;
+    uint64_t jump_time;
     uint8_t swr_last = 1;
 
     for (;;) {
@@ -297,6 +298,7 @@ float L_Check(float len) {
         JUMP_STAGE = jump_stage;
         //Enable Jump
         //Exit Mode
+
         if (jump_mode && (remoter.switch_right == 3)) {
             jump_mode = false;
             jump_stage = 0;
@@ -316,14 +318,16 @@ float L_Check(float len) {
             //Wait until leave the ground
             if (fly_flag) {
                 jump_stage = 3;
+                leg_length_updater.SetPath(LEG_REC_PATH);
+                jump_time = tx_time_get();
             }
         }
         else if (jump_mode && (jump_stage == 3)) {
             //Wait for touch the ground
-            if (!fly_flag) {
+            if (P + Zw > 20.0f) {
                 jump_stage = 0;
                 jump_mode = false;
-
+                leg_length_updater.SetPath(LEG_NORMAL_PATH);
             }
         }
 
@@ -335,6 +339,7 @@ float L_Check(float len) {
             motor.enable = false;
             om_publish(motor_control, &motor, sizeof(Msg_Motor_Ctr_t), true, false);
             leg_length_updater.SetDefault(LEG_START_LEN);
+            leg_length_updater.SetPath(LEG_NORMAL_PATH);
             ref_v_updater.SetDefault(0);
 
             dwt_len[0].update();
@@ -381,8 +386,10 @@ float L_Check(float len) {
                 if (jump_stage == 1) {
                     leg_length_updater.UpdateVal(JUMP_START_LEN);
                 } else if (jump_stage == 2) {
+                    fly_flag = true;
                     leg_length_updater.SetDefault(JUMP_TOP_LEN);
                 } else if (jump_stage == 3) {
+                    fly_flag = true;
                     leg_length_updater.UpdateVal(JUMP_REC_LEN);
                 }
             } else {
@@ -414,7 +421,7 @@ float L_Check(float len) {
 
 
             //PSI PIxD
-            if (!fly_flag || jump_mode) {
+            if (!fly_flag && !jump_mode) {
                 pid_psi.SetRef(ref_yaw);
                 PID_OUT_PSI = pid_psi.Calculate(ins.euler[2], dwt_psi.dt_sec());
 
