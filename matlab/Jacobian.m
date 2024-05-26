@@ -30,6 +30,8 @@ J = simplify(jacobian(x_dot,q_dot));
 
 R = [cos(phi0-pi/2) -sin(phi0-pi/2);
      sin(phi0-pi/2)  cos(phi0-pi/2)];
+latex(R)
+
 M = [0 -1/L0;
      1     0];
 

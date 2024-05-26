@@ -23,29 +23,42 @@ ConstA = [0,0,0,1,0,0];
 
 BasicData=[g,M/2,R,l,mw,mp_board,Iw];
 
-Q = [100 0 0 0 0 0; 0 25 0 0 0 0; 0 0 400 0 0 0; 0 0 0 200 0 0; 0 0 0 0 5000 0; 0 0 0 0 0 10]; %权重矩阵 Q 的设计
-%R = [100 0; 0 80]; %权重矩阵 R 的设计
-%R = [150 0; 0 6.2]; %权重矩阵 R 的设计
-%R = [4.5 0; 0 120];
+Q = [100 0 0 0 0 0; 0 18 0 0 0 0; 0 0 500 0 0 0; 0 0 0 50 0 0; 0 0 0 0 5000 0; 0 0 0 0 0 10]; %权重矩阵 Q 的设计
 
 R00 = 5;
-R11 = 27;
+R11 = 25;
 
-R_Step_R00 = 1;
-R_Step_R11 = 2;
-R_Threadhold = 0.27;
+R_Threadhold_0 = 0.20;
+R_Step0_R00 = 0.1;
+R_Step0_R11 = 0.5;
 
-Leg_lengths = 0.150:0.005:0.350; % 定义Leg_length的范围
+R_Threadhold_1 = 0.23; 
+R_Step1_R00 = 0.5;
+R_Step1_R11 = 2.5;
+
+R_Threadhold_2 = 0.26; 
+R_Step2_R00 = 2.5;
+R_Step2_R11 = 12.5;
+
+% Real length is short than reference
+Leg_lengths = 0.130:0.005:0.350; % 定义Leg_length的范围
 
 fprintf('\n\t//-K in Arm Math Matrix Order: K00 K01 K02 K03 K04 K05 K10 K11 K12 K13 K14 K15\n');
 fprintf('\t// size(K) = %d\t, step(L) = %f\n', length(Leg_lengths), Leg_lengths(2)-Leg_lengths(1));
 
 for i = 1:length(Leg_lengths)
     Leg_length = Leg_lengths(i);
-    if Leg_length > R_Threadhold
-        R00 = R_Step_R00 + R00;
-        R11 = R_Step_R11 + R11;
+    if Leg_length > R_Threadhold_2
+        R00 = R_Step2_R00 + R00;
+        R11 = R_Step2_R11 + R11;
+    elseif Leg_length > R_Threadhold_1
+        R00 = R_Step1_R00 + R00;
+        R11 = R_Step1_R11 + R11;
+    elseif Leg_length > R_Threadhold_0
+        R00 = R_Step0_R00 + R00;
+        R11 = R_Step0_R11 + R11;
     end
+    
     R = [R00 0; 0 R11];
 
     %Auto calculate or type in by hand

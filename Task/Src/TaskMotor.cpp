@@ -166,12 +166,7 @@ TX_THREAD MotorThread;
 uint8_t MotorThreadStack[4096] = {0};
 
 float VEL_DM4310;
-
-bool MOTOR_ONLINE[6] = {0, 0, 0, 0, 0, 0};
-float ZERO0;
-float ZERO1;
-float ZERO3;
-float ZERO4;
+float VEL_KF;
 
 [[noreturn]] void MotorThreadFun(ULONG initial_input) {
     om_config_topic(nullptr, "CA", "MOTOR_CTR", sizeof(Msg_Motor_Ctr_t));
@@ -308,6 +303,7 @@ float ZERO4;
 
         //融合里程计
         float vel_temp = 0.5f * (MotorUnit[2].GetVelocity() + MotorUnit[5].GetVelocity()) * WHEEL_R;
+        VEL_DM4310 = vel_temp;
         if (om_suber_export(ins_suber, &ins, false) == OM_OK) {
             float q_inv[4] = {ins.quaternion[0], -ins.quaternion[1], -ins.quaternion[2], -ins.quaternion[3]};
             float a_body[4] = {0, ins.accel[0], ins.accel[1], ins.accel[2]};
@@ -324,7 +320,7 @@ float ZERO4;
             odometer_msg.x = kf.GetXhat();
             odometer_msg.a_z = a_world[3];
         }
-        VEL_DM4310 = vel_temp;
+        VEL_KF = vel_temp;
 
         om_publish(odometer_topic, &odometer_msg, sizeof(odometer_msg), true, false);
         //电机角度回报
@@ -341,10 +337,6 @@ float ZERO4;
         link_msg.vel_right[0] = filter[6].Update(MotorUnit[3].GetVelocity());
         link_msg.vel_right[1] = filter[7].Update(MotorUnit[4].GetVelocity());
 
-        ZERO0 = link_msg.angel_left[0];
-        ZERO1 = link_msg.angel_left[1];
-        ZERO3 = link_msg.angel_right[0];
-        ZERO4 = link_msg.angel_right[1];
         om_publish(link_topic, &link_msg, sizeof(link_msg), true, false);
 
         uint8_t time_to_delay = tx_time_get() - time;

@@ -26,15 +26,16 @@ uint8_t ControlThreadStack[4096] = {0};
 //float PID_I_T = 0.0f;
 //float PID_D_T = -0.008f;
 
-float PID_P_T = 0.01f;
+float PID_P_T = 0.02f;
 float PID_I_T = 0.0f;
-float PID_D_T = 0.0f;
+float PID_D_T = 0.2f;
 
 float PID_OUT_T = 0.0f;
 
-float PID_P_PSI = 0.0f;
+float PID_P_PSI = 0.01f;
 float PID_I_PSI = 0.0f;
-float PID_D_PSI = 0.0f;
+float PID_D_PSI = 0.005f;
+float GYRO2 = 0.0f;
 float PID_OUT_PSI = 0.0f;
 
 float PN;
@@ -61,12 +62,49 @@ float X3;
 float X4;
 float X5;
 
-float ref_v;
-float ref_yaw;
-float ref_length;
-bool break_enable;
-bool stop_flag;
+float XR2;
+float XR3;
+
 uint8_t ID_T;
+
+float RC0;
+float RC1;
+float RC2;
+float RC3;
+
+float V_Stop_Get(float len){
+    if(len < V_LIMIT_LEN){
+        return V_MAX;
+    }
+    else{
+        return V_MAX * (LEG_MAX_LEN-len)*2.0f;
+    }
+}
+
+float V_Accel_Get(float len){
+    if(len < V_LIMIT_LEN){
+        return V_ACCEL_MAX;
+    }
+    else{
+        return V_ACCEL_MAX * (LEG_MAX_LEN-len) / (LEG_MAX_LEN - V_LIMIT_LEN);
+    }
+}
+
+float V_Limit_Get(float len){
+    if (len > V_LIMIT_LEN) {
+        return V_MAX * (LEG_MAX_LEN - len) / (LEG_MAX_LEN - V_LIMIT_LEN);
+    } else {
+        return V_MAX;
+    }
+}
+
+float V_RC_Sensitive_Get(float len){
+    if (len > V_LIMIT_LEN) {
+        return (LEG_MAX_LEN - len) / (LEG_MAX_LEN - V_LIMIT_LEN);
+    } else {
+        return 1.0f;
+    }
+}
 
 /*Close-loop control wheels*/
 [[noreturn]] void ControlThreadFun(ULONG initial_input) {
@@ -89,7 +127,7 @@ uint8_t ID_T;
     Msg_Thread_Status_t status_msg = {};
 
     //workspace 0.15 to 0.30
-    TASK_CONTROL::cLegUpdate leg_length_updater(LEG_START_LEN, 0.2f / 500.0f);
+    TASK_CONTROL::cValUpdate leg_length_updater(LEG_START_LEN, 0.2f / 500.0f);
     TASK_CONTROL::cPID_Len pid_len[2];
     pid_len[0].SetParam(850.0f, 0.06f, 3000.0f, -3000.0f);
     pid_len[1].SetParam(850.0f, 0.06f, 3000.0f, -3000.0f);
@@ -99,14 +137,16 @@ uint8_t ID_T;
 
     PID::PID_Inc_f pid_phi0; //Synchronize of legs
     cDWT dwt_phi0;
-    pid_phi0.SetParam(PID_P_T, 0, PID_D_T, 0.0f, 0.0f, 5, -5, false, 0, true, 0.08);
+    pid_phi0.SetParam(0.02, 0, 0.2, 0.0f, 0.0f, 5, -5, false, 0, false, 0);
+
 
     PID::PID_Inc_f pid_psi_dot; //Yaw inside loop
     cDWT dwt_psi_dot;
-    pid_psi_dot.SetParam(PID_P_PSI, PID_I_PSI, PID_D_PSI, 0, 0, 2, -2, false, 0, false, 0);
+    pid_psi_dot.SetParam(0.0008f, 0, 0.0005f, 0, 0, 2, -2, false, 0, false, 0);
 
-    PID::PID_Inc_f pid_psi; //Yaw outside loop
+    PID::PID_Pst_f pid_psi; //Yaw outside loop
     cDWT dwt_psi;
+    pid_psi.SetParam(PID_P_PSI, PID_I_PSI, PID_D_PSI, 0, 0, 5, -5, 0.5, -0.5, false, 0, false, 0);
 
     PID::PID_Inc_f pid_gamma; //Roll
     cDWT dwt_gamma;
@@ -118,8 +158,9 @@ uint8_t ID_T;
     arm_matrix_instance_f32 mat_target = {6, 1, target_x};
     lqr.InitMatX(&mat_target, &mat_observed);
 
-
+    TASK_CONTROL::cValUpdate ref_v_updater(0, 0);
     float ref_v_slop = 0;
+
     bool link_error = false;
 
     float leg_theta;
@@ -132,6 +173,13 @@ uint8_t ID_T;
 
     float x_dot_right[2];
     float x_dot_left[2];
+
+    float ref_v;
+    float ref_yaw = 0;
+    float ref_length;
+    bool break_enable;
+    bool stop_flag;
+
     for (;;) {
         om_suber_export(remoter_suber, &remoter, false);
         om_suber_export(ins_suber, &ins, false);
@@ -141,10 +189,8 @@ uint8_t ID_T;
         pid_phi0.SetRef(0.0f);
 
         // 0.01f 0 0
-        pid_phi0.SetParam(PID_P_T, 0, PID_D_T, 0.0f, 0.0f, 5, -5, false, 0, true, 0.2);
-        pid_psi_dot.SetParam(PID_P_PSI, PID_I_PSI, PID_D_PSI, 0, 0, 2, -2, false, 0, false, 0);
+        pid_psi.SetParam(PID_P_PSI, PID_I_PSI, PID_D_PSI, 0, 0, 5, -5, 0.5, -0.5, false, 0, false, 0);
 
-//        pid_len[0].SetParam(LEG_P, LEG_D, 3000.0f, -3000.0f);
 
         link_solver[0].Resolve(link.angel_left[0], link.angel_left[1]);
         link_solver[1].Resolve(link.angel_right[0], link.angel_right[1]);
@@ -180,37 +226,28 @@ uint8_t ID_T;
         leg_len = 0.5f * (link_solver[0].GetPendulumLen() + link_solver[1].GetPendulumLen());
         leg_len_dot = 0.5f* (x_dot_right[0] + x_dot_left[0]);
 
+        P_LEN = leg_len;
 
-        float speed_max;
         stop_flag = false;
         //Break when stick is free, or the direction is opposite
-        if ((fabsf(remoter.ch_1) < 0.001f) || (remoter.ch_1 * ref_v_slop < -0.01f)) {
-            if (ref_v_slop < -0.001f) {
-                ref_v_slop += V_STOP * 0.002f;
-            } else if (ref_v_slop > 0.001f) {
-                ref_v_slop -= V_STOP * 0.002f;
-            } else {
+
+        //更新加速度
+        ref_v_updater.SetPath(V_Accel_Get(leg_len) * 0.002f);
+
+        //判定是否需要刹车或减速
+        if ((fabsf(remoter.ch_3) < 0.001f) || (remoter.ch_3 * ref_v_updater.GetVal() < -0.05f)) {
+            ref_v_slop = ref_v_updater.UpdateVal(0);
+
+            if(ref_v_updater.CheckReached()){
                 ref_v_slop = 0;
                 stop_flag = true;
             }
-        } else if (fabsf(remoter.ch_1) > 0.001f) {
-            ref_v_slop += V_ACCEL * 0.002f * remoter.ch_1;
-        }
-
-        if (leg_len > V_LIMIT_LEN) {
-            speed_max = V_MAX * (LEG_MAX_LEN - leg_len) * V_LIMIT_SCOPE;
         } else {
-            speed_max = V_MAX;
-        }
-
-        if (ref_v_slop > speed_max) {
-            ref_v_slop = speed_max;
-        } else if (ref_v_slop < -speed_max) {
-            ref_v_slop = -speed_max;
+            ref_v_slop = ref_v_updater.UpdateVal(V_RC_Sensitive_Get(leg_len) * remoter.ch_3 * V_Limit_Get(leg_len));
         }
 
         ref_v = ref_v_slop;
-        ref_yaw = remoter.ch_0;
+        ref_yaw -= 0.008f*remoter.ch_0;
         ref_length = LEG_MIN_LEN + (LEG_MAX_LEN - LEG_MIN_LEN) * ((remoter.wheel + 1.0f) / 2.0f);
         if (ref_length > LEG_MAX_LEN) {
             ref_length = LEG_MAX_LEN;
@@ -224,7 +261,9 @@ uint8_t ID_T;
             }
             motor.enable = false;
             om_publish(motor_control, &motor, sizeof(Msg_Motor_Ctr_t), true, false);
-            leg_length_updater.Set_Length(LEG_START_LEN);
+            leg_length_updater.SetDefault(LEG_START_LEN);
+            ref_v_updater.SetDefault(0);
+
             dwt_len[0].update();
             dwt_len[1].update();
             dwt_phi0.update();
@@ -234,6 +273,7 @@ uint8_t ID_T;
 
             pid_phi0.Rst();
             pid_psi.Rst();
+            pid_psi_dot.Rst();
 
             target_x[0] = 0;
             target_x[1] = 0;
@@ -245,6 +285,8 @@ uint8_t ID_T;
             link_error = false;
             ref_v_slop = 0;
             break_enable = false;
+
+            ref_yaw = ins.euler[2];
 
         } else if (remoter.switch_left == 1) {
             //LQR Input
@@ -258,7 +300,7 @@ uint8_t ID_T;
 
 
             //Length PID
-            float leg_len_set_val = leg_length_updater.update_val(ref_length);
+            float leg_len_set_val = leg_length_updater.UpdateVal(ref_length);
 
             pid_len[0].SetRef(leg_len_set_val);
             pid_len[0].Calculate(link_solver[0].GetPendulumLen(), x_dot_left[0], dwt_len[0].dt_sec());
@@ -279,12 +321,15 @@ uint8_t ID_T;
 
 
 
-//            //PSI PID
-//            pid_psi_dot.SetRef(ref_yaw);
-//            PID_OUT_PSI = pid_psi_dot.Calculate(ins.gyro[2], dwt_psi_dot.dt_sec());
+            //PSI PID
+            pid_psi.SetRef(ref_yaw);
+            PID_OUT_PSI = pid_psi.Calculate(ins.euler[2], dwt_psi.dt_sec());
 
-//            wheel_torque[0] -= pid_psi_dot.Out();
-//            wheel_torque[1] += pid_psi_dot.Out();
+            pid_psi_dot.SetRef(pid_psi.Out());
+            pid_psi_dot.Calculate(ins.gyro[2], dwt_psi_dot.dt_sec());
+
+            wheel_torque[0] -= pid_psi_dot.Out();
+            wheel_torque[1] += pid_psi_dot.Out();
 
 
             //Balance LQR
@@ -303,6 +348,10 @@ uint8_t ID_T;
 
             target_x[4] = 0.0f;
             target_x[5] = 0.0f;
+
+
+            XR2 = target_x[2];
+            XR3 = target_x[3];
 
             float rev_ft_l_t[2];
             float rev_ft_r_t[2];
