@@ -23,12 +23,8 @@
   <component name="ChangeListManager">
     <list default="true" id="acdfb305-f91f-4fb5-bdbe-fed7fc03e98b" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module/PSAI/Inc/libpid-i-2.1.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Module/PSAI/Inc/libpid-i-2.1.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Inc/TaskControl.h" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Inc/TaskControl.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Src/TaskControl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskControl.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task/Src/TaskMotor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskMotor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/matlab/BananaBotLQR.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/BananaBotLQR.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/matlab/Jacobian.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/Jacobian.m" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,7 +179,7 @@
       <workItem from="1716528974511" duration="18530000" />
       <workItem from="1716605605317" duration="36855000" />
       <workItem from="1716697987053" duration="848000" />
-      <workItem from="1716698859809" duration="13808000" />
+      <workItem from="1716698859809" duration="24617000" />
     </task>
     <servers />
   </component>

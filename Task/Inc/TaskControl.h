@@ -15,6 +15,10 @@
 #define LEG_MIN_LEN 0.150f
 #define LEG_START_LEN 0.150f
 
+#define JUMP_START_LEN 0.150f
+#define JUMP_REC_LEN 0.200f
+#define JUMP_TOP_LEN 0.300f
+
 #define LQR_MAX_LEN_CTRL 0.350f
 #define LQR_MIN_LEN_CTRL 0.130f
 #define LQR_LEN_RESOLUTION 0.005f
@@ -77,7 +81,7 @@ namespace TASK_CONTROL {
         bool _reached;
     public:
         cValUpdate(float default_val, float path) : _val(default_val), _path(path), _reached(false) {}
-
+        cValUpdate() = default;
         void SetDefault(float val) {
             _val = val;
         }
