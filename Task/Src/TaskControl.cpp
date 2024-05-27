@@ -19,51 +19,32 @@
 TX_THREAD ControlThread;
 uint8_t ControlThreadStack[4096] = {0};
 
-//float LEG_P = 800.0f;
-//float LEG_D = 0.06f;
-
-//float PID_P_T = 0.018f;
-//float PID_I_T = 0.0f;
-//float PID_D_T = -0.008f;
-
-float PID_P_T = 0.0007f;
-float PID_I_T = 0.0f;
-float PID_D_T = 0.0002f;
-
-float PID_OUT_T = 0.0f;
-
-float PID_P_PSI = 0.01f;
-float PID_I_PSI = 0.0f;
-float PID_D_PSI = 0.005f;
-float GYRO0 = 0.0f;
-float PID_OUT_PSI = 0.0f;
-
-float PN;
+float TN_L;
+float TN_R;
+float FN_L;
+float FN_R;
+float TN;
 float FN;
+
 float FL;
 float FR;
 
-float P_RADIAN;
 float P_LEN;
-float P_PHI0;
-float P_PHI0_DOT;
-float P_THETA;
-float P_THETA_DOT;
-float P_VT;
+float P_L;
+float P_R;
 
-float observed_x[6];
-float target_x[6];
-float lqr_out[2];
+float Xo0;
+float Xo1;
+float Xo2;
+float Xo3;
+float Xo4;
+float Xo5;
 
-float X0;
-float X1;
-float X2;
-float X3;
-float X4;
-float X5;
+float Xd2;
+float Xd3;
 
-float XR2;
-float XR3;
+float Yawd;
+float Yawo;
 
 uint8_t ID_T;
 
@@ -74,6 +55,7 @@ float RC3;
 
 uint8_t JUMP_STAGE;
 bool JUMP_FLAG;
+bool SKY;
 
 float V_Stop_Get(float len) {
     if (len < V_LIMIT_LEN) {
@@ -166,6 +148,10 @@ float L_Check(float len) {
 
     cLinkSolver link_solver[2];
 
+    float observed_x[6];
+    float target_x[6];
+    float lqr_out[2];
+
     TASK_CONTROL::cLQR lqr;
     arm_matrix_instance_f32 mat_observed = {6, 1, observed_x};
     arm_matrix_instance_f32 mat_target = {6, 1, target_x};
@@ -228,12 +214,12 @@ float L_Check(float len) {
         observed_x[4] = -ins.euler[1];
         observed_x[5] = -ins.gyro[1];
 
-        X0 = observed_x[0];
-        X1 = observed_x[1];
-        X2 = observed_x[2];
-        X3 = observed_x[3];
-        X4 = observed_x[4];
-        X5 = observed_x[5];
+        Xo0 = observed_x[0];
+        Xo1 = observed_x[1];
+        Xo2 = observed_x[2];
+        Xo3 = observed_x[3];
+        Xo4 = observed_x[4];
+        Xo5 = observed_x[5];
 
         leg_theta = observed_x[0];
         leg_theta_dot = observed_x[1];
@@ -265,14 +251,22 @@ float L_Check(float len) {
                 + leg_len * (leg_theta_dot - leg_theta_dot_last) * sin_theta
                 + leg_len * (leg_theta_dot * leg_theta_dot) * cos_theta;
 
-        PN = F_real;
-        FN = P + Zw;
-
         if (P + Zw > 0) {
             fly_flag = true;
+            SKY = true;
         }
+        SKY = false;
+        TN_L = rev_ft_l_t[1];
+        TN_R = rev_ft_r_t[1];
+        FN_L = rev_ft_l_t[0];
+        FN_R = rev_ft_r_t[0];
+
+        TN = T_real;
+        FN = P + Zw;
 
         P_LEN = leg_len;
+        P_L = link_solver[0].GetPendulumLen();
+        P_R = link_solver[1].GetPendulumLen();
 
         //Break when stick is free, or the direction is opposite
         //更新加速度
@@ -296,6 +290,7 @@ float L_Check(float len) {
 
         JUMP_FLAG = jump_mode;
         JUMP_STAGE = jump_stage;
+
         //Enable Jump
         //Exit Mode
 
@@ -409,7 +404,7 @@ float L_Check(float len) {
 
 
             //PHI0 PID
-            PID_OUT_PSI = pid_phi0.Calculate(link_solver[0].GetPendulumRadian() - link_solver[1].GetPendulumRadian(),
+            pid_phi0.Calculate(link_solver[0].GetPendulumRadian() - link_solver[1].GetPendulumRadian(),
                                              dwt_phi0.dt_sec());
 
             force_torque_left[0] -= pid_len[0].Out();
@@ -419,11 +414,13 @@ float L_Check(float len) {
             force_torque_right[1] -= pid_phi0.Out();
 
 
+            Yawd = ref_yaw;
+            Yawo = ins.euler[2];
 
             //PSI PIxD
-            if (!fly_flag && !jump_mode) {
+            if (!fly_flag && (jump_stage < 2)) {
                 pid_psi.SetRef(ref_yaw);
-                PID_OUT_PSI = pid_psi.Calculate(ins.euler[2], dwt_psi.dt_sec());
+                pid_psi.Calculate(ins.euler[2], dwt_psi.dt_sec());
 
                 pid_psi_dot.SetRef(pid_psi.Out());
                 pid_psi_dot.Calculate(ins.gyro[2], dwt_psi_dot.dt_sec());
@@ -441,7 +438,7 @@ float L_Check(float len) {
             target_x[0] = 0.0f;
             target_x[1] = 0.0f;
             if (!stop_flag) {
-                target_x[2] = observed_x[2] + ref_v * 0.002f;
+                target_x[2] = target_x[2] + ref_v * 0.002f;
                 break_enable = true;
             } else if (break_enable) {
                 if (fabs(odometer.v) < 0.01f) {
@@ -449,14 +446,23 @@ float L_Check(float len) {
                     target_x[2] = observed_x[2];
                 }
             }
+//            target_x[2] = target_x[2] + ref_v * 0.002f;
+
+//            if(target_x[2] > observed_x[2] + 1.0f){
+//                target_x[2] = observed_x[2] + 1.0f;
+//            }
+//            else if(target_x[2] < observed_x[2] - 1.0f){
+//                target_x[2] = observed_x[2] - 1.0f;
+//            }
+
             target_x[3] = ref_v;
 
             target_x[4] = 0.0f;
             target_x[5] = 0.0f;
 
 
-            XR2 = target_x[2];
-            XR3 = target_x[3];
+            Xd2 = target_x[2];
+            Xd3 = target_x[3];
 
 
             lqr.RefreshLQRK(leg_len, fly_flag);
