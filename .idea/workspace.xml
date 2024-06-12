@@ -23,8 +23,22 @@
   <component name="ChangeListManager">
     <list default="true" id="acdfb305-f91f-4fb5-bdbe-fed7fc03e98b" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mxproject" beforeDir="false" afterPath="$PROJECT_DIR$/.mxproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BananaBot.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/BananaBot.ioc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/RTE_Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/RTE_Components.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/tx_user.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/tx_user.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/Construct.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/Construct.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/ControlHardware.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/ControlHardware.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/Size.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/Size.drawio" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/Inc/TaskControl.h" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Inc/TaskControl.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task/Src/TaskControl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskControl.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task/Src/TaskHeatbeat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Task/Src/TaskHeatbeat.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matlab/DrawPictures/PicBall.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/DrawPictures/PicBall.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matlab/DrawPictures/PicDisturb.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/DrawPictures/PicDisturb.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matlab/DrawPictures/PicJump.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/DrawPictures/PicJump.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matlab/DrawPictures/PicNormal.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/DrawPictures/PicNormal.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matlab/DrawPictures/PicSingle.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/DrawPictures/PicSingle.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matlab/DrawPictures/PicSky.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/DrawPictures/PicSky.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matlab/DrawPictures/PicYaw.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/DrawPictures/PicYaw.m" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +112,11 @@
     <option name="rtosType" value="Azure RTOS ThreadX" />
   </component>
   <component name="RunManager" selected="OpenOCD 下载并运行.OCD BananaBot">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BananaBot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="BananaBot.elf" CONFIG_NAME="RelWithDebInfo-MinGW" RUN_TARGET_PROJECT_NAME="BananaBot" RUN_TARGET_NAME="BananaBot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -183,6 +202,9 @@
       <workItem from="1716754943491" duration="233000" />
       <workItem from="1716803558926" duration="3181000" />
       <workItem from="1716814495820" duration="5620000" />
+      <workItem from="1716867827748" duration="4019000" />
+      <workItem from="1716909662513" duration="4000" />
+      <workItem from="1718184327857" duration="48000" />
     </task>
     <servers />
   </component>
@@ -203,6 +225,8 @@
         <watch expression="data_rx" />
         <watch expression="display_buf" />
         <watch expression="_frame_buff" language="ObjectiveC" />
+        <watch expression="TraceXBuf" />
+        <watch expression="&amp;TraceXBuf" language="ObjectiveC" />
       </configuration>
     </watches-manager>
   </component>

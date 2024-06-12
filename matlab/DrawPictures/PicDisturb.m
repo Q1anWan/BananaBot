@@ -59,7 +59,7 @@ xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 ylim([min(Y1_segment)-0.1,max(Y1_segment)+0.1]);
 % 设置 x 轴刻度
 xticks(0:0.5:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$\theta$'}, 'Interpreter', 'latex');
+legend({'摆杆与竖直方向夹角'});
 
 
 subplot(2,1,2);
@@ -73,7 +73,7 @@ grid on;                  % 添加网格
 xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 % 设置 x 轴刻度
 xticks(0:0.5:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$\hat{\dot{x}}$'}, 'Interpreter', 'latex');
+legend({'观测速度'});
 
 %% 清除临时变量
 clear opts

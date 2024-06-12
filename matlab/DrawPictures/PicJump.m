@@ -22,8 +22,8 @@ test_data = readtable("D:\WorkSpace\GraduateDesign\acc_dacc_0527_2400_jump.csv",
 time_stamp = test_data.Timestamp * 1e-6;
 
 % 截取从 t_start 秒开始的数据
-t_start = 37;
-t_end   = 45;
+t_start = 25;
+t_end   = 30;
 
 start_index = find(time_stamp >= t_start, 1);    % 找到第一个大于等于 t_start 秒的索引
 end_index = find(time_stamp >= t_end, 1);
@@ -54,7 +54,7 @@ grid on;                  % 添加网格
 xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 % 设置 x 轴刻度
 xticks(0:0.5:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$L_p$'}, 'Interpreter', 'latex');
+legend({'等效摆杆长'},Location="north");
 
 
 subplot(3,1,2);
@@ -68,21 +68,21 @@ grid on;                  % 添加网格
 xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 % 设置 x 轴刻度
 xticks(0:0.5:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$F$'}, 'Interpreter', 'latex');
+legend({'沿摆推力'},Location="north");
 
 subplot(3,1,3);
 stairs(time_s_segment, jump_segmen, '-',Color='red'); % 使用实线绘制第一个数据集
 hold off;
 % 添加图例，并使用 LaTeX 格式
 xlabel('$t$ [s]', 'Interpreter', 'latex');
-ylabel('跳跃标志位 [1]', 'Interpreter', 'latex');
+ylabel('$J$ [1]', 'Interpreter', 'latex');
 % 设置图形属性（可选）
 grid on;                  % 添加网格
 xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 % 设置 x 轴刻度
 xticks(0:0.5:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
 %yticks(0:1:1);
-legend({'跳跃标志位'}, 'Interpreter', 'latex');
+legend({'跳跃标志位'},Location="north");
 
 %% 清除临时变量
 clear opts

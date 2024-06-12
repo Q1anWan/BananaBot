@@ -62,7 +62,7 @@ xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 ylim([min(Y1_segment(:, 2))-0.01,max(Y1_segment(:, 2))+0.01]);
 % 设置 x 轴刻度
 xticks(0:0.5:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$\hat{\psi}$'}, 'Interpreter', 'latex');
+legend({'期望航向角','观测航向角'});
 
 
 subplot(2,1,2);
@@ -79,7 +79,7 @@ xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 ylim([min(Y2_segment(:, 2))-0.02,max(Y2_segment(:, 2))+0.02]);
 % 设置 x 轴刻度
 xticks(0:0.5:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$\hat{\dot{x}}$'}, 'Interpreter', 'latex');
+legend({'期望速度', '观测速度'});
 
 %% 清除临时变量
 clear opts

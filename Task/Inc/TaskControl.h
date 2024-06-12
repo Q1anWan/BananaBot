@@ -32,7 +32,7 @@
 
 #define V_ACCEL_MAX 1.2f
 #define V_STOP 1.0f
-#define V_MAX 1.0f
+#define V_MAX 1.2f
 #define V_LIMIT_LEN 0.20f
 
 extern uint8_t ID_T;

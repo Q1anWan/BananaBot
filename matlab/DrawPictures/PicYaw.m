@@ -64,7 +64,7 @@ grid on;                  % 添加网格
 xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 % 设置 x 轴刻度
 xticks(0:1:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$\psi_d$','$\hat{\psi}$'}, 'Interpreter', 'latex');
+legend({'期望航向角','观测航向角'},'Location','best');
 
 
 subplot(2,1,2);
@@ -79,7 +79,7 @@ grid on;                  % 添加网格
 xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 % 设置 x 轴刻度
 xticks(0:1:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$\hat{x}$'}, 'Interpreter', 'latex');
+legend({'观测位移'});
 
 %% 清除临时变量
 clear opts

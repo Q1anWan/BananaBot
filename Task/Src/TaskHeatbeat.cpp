@@ -20,9 +20,9 @@
 
 
 /*TraceX utilities*/
-#define TRC_BUF_SIZE (2048 * 32) /* Buffer size */
+#define TRC_BUF_SIZE (10200 * 32) /* Buffer size */
 #define TRC_MAX_OBJ_COUNT (40)   /* Max number of ThreadX objects */
-UCHAR TraceXBuf[TRC_BUF_SIZE];
+SRAM_SET_RAM_D1 UCHAR TraceXBuf[TRC_BUF_SIZE];
 
 SRAM_SET_RAM_D3 uint8_t display_buf[9 + 2];
 
@@ -110,10 +110,10 @@ uint8_t HeartBeatThreadStack[2048] = {0};
         msg_battery.time_stamp = tx_time_get();
         om_publish(battery_topic, &msg_battery, sizeof(msg_battery), true, false);
 
-        uint16_t len_tx = fishPrintf(tx_buf, "Voltag=%f\n", battery_voltage);
-        SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len_tx);
-        HAL_UART_Transmit_DMA(&huart10, tx_buf, len_tx);
-        tx_thread_sleep(2);
+//        uint16_t len_tx = fishPrintf(tx_buf, "Voltag=%f\n", battery_voltage);
+//        SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len_tx);
+//        HAL_UART_Transmit_DMA(&huart10, tx_buf, len_tx);
+//        tx_thread_sleep(2);
 
 //        if (om_suber_export(ins_suber, &ins, false) == OM_OK) {
 //            uint16_t len = fishPrintf(tx_buf, "R=%f,P=%f,Y=%f\n", ins.euler[0] * 57.2957795130f,
@@ -142,23 +142,23 @@ uint8_t HeartBeatThreadStack[2048] = {0};
 //            tx_thread_sleep(1);
 //        }
 //
-        if (om_suber_export(dbg_suber, &dbg, false) == OM_OK) {
-            uint16_t len = fishPrintf(tx_buf, "dbg0=%f,dbg1=%f,dbg2=%f,dbg3=%f,dbg4=%f,dbg5=%f\n", dbg.dbg[0],
-                                      dbg.dbg[1], dbg.dbg[2], dbg.dbg[3], dbg.dbg[4], dbg.dbg[5]);
-            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
-            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
-            tx_thread_sleep(5);
-        }
-
-        if (om_suber_export(remoter_suber, &remoter, false) == OM_OK) {
-            uint16_t len = fishPrintf(tx_buf, "CH0=%f,CH1=%f,CH2=%f,CH3=%f,SWL=%d,SWR=%d,WHEEL=%f,Timestamp=%d\n",
-                                      remoter.ch_0, remoter.ch_1, remoter.ch_2, remoter.ch_3, remoter.switch_left,
-                                      remoter.switch_right, remoter.wheel, remoter.timestamp);
-            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
-            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
-            tx_thread_sleep(5);
-        }
-
+//        if (om_suber_export(dbg_suber, &dbg, false) == OM_OK) {
+//            uint16_t len = fishPrintf(tx_buf, "dbg0=%f,dbg1=%f,dbg2=%f,dbg3=%f,dbg4=%f,dbg5=%f\n", dbg.dbg[0],
+//                                      dbg.dbg[1], dbg.dbg[2], dbg.dbg[3], dbg.dbg[4], dbg.dbg[5]);
+//            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
+//            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
+//            tx_thread_sleep(5);
+//        }
+//
+//        if (om_suber_export(remoter_suber, &remoter, false) == OM_OK) {
+//            uint16_t len = fishPrintf(tx_buf, "CH0=%f,CH1=%f,CH2=%f,CH3=%f,SWL=%d,SWR=%d,WHEEL=%f,Timestamp=%d\n",
+//                                      remoter.ch_0, remoter.ch_1, remoter.ch_2, remoter.ch_3, remoter.switch_left,
+//                                      remoter.switch_right, remoter.wheel, remoter.timestamp);
+//            SCB_CleanInvalidateDCache_by_Addr((uint32_t *) tx_buf, len);
+//            HAL_UART_Transmit_DMA(&huart10, tx_buf, len);
+//            tx_thread_sleep(5);
+//        }
+//        tx_trace_enable(&TraceXBuf, TRC_BUF_SIZE, TRC_MAX_OBJ_COUNT);
         bool is_warning = false;
         bool is_error = false;
         uint8_t id = 0;

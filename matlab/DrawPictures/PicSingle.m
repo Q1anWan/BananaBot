@@ -64,7 +64,7 @@ grid on;                  % 添加网格
 xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 % 设置 x 轴刻度
 xticks(0:0.25:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$\hat{L}_p$','${\hat{L}}_{p_{l}}$','${\hat{L}}_{p_{r}}$'}, 'Interpreter', 'latex');
+legend({'等效摆杆长','左摆杆长','右摆杆长'});
 
 
 subplot(2,1,2);
@@ -73,13 +73,13 @@ plot(time_s_segment, Y2_segment(:, 1), '-',Color='magenta'); % 使用实线绘�
 hold off;
 % 添加图例，并使用 LaTeX 格式
 xlabel('$t$ [s]', 'Interpreter', 'latex');
-ylabel('$\gamma$ [rad]', 'Interpreter', 'latex');
+ylabel('$\hat{\gamma}$ [rad]', 'Interpreter', 'latex');
 % 设置图形属性（可选）
 grid on;                  % 添加网格
 xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 % 设置 x 轴刻度
 xticks(0:0.25:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$\hat{\gamma}$'}, 'Interpreter', 'latex');
+legend({'观测横滚角'});
 
 %% 清除临时变量
 clear opts

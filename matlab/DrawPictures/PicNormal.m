@@ -18,14 +18,16 @@ opts = setvaropts(opts, "VarName33", "WhitespaceRule", "preserve");
 opts = setvaropts(opts, "VarName33", "EmptyFieldRule", "auto");
 
 % 导入数据
-test_data = readtable("D:\WorkSpace\GraduateDesign\acc_dacc_0527_2100_single.csv", opts);
+%test_data = readtable("D:\WorkSpace\GraduateDesign\acc_dacc_0527_1825.csv", opts);
+test_data = readtable("D:\WorkSpace\GraduateDesign\acc_dacc_0527_1940_load.csv", opts);
 time_stamp = test_data.Timestamp * 1e-6;
 
 % 截取从 t_start 秒开始的数据
-t_start = 15;
-t_end   = t_start + 46.2-15;
-%t_start = 0;
-%t_end   = time_stamp(end);
+%t_start = 8;
+%t_end   = 36;
+t_start = 15.5;
+t_end = 46.5;
+
 start_index = find(time_stamp >= t_start, 1);    % 找到第一个大于等于 t_start 秒的索引
 end_index = find(time_stamp >= t_end, 1);
 
@@ -57,9 +59,10 @@ ylabel('$x$ [m]', 'Interpreter', 'latex');
 % 设置图形属性（可选）
 grid on;                  % 添加网格
 xlim([0, max(time_s_segment)]); % 设置 X 轴范围
+ylim([min(Y1_segment(:, 2))-0.3, max(Y1_segment(:, 2))+0.3]); % 设置 X 轴范围
 % 设置 x 轴刻度
 xticks(0:2:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$x_d$','$\hat{x}$'}, 'Interpreter', 'latex');
+legend({'期望位移','估计位移'},'Location','best');
 
 
 subplot(2,1,2);
@@ -75,7 +78,7 @@ grid on;                  % 添加网格
 xlim([0, max(time_s_segment)]); % 设置 X 轴范围
 % 设置 x 轴刻度
 xticks(0:2:max(time_s_segment)); % 设置 x 轴间隔为 0.5 秒
-legend({'$\dot{x}_d$','$\hat{\dot{x}}$'}, 'Interpreter', 'latex');
+legend({'期望速度','观测速度'},'Location','best');
 
 %% 清除临时变量
 clear opts

@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>LQRModule</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-05-28">
+<meta name="DC.source" content="LQRModule.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<pre class="codeinput">
+<span class="comment">%Author, NUAA: WANG JIAN.</span>
+clear;
+syms <span class="string">theta</span> <span class="string">x</span> <span class="string">phi</span> <span class="string">T</span> <span class="string">Tp</span> <span class="string">N</span> <span class="string">P</span> <span class="string">Nm</span> <span class="string">Pm</span> <span class="string">Nf</span>
+syms <span class="string">R</span> <span class="string">L</span> <span class="string">Lm</span> <span class="string">l</span> <span class="string">mw</span> <span class="string">mp</span> <span class="string">M</span> <span class="string">Iw</span> <span class="string">Ip</span> <span class="string">Im</span>
+
+syms <span class="string">theta_dot</span> <span class="string">theta_dot_2</span> <span class="string">phi_dot</span> <span class="string">phi_dot_2</span>
+syms <span class="string">x_dot_2</span> <span class="string">xb_dot_2</span>
+syms <span class="string">g</span>
+
+x_dot_2=xb_dot_2-(L+Lm)*cos(theta)*theta_dot_2+(L+Lm)*sin(theta)*theta_dot^2;
+N = Nm + mp*( x_dot_2 + L*(theta_dot_2*cos(theta) - theta_dot^2*sin(theta)) );
+P = Pm + mp*g - mp*L*(theta_dot_2*sin(theta) + theta_dot^2*cos(theta)  );
+Nm = M*( x_dot_2 + (L+Lm)*(theta_dot_2*cos(theta)-theta_dot^2*sin(theta)) - l*(phi_dot_2*cos(phi) - phi_dot^2*sin(phi)) );
+Pm = M*g - M*( (L+Lm)*(theta_dot_2*sin(theta) + theta_dot^2*cos(theta)) + l*(phi_dot_2*sin(phi) + phi_dot^2*cos(phi)) );
+
+
+eqA=x_dot_2==(T-N*R)/(Iw/R+mw*R);
+eqB=Ip*theta_dot_2==((P*L+Pm*Lm)*sin(theta)-(N*L+Nm*Lm)*cos(theta)-T+Tp);
+eqC=Im*phi_dot_2==(Tp+Nm*l*cos(phi)+Pm*l*sin(phi));
+
+[xb_dot_2,theta_dot_2,phi_dot_2]=solve([eqA,eqB,eqC],[xb_dot_2,theta_dot_2,phi_dot_2]);
+<span class="comment">%mod_sol=solve(eqA,eqB,eqC,[xb_dot_2,theta_dot_2,phi_dot_2]);</span>
+
+xb_dot_2=simplify(collect(xb_dot_2));
+theta_dot_2=simplify(collect(theta_dot_2));
+phi_dot_2=simplify(collect(phi_dot_2));
+
+A1=diff(theta_dot_2,theta);
+A2=diff(theta_dot_2,phi);
+B1=diff(theta_dot_2,T);
+B2=diff(theta_dot_2,Tp);
+
+A3=diff(x_dot_2,theta);
+A4=diff(x_dot_2,phi);
+B3=diff(x_dot_2,T);
+B4=diff(x_dot_2,Tp);
+
+A5=diff(phi_dot_2,theta);
+A6=diff(phi_dot_2,phi);
+B5=diff(phi_dot_2,T);
+B6=diff(phi_dot_2,Tp);
+
+A1=subs(A1,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+A2=subs(A2,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B1=subs(B1,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B2=subs(B2,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+
+A3=subs(A3,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+A4=subs(A4,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B3=subs(B3,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B4=subs(B4,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+
+A5=subs(A5,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+A6=subs(A6,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B5=subs(B5,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B6=subs(B6,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%Author, NUAA: WANG JIAN.
+clear;
+syms theta x phi T Tp N P Nm Pm Nf
+syms R L Lm l mw mp M Iw Ip Im
+
+syms theta_dot theta_dot_2 phi_dot phi_dot_2 
+syms x_dot_2 xb_dot_2
+syms g 
+
+x_dot_2=xb_dot_2-(L+Lm)*cos(theta)*theta_dot_2+(L+Lm)*sin(theta)*theta_dot^2;
+N = Nm + mp*( x_dot_2 + L*(theta_dot_2*cos(theta) - theta_dot^2*sin(theta)) );
+P = Pm + mp*g - mp*L*(theta_dot_2*sin(theta) + theta_dot^2*cos(theta)  );
+Nm = M*( x_dot_2 + (L+Lm)*(theta_dot_2*cos(theta)-theta_dot^2*sin(theta)) - l*(phi_dot_2*cos(phi) - phi_dot^2*sin(phi)) );
+Pm = M*g - M*( (L+Lm)*(theta_dot_2*sin(theta) + theta_dot^2*cos(theta)) + l*(phi_dot_2*sin(phi) + phi_dot^2*cos(phi)) );
+
+
+eqA=x_dot_2==(T-N*R)/(Iw/R+mw*R);
+eqB=Ip*theta_dot_2==((P*L+Pm*Lm)*sin(theta)-(N*L+Nm*Lm)*cos(theta)-T+Tp);
+eqC=Im*phi_dot_2==(Tp+Nm*l*cos(phi)+Pm*l*sin(phi));
+
+[xb_dot_2,theta_dot_2,phi_dot_2]=solve([eqA,eqB,eqC],[xb_dot_2,theta_dot_2,phi_dot_2]);
+%mod_sol=solve(eqA,eqB,eqC,[xb_dot_2,theta_dot_2,phi_dot_2]);
+
+xb_dot_2=simplify(collect(xb_dot_2));
+theta_dot_2=simplify(collect(theta_dot_2));
+phi_dot_2=simplify(collect(phi_dot_2));
+
+A1=diff(theta_dot_2,theta);
+A2=diff(theta_dot_2,phi);
+B1=diff(theta_dot_2,T);
+B2=diff(theta_dot_2,Tp);
+
+A3=diff(x_dot_2,theta);
+A4=diff(x_dot_2,phi);
+B3=diff(x_dot_2,T);
+B4=diff(x_dot_2,Tp);
+
+A5=diff(phi_dot_2,theta);
+A6=diff(phi_dot_2,phi);
+B5=diff(phi_dot_2,T);
+B6=diff(phi_dot_2,Tp);
+
+A1=subs(A1,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+A2=subs(A2,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B1=subs(B1,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B2=subs(B2,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+
+A3=subs(A3,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+A4=subs(A4,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B3=subs(B3,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B4=subs(B4,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+
+A5=subs(A5,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+A6=subs(A6,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B5=subs(B5,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+B6=subs(B6,{theta,phi,theta_dot,phi_dot},{0,0,0,0});
+
+##### SOURCE END #####
+-->
+</body>
+</html>
