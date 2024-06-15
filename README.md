@@ -1,12 +1,12 @@
 # BananaBot - Balancing Robot Type B
-BananaBot is a kind of five-link dual-wheel balancing robot. It's based on balancing infantry robot in the RoboMaster competition.
-BananaBot is a graduate design of Dalian University of Technology.
+BananaBot is a kind of five-link dual-wheel balancing robot. It's based on balancing infantry robot in the RoboMaster competition.   
+BananaBot is a graduate design of Dalian University of Technology.   
 
 ## Overall of robot
 ![Struct of Robot](./Docs/Struct_of_robot.svg)
 BananaBot has three main components: the body-box, the legs, and the wheels. The structural design and kinematic model derivation are both based on this.
 
-Here lists more paramaters about robot:
+Here lists more paramaters about robot:   
 
 | Parameter Name                  | Value | Unit  |
 |---------------------------------|-------|-------|
@@ -20,7 +20,7 @@ Here lists more paramaters about robot:
 | Maximum Left-Right Pendulum Height Difference | 0.15  | m     |
 | Endurance Time                  | 1.0   | h     |
 
-Here is the hardware connection of BananaBot:
+Here is the hardware connection of BananaBot:   
 ![Hareware](./Docs/Control_Hardware.svg)
 
 ##  Kinematic of robot
@@ -71,10 +71,12 @@ Among them, the VMC (Virtual Model Control) controller utilizes the statics of a
 - [OneMessage - Message System](Module/OneMessage/README.md)
 - [WHX EKF - AHRS](https://github.com/WangHongxi2001/RoboMaster-C-Board-INS-Example)
   
-Software construction list here:
+Software construction list here:   
 ![Software](./Docs/Software.svg)
-> USB and Mavlink haven't completed
-> This picture isn't 100% fit the truth, LOL
+> USB and Mavlink haven't been fitted in this version of codes.   
+> Real codes may not 100% fit this picture.   
+
+> BTW, LVGL files in this project are useless.   
 
 [^1]: 陈阳, 王洪玺, 张兰勇. 轮腿式平衡机器人控制[J]. 信息与控制, 2023, 52(05): 648-659. https://doi.org/10.13976/j.cnki.xk.2023.2533.
 
