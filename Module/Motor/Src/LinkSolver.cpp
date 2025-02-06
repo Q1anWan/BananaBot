@@ -68,15 +68,10 @@ void cLinkSolver::Resolve(float phi4_radian, float psi1_radian) {
     JTRM_mat[2] = L1 * sin02 * sin34 / sin32;
     JTRM_mat[3] = L1 * cos02 * sin34 / (sin32 * PendulumLength);
 
-    JTRMRev_mat[0] = -cos02 / (sin12 * L1);
-    JTRMRev_mat[1] = cos03 / (sin34 * L1);
-    JTRMRev_mat[2] = PendulumLength * sin02 / (sin12 * L1);
-    JTRMRev_mat[3] = -PendulumLength * sin03 / (sin34 * L1);
-
-    MTRTJ_mat[0] = L1 * sin03 * sin12 / sin32;
-    MTRTJ_mat[1] = L1 * sin02 * sin34 / sin32;
-    MTRTJ_mat[2] = L1 * cos03 * sin12 / (sin32 * PendulumLength);
-    MTRTJ_mat[3] = L1 * cos02 * sin34 / (sin32 * PendulumLength);
+    JTRMInv_mat_c[0] = -cos02 / (sin12 * L1);
+    JTRMInv_mat_c[1] = cos03 / (sin34 * L1);
+    JTRMInv_mat_c[2] = sin02 / (sin12 * L1);
+    JTRMInv_mat_c[3] = -sin03 / (sin34 * L1);
 }
 
 /*正向VMC 由Force Torque->T3 T2*/
@@ -87,12 +82,12 @@ void cLinkSolver::VMCCal(float *FT, float *Tmotor) {
 
 /*逆向VMC 由MOTOR_FORWARD MOTOR_BACKWORD -> Force Torque*/
 void cLinkSolver::VMCRevCal(float *FT, float *Tmotor) {
-    FT[0] = this->JTRMRev_mat[0] * Tmotor[0] + this->JTRMRev_mat[1] * Tmotor[1];
-    FT[1] = this->JTRMRev_mat[2] * Tmotor[0] + this->JTRMRev_mat[3] * Tmotor[1];
+    FT[0] = this->JTRMInv_mat_c[0] * Tmotor[0] + this->JTRMInv_mat_c[1] * Tmotor[1];
+    FT[1] = PendulumLength*(this->JTRMInv_mat_c[2] * Tmotor[0] + this->JTRMInv_mat_c[3] * Tmotor[1]);
 }
 
-/*逆向VMC 由电机角速度->沿着摆方向和垂直摆方向角速度*/
+/*逆向VMC 由电机角速度->沿着摆方向线速度和垂直摆方向角速度*/
 void cLinkSolver::VMCVelCal(float *phi_dot, float *v_dot) {
-    v_dot[0] = this->MTRTJ_mat[0] * phi_dot[0] + this->MTRTJ_mat[1] * phi_dot[1];
-    v_dot[1] = this->MTRTJ_mat[2] * phi_dot[0] + this->MTRTJ_mat[3] * phi_dot[1];
+    v_dot[0] = this->JTRMInv_mat_c[0] * phi_dot[0] + this->JTRMInv_mat_c[1] * phi_dot[1];
+    v_dot[1] = (this->JTRMInv_mat_c[2] * phi_dot[0] + this->JTRMInv_mat_c[3] * phi_dot[1]);
 }

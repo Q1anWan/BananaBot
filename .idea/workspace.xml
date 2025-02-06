@@ -95,12 +95,7 @@
     <option name="rtosEnabled" value="true" />
     <option name="rtosType" value="Azure RTOS ThreadX" />
   </component>
-  <component name="RunManager" selected="OpenOCD 下载并运行.OCD BananaBot">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="CMake Application.BananaBot.elf">
     <configuration name="BananaBot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BananaBot" TARGET_NAME="BananaBot.elf" CONFIG_NAME="RelWithDebInfo-MinGW" RUN_TARGET_PROJECT_NAME="BananaBot" RUN_TARGET_NAME="BananaBot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -138,9 +133,9 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake 应用程序.BananaBot.elf" />
-      <item itemvalue="CMake 应用程序.OneMessage" />
-      <item itemvalue="OpenOCD 下载并运行.OCD BananaBot" />
+      <item itemvalue="CMake Application.BananaBot.elf" />
+      <item itemvalue="CMake Application.OneMessage" />
+      <item itemvalue="OpenOCD Download &amp; Run.OCD BananaBot" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
@@ -189,6 +184,11 @@
       <workItem from="1716867827748" duration="4019000" />
       <workItem from="1716909662513" duration="4000" />
       <workItem from="1718184327857" duration="389000" />
+      <workItem from="1725865900420" duration="69000" />
+      <workItem from="1725866480284" duration="176000" />
+      <workItem from="1725866785984" duration="578000" />
+      <workItem from="1725870338900" duration="96000" />
+      <workItem from="1726032391267" duration="1196000" />
     </task>
     <servers />
   </component>

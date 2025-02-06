@@ -2,7 +2,7 @@
  * @Description: Task of servos control
  * @Author: qianwan
  * @Date: 2023-12-25 11:44:40
- * @LastEditTime: 2023-12-25 13:15:11
+ * @LastEditTime: 2024-10-28 10:19:06
  * @LastEditors: qianwan
  */
 #include "TaskControl.h"

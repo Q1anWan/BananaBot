@@ -11,9 +11,8 @@ class cLinkSolver
 	protected:
     /*Jacobian矩阵 {00,01,10,11}*/
 
-    float MTRTJ_mat[4]={0};
 	float JTRM_mat[4]={0};
-	float JTRMRev_mat[4]={0};
+	float JTRMInv_mat_c[4]={0}; // [1,0;0,1/L0]*Inv(JTRM), for easy calculation
 
 	/*单位mm*/
 	//腿长
