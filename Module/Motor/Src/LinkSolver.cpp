@@ -83,11 +83,11 @@ void cLinkSolver::VMCCal(float *FT, float *Tmotor) {
 /*逆向VMC 由MOTOR_FORWARD MOTOR_BACKWORD -> Force Torque*/
 void cLinkSolver::VMCRevCal(float *FT, float *Tmotor) {
     FT[0] = this->JTRMInv_mat_c[0] * Tmotor[0] + this->JTRMInv_mat_c[1] * Tmotor[1];
-    FT[1] = PendulumLength*(this->JTRMInv_mat_c[2] * Tmotor[0] + this->JTRMInv_mat_c[3] * Tmotor[1]);
+    FT[1] = (this->JTRMInv_mat_c[2] * Tmotor[0] + this->JTRMInv_mat_c[3] * Tmotor[1])*PendulumLength;
 }
 
 /*逆向VMC 由电机角速度->沿着摆方向线速度和垂直摆方向角速度*/
 void cLinkSolver::VMCVelCal(float *phi_dot, float *v_dot) {
     v_dot[0] = this->JTRMInv_mat_c[0] * phi_dot[0] + this->JTRMInv_mat_c[1] * phi_dot[1];
-    v_dot[1] = (this->JTRMInv_mat_c[2] * phi_dot[0] + this->JTRMInv_mat_c[3] * phi_dot[1]);
+    v_dot[1] = (this->JTRMInv_mat_c[2] * phi_dot[0] + this->JTRMInv_mat_c[3] * phi_dot[1])/PendulumLength;
 }
