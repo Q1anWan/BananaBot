@@ -2,6 +2,10 @@
 	LinkSolver 
 	Pendulum Forward And Inverse Kinematics Solver
 
+
+    2025/2/06 V2.1
+    Fix bug on calculating Inv matrix;
+
     2024/5/25 V2.0
 	Strengthen performance;
     Fix bug on calculating MR^TJ matrix;
